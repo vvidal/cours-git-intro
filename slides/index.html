@@ -4,6 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=1100,height=750" />
     
     <title>Introduction à GIT &mdash; Introduction à GIT</title>
     
@@ -2583,43 +2584,7 @@ même pour vos petits projets...</p>
 })();
 </script>
 
-<script type="text/javascript">
-(function () {
-  function getViewportMeta() {
-    var meta = document.querySelector("meta[name='viewport']");
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.name = "viewport";
-      document.head.appendChild(meta);
-    }
-    return meta;
-  }
-
-  function isMobileLayout() {
-    var hasCoarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
-    var isNarrowScreen = (window.innerWidth || 0) <= 900;
-    return hasCoarsePointer || isNarrowScreen;
-  }
-
-  function applyViewportOnly() {
-    var meta = getViewportMeta();
-    if (isMobileLayout()) {
-      meta.content = "width=1100,height=750";
-      return;
-    }
-    meta.content = "width=1100,height=750";
-  }
-
-  window.addEventListener("load", function () {
-    applyViewportOnly();
-  });
-
-  window.addEventListener("resize", applyViewportOnly);
-  window.addEventListener("orientationchange", applyViewportOnly);
-})();
-</script>
-
-<!-- cache-bust: 2026-03-02-restore-962aa12 -->
+<!-- viewport statique pour un rendu stable desktop/mobile -->
 
   </body>
 </html>
