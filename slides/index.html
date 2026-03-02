@@ -2467,12 +2467,6 @@ même pour vos petits projets...</p>
     color: #fff;
     border-color: #2d6cdf;
   }
-
-  @media (pointer: coarse), (max-width: 900px) {
-    #fullscreen-toggle {
-      display: block;
-    }
-  }
 </style>
 
 <button id="fullscreen-toggle" type="button" aria-pressed="false">Plein écran</button>
@@ -2655,6 +2649,15 @@ même pour vos petits projets...</p>
   if (!btn) {
     return;
   }
+
+  function isLikelyMobile() {
+    var coarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    var touchPoints = (navigator.maxTouchPoints || 0) > 0;
+    var mobileUA = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "");
+    return coarsePointer || touchPoints || mobileUA;
+  }
+
+  btn.style.display = isLikelyMobile() ? "block" : "none";
 
   function getFullscreenElement() {
     return document.fullscreenElement || document.webkitFullscreenElement || null;
