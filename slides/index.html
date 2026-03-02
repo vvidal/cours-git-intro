@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=1100,height=750" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     
     <title>Introduction à GIT &mdash; Introduction à GIT</title>
     
@@ -2448,6 +2448,21 @@ même pour vos petits projets...</p>
   <button type="submit">Aller</button>
 </form>
 
+<style>
+@media (pointer: coarse), (max-width: 900px) {
+  .slides > article.far-past,
+  .slides > article.past,
+  .slides > article.next,
+  .slides > article.far-next {
+    display: none !important;
+  }
+
+  .slides > article.current {
+    display: block !important;
+  }
+}
+</style>
+
 <script type="text/javascript">
 (function () {
   function stripAccents(text) {
@@ -2580,6 +2595,72 @@ même pour vos petits projets...</p>
     }
 
     goToSlide(match);
+  });
+})();
+</script>
+
+<script type="text/javascript">
+(function () {
+  var BASE_WIDTH = 900;
+  var BASE_HEIGHT = 700;
+
+  function isMobileLayout() {
+    var coarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    var narrow = (window.innerWidth || 0) <= 900;
+    return coarsePointer || narrow;
+  }
+
+  function applySingleSlideMobileLayout() {
+    var container = document.getElementById("slide_container");
+    if (!container) {
+      return;
+    }
+
+    if (!isMobileLayout()) {
+      container.style.position = "";
+      container.style.left = "";
+      container.style.top = "";
+      container.style.width = "";
+      container.style.height = "";
+      container.style.margin = "";
+      container.style.transform = "";
+      container.style.webkitTransform = "";
+      container.style.transformOrigin = "";
+      container.style.webkitTransformOrigin = "";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      return;
+    }
+
+    var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    var scale = Math.min(viewportWidth / BASE_WIDTH, viewportHeight / BASE_HEIGHT);
+
+    if (!isFinite(scale) || scale <= 0) {
+      return;
+    }
+
+    container.style.position = "fixed";
+    container.style.left = "50%";
+    container.style.top = "50%";
+    container.style.width = BASE_WIDTH + "px";
+    container.style.height = BASE_HEIGHT + "px";
+    container.style.margin = "0";
+    container.style.transformOrigin = "center center";
+    container.style.webkitTransformOrigin = "center center";
+
+    var transformValue = "translate(-50%, -50%) scale(" + scale + ")";
+    container.style.transform = transformValue;
+    container.style.webkitTransform = transformValue;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+  }
+
+  window.addEventListener("load", applySingleSlideMobileLayout);
+  window.addEventListener("resize", applySingleSlideMobileLayout);
+  window.addEventListener("orientationchange", function () {
+    window.setTimeout(applySingleSlideMobileLayout, 60);
   });
 })();
 </script>
