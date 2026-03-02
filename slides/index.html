@@ -2449,11 +2449,18 @@ même pour vos petits projets...</p>
 
 <script type="text/javascript">
 (function () {
+  function stripAccents(text) {
+    if (!text) {
+      return "";
+    }
+    if (text.normalize) {
+      return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    return text;
+  }
+
   function normalize(text) {
-    return (text || "")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+    return stripAccents(text || "").toLowerCase();
   }
 
   function buildIndex() {
@@ -2466,6 +2473,7 @@ même pour vos petits projets...</p>
       }
       index.push({
         id: slide.id,
+        slideIndex: i,
         text: normalize(slide.textContent)
       });
     }
@@ -2477,6 +2485,14 @@ même pour vos petits projets...</p>
   if (!form || !input) {
     return;
   }
+
+  input.addEventListener("keydown", function (event) {
+    event.stopPropagation();
+  });
+
+  form.addEventListener("keydown", function (event) {
+    event.stopPropagation();
+  });
 
   var index = buildIndex();
 
@@ -2500,7 +2516,12 @@ même pour vos petits projets...</p>
       return;
     }
 
-    window.location.hash = "#" + match.id;
+    if (window.SlideDeck && typeof window.SlideDeck.setLocation === "function") {
+      window.SlideDeck.setLocation(match.slideIndex);
+      return;
+    }
+
+    window.location.hash = "#" + (match.slideIndex + 1);
   });
 })();
 </script>
