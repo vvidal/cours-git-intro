@@ -2585,9 +2585,6 @@ même pour vos petits projets...</p>
 
 <script type="text/javascript">
 (function () {
-  var BASE_WIDTH = 900;
-  var BASE_HEIGHT = 700;
-
   function getViewportMeta() {
     var meta = document.querySelector("meta[name='viewport']");
     if (!meta) {
@@ -2598,111 +2595,27 @@ même pour vos petits projets...</p>
     return meta;
   }
 
-  function applyMobileViewport() {
-    var meta = getViewportMeta();
-    meta.content = "width=device-width, initial-scale=1, viewport-fit=cover";
-  }
-
-  function applyDesktopViewport() {
-    var meta = getViewportMeta();
-    meta.content = "width=1100,height=750";
-  }
-
   function isMobileLayout() {
     var hasCoarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
     var isNarrowScreen = (window.innerWidth || 0) <= 900;
     return hasCoarsePointer || isNarrowScreen;
   }
 
-  function resetDesktopLayout() {
-    var container = document.querySelector("section.slides");
-    document.body.style.overflow = "";
-    document.body.style.minHeight = "";
-    document.body.style.height = "";
-    document.documentElement.style.overflow = "";
-    document.documentElement.style.height = "";
-
-    if (!container) {
+  function applyViewportOnly() {
+    var meta = getViewportMeta();
+    if (isMobileLayout()) {
+      meta.content = "width=900, initial-scale=1, viewport-fit=cover";
       return;
     }
-
-    container.style.position = "";
-    container.style.margin = "";
-    container.style.width = "";
-    container.style.height = "";
-    container.style.left = "";
-    container.style.top = "";
-    container.style.transformOrigin = "";
-    container.style.webkitTransformOrigin = "";
-    container.style.transform = "";
-    container.style.webkitTransform = "";
-  }
-
-  function fitSingleSlidePage() {
-    var container = document.querySelector("section.slides");
-    if (!container) {
-      return;
-    }
-
-    var viewportWidth = (window.visualViewport && window.visualViewport.width) || window.innerWidth || document.documentElement.clientWidth;
-    var viewportHeight = (window.visualViewport && window.visualViewport.height) || window.innerHeight || document.documentElement.clientHeight;
-    if (!viewportWidth || viewportWidth <= 0) {
-      return;
-    }
-
-    var widthScale = viewportWidth / BASE_WIDTH;
-    var heightScale = viewportHeight / BASE_HEIGHT;
-    var scale = Math.min(widthScale, heightScale);
-    if (scale <= 0 || !isFinite(scale)) {
-      return;
-    }
-
-    var offsetX = Math.max(0, (viewportWidth - BASE_WIDTH * scale) / 2);
-    var offsetY = Math.max(0, (viewportHeight - BASE_HEIGHT * scale) / 2);
-
-    document.body.style.overflow = "hidden";
-    document.body.style.minHeight = "0";
-    document.body.style.height = viewportHeight + "px";
-    document.documentElement.style.overflow = "hidden";
-    document.documentElement.style.height = viewportHeight + "px";
-
-    container.style.position = "fixed";
-    container.style.margin = "0";
-
-    container.style.width = BASE_WIDTH + "px";
-    container.style.height = BASE_HEIGHT + "px";
-    container.style.left = "0";
-    container.style.top = "0";
-    container.style.transformOrigin = "top left";
-    container.style.webkitTransformOrigin = "top left";
-
-    var transformValue = "translate(" + offsetX + "px, " + offsetY + "px) scale(" + scale + ")";
-    container.style.transform = transformValue;
-    container.style.webkitTransform = transformValue;
-  }
-
-  function applyLayout() {
-    if (!isMobileLayout()) {
-      applyDesktopViewport();
-      resetDesktopLayout();
-      return;
-    }
-
-    applyMobileViewport();
-    fitSingleSlidePage();
+    meta.content = "width=1100,height=750";
   }
 
   window.addEventListener("load", function () {
-    applyLayout();
+    applyViewportOnly();
   });
 
-  window.addEventListener("resize", applyLayout);
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", applyLayout);
-  }
-  window.addEventListener("orientationchange", function () {
-    window.setTimeout(applyLayout, 80);
-  });
+  window.addEventListener("resize", applyViewportOnly);
+  window.addEventListener("orientationchange", applyViewportOnly);
 })();
 </script>
 
