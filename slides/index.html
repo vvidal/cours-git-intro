@@ -2505,6 +2505,30 @@ même pour vos petits projets...</p>
     }, 60);
   }
 
+  function getCurrentSlideIndex() {
+    if (window.SlideDeck && typeof window.SlideDeck.curSlide === "function") {
+      return window.SlideDeck.curSlide();
+    }
+    var hashValue = Number((window.location.hash || "").replace(/^#/, ""));
+    if (!isNaN(hashValue) && hashValue > 0) {
+      return hashValue - 1;
+    }
+    return 0;
+  }
+
+  function findNextMatch(index, query, startIndex) {
+    if (!index.length) {
+      return null;
+    }
+    for (var offset = 0; offset < index.length; offset++) {
+      var i = (startIndex + offset) % index.length;
+      if (index[i].text.indexOf(query) !== -1) {
+        return index[i];
+      }
+    }
+    return null;
+  }
+
   var form = document.getElementById("slide-search-form");
   var input = document.getElementById("slide-search-input");
   if (!form || !input) {
@@ -2528,13 +2552,12 @@ même pour vos petits projets...</p>
       return;
     }
 
-    var match = null;
-    for (var i = 0; i < index.length; i++) {
-      if (index[i].text.indexOf(query) !== -1) {
-        match = index[i];
-        break;
-      }
-    }
+    var currentSlideIndex = getCurrentSlideIndex();
+    var currentContainsQuery =
+      index[currentSlideIndex] && index[currentSlideIndex].text.indexOf(query) !== -1;
+
+    var startIndex = currentContainsQuery ? currentSlideIndex + 1 : currentSlideIndex;
+    var match = findNextMatch(index, query, startIndex);
 
     if (!match) {
       alert("Aucune diapo ne contient ce terme.");
