@@ -2447,29 +2447,6 @@ même pour vos petits projets...</p>
   <button type="submit">Aller</button>
 </form>
 
-<style>
-  #fullscreen-toggle {
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
-    z-index: 10000;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background: #fff;
-    color: #222;
-    padding: 8px 10px;
-    font-size: 14px;
-    display: none;
-  }
-
-  #fullscreen-toggle.active {
-    background: #2d6cdf;
-    color: #fff;
-    border-color: #2d6cdf;
-  }
-</style>
-
-<button id="fullscreen-toggle" type="button" aria-pressed="false">Plein écran</button>
 
 <script type="text/javascript">
 (function () {
@@ -2640,66 +2617,6 @@ même pour vos petits projets...</p>
 
   window.addEventListener("resize", applyViewportOnly);
   window.addEventListener("orientationchange", applyViewportOnly);
-})();
-</script>
-
-<script type="text/javascript">
-(function () {
-  var btn = document.getElementById("fullscreen-toggle");
-  if (!btn) {
-    return;
-  }
-
-  function isLikelyMobile() {
-    var coarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
-    var touchPoints = (navigator.maxTouchPoints || 0) > 0;
-    var mobileUA = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "");
-    return coarsePointer || touchPoints || mobileUA;
-  }
-
-  btn.style.display = isLikelyMobile() ? "block" : "none";
-
-  function getFullscreenElement() {
-    return document.fullscreenElement || document.webkitFullscreenElement || null;
-  }
-
-  function setButtonState() {
-    var isActive = !!getFullscreenElement();
-    btn.classList.toggle("active", isActive);
-    btn.setAttribute("aria-pressed", isActive ? "true" : "false");
-    btn.textContent = isActive ? "Quitter plein écran" : "Plein écran";
-  }
-
-  function requestFullscreen(el) {
-    if (el.requestFullscreen) {
-      return el.requestFullscreen();
-    }
-    if (el.webkitRequestFullscreen) {
-      return el.webkitRequestFullscreen();
-    }
-  }
-
-  function exitFullscreen() {
-    if (document.exitFullscreen) {
-      return document.exitFullscreen();
-    }
-    if (document.webkitExitFullscreen) {
-      return document.webkitExitFullscreen();
-    }
-  }
-
-  btn.addEventListener("click", function () {
-    var container = document.documentElement;
-    if (getFullscreenElement()) {
-      exitFullscreen();
-      return;
-    }
-    requestFullscreen(container);
-  });
-
-  document.addEventListener("fullscreenchange", setButtonState);
-  document.addEventListener("webkitfullscreenchange", setButtonState);
-  setButtonState();
 })();
 </script>
 
