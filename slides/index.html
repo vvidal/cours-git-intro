@@ -2617,12 +2617,17 @@ même pour vos petits projets...</p>
   function resetDesktopLayout() {
     var container = document.querySelector("section.slides");
     document.body.style.overflow = "";
+    document.body.style.minHeight = "";
+    document.body.style.height = "";
     document.documentElement.style.overflow = "";
+    document.documentElement.style.height = "";
 
     if (!container) {
       return;
     }
 
+    container.style.position = "";
+    container.style.margin = "";
     container.style.width = "";
     container.style.height = "";
     container.style.left = "";
@@ -2639,25 +2644,30 @@ même pour vos petits projets...</p>
       return;
     }
 
-    var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-    var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    var viewportWidth = (window.visualViewport && window.visualViewport.width) || window.innerWidth || document.documentElement.clientWidth;
+    var viewportHeight = (window.visualViewport && window.visualViewport.height) || window.innerHeight || document.documentElement.clientHeight;
     if (!viewportWidth || viewportWidth <= 0) {
       return;
     }
 
     var widthScale = viewportWidth / BASE_WIDTH;
     var heightScale = viewportHeight / BASE_HEIGHT;
-    var isLandscape = viewportWidth > viewportHeight;
-
-    var scale = isLandscape ? Math.min(widthScale, heightScale) : widthScale;
+    var scale = Math.min(widthScale, heightScale);
     if (scale <= 0 || !isFinite(scale)) {
       return;
     }
 
     var offsetX = Math.max(0, (viewportWidth - BASE_WIDTH * scale) / 2);
+    var offsetY = Math.max(0, (viewportHeight - BASE_HEIGHT * scale) / 2);
 
     document.body.style.overflow = "hidden";
+    document.body.style.minHeight = "0";
+    document.body.style.height = viewportHeight + "px";
     document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.height = viewportHeight + "px";
+
+    container.style.position = "fixed";
+    container.style.margin = "0";
 
     container.style.width = BASE_WIDTH + "px";
     container.style.height = BASE_HEIGHT + "px";
@@ -2666,7 +2676,7 @@ même pour vos petits projets...</p>
     container.style.transformOrigin = "top left";
     container.style.webkitTransformOrigin = "top left";
 
-    var transformValue = "translate(" + offsetX + "px, 0px) scale(" + scale + ")";
+    var transformValue = "translate(" + offsetX + "px, " + offsetY + "px) scale(" + scale + ")";
     container.style.transform = transformValue;
     container.style.webkitTransform = transformValue;
   }
@@ -2687,6 +2697,9 @@ même pour vos petits projets...</p>
   });
 
   window.addEventListener("resize", applyLayout);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", applyLayout);
+  }
   window.addEventListener("orientationchange", function () {
     window.setTimeout(applyLayout, 80);
   });
