@@ -2586,6 +2586,7 @@ même pour vos petits projets...</p>
 <script type="text/javascript">
 (function () {
   var BASE_WIDTH = 900;
+  var BASE_HEIGHT = 700;
 
   function getViewportMeta() {
     var meta = document.querySelector("meta[name='viewport']");
@@ -2602,6 +2603,36 @@ même pour vos petits projets...</p>
     meta.content = "width=device-width, initial-scale=1, viewport-fit=cover";
   }
 
+  function applyDesktopViewport() {
+    var meta = getViewportMeta();
+    meta.content = "width=1100,height=750";
+  }
+
+  function isMobileLayout() {
+    var hasCoarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    var isNarrowScreen = (window.innerWidth || 0) <= 900;
+    return hasCoarsePointer || isNarrowScreen;
+  }
+
+  function resetDesktopLayout() {
+    var container = document.querySelector("section.slides");
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+
+    if (!container) {
+      return;
+    }
+
+    container.style.width = "";
+    container.style.height = "";
+    container.style.left = "";
+    container.style.top = "";
+    container.style.transformOrigin = "";
+    container.style.webkitTransformOrigin = "";
+    container.style.transform = "";
+    container.style.webkitTransform = "";
+  }
+
   function fitSingleSlidePage() {
     var container = document.querySelector("section.slides");
     if (!container) {
@@ -2615,7 +2646,7 @@ même pour vos petits projets...</p>
     }
 
     var widthScale = viewportWidth / BASE_WIDTH;
-    var heightScale = viewportHeight / 700;
+    var heightScale = viewportHeight / BASE_HEIGHT;
     var isLandscape = viewportWidth > viewportHeight;
 
     var scale = isLandscape ? Math.min(widthScale, heightScale) : widthScale;
@@ -2629,7 +2660,7 @@ même pour vos petits projets...</p>
     document.documentElement.style.overflow = "hidden";
 
     container.style.width = BASE_WIDTH + "px";
-    container.style.height = "700px";
+    container.style.height = BASE_HEIGHT + "px";
     container.style.left = "0";
     container.style.top = "0";
     container.style.transformOrigin = "top left";
@@ -2641,6 +2672,12 @@ même pour vos petits projets...</p>
   }
 
   function applyLayout() {
+    if (!isMobileLayout()) {
+      applyDesktopViewport();
+      resetDesktopLayout();
+      return;
+    }
+
     applyMobileViewport();
     fitSingleSlidePage();
   }
