@@ -2585,9 +2585,6 @@ même pour vos petits projets...</p>
 
 <script type="text/javascript">
 (function () {
-  var BASE_WIDTH = 900;
-  var BASE_HEIGHT = 700;
-
   function getViewportMeta() {
     var meta = document.querySelector("meta[name='viewport']");
     if (!meta) {
@@ -2603,54 +2600,9 @@ même pour vos petits projets...</p>
     meta.content = "width=device-width, initial-scale=1, viewport-fit=cover";
   }
 
-  function fitSlidesToScreen() {
-    var container = document.querySelector("section.slides");
-    if (!container) {
-      return;
-    }
-
-    if (container.classList.contains("table")) {
-      return;
-    }
-
-    var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-    var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-
-    var scale = Math.min(viewportWidth / BASE_WIDTH, viewportHeight / BASE_HEIGHT);
-    if (!isFinite(scale) || scale <= 0) {
-      return;
-    }
-    if (scale > 1) {
-      scale = 1;
-    }
-
-    var offsetX = Math.max(0, (viewportWidth - BASE_WIDTH * scale) / 2);
-    var offsetY = Math.max(0, (viewportHeight - BASE_HEIGHT * scale) / 2);
-
-    container.style.width = BASE_WIDTH + "px";
-    container.style.height = BASE_HEIGHT + "px";
-    container.style.left = "0";
-    container.style.top = "0";
-    container.style.transformOrigin = "top left";
-    container.style.webkitTransformOrigin = "top left";
-
-    var transformValue = "translate(" + offsetX + "px, " + offsetY + "px) scale(" + scale + ")";
-    container.style.transform = transformValue;
-    container.style.webkitTransform = transformValue;
-  }
-
-  function scheduleFit() {
-    window.setTimeout(fitSlidesToScreen, 0);
-    window.setTimeout(fitSlidesToScreen, 120);
-  }
-
   window.addEventListener("load", function () {
     applyMobileViewport();
-    scheduleFit();
   });
-
-  window.addEventListener("resize", scheduleFit);
-  window.addEventListener("orientationchange", scheduleFit);
 })();
 </script>
 
