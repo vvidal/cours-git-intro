@@ -2480,6 +2480,31 @@ même pour vos petits projets...</p>
     return index;
   }
 
+  function goToSlide(match) {
+    if (!match) {
+      return;
+    }
+
+    if (window.SlideDeck && typeof window.SlideDeck.setLocation === "function") {
+      try {
+        window.SlideDeck.setLocation(match.slideIndex);
+        window.location.hash = "#" + (match.slideIndex + 1);
+        return;
+      } catch (e) {
+      }
+    }
+
+    window.location.hash = "#" + (match.slideIndex + 1);
+
+    window.setTimeout(function () {
+      var current = window.location.hash.replace(/^#/, "");
+      if (current !== String(match.slideIndex + 1)) {
+        window.location.hash = "#" + match.id;
+      }
+      window.location.reload();
+    }, 60);
+  }
+
   var form = document.getElementById("slide-search-form");
   var input = document.getElementById("slide-search-input");
   if (!form || !input) {
@@ -2516,12 +2541,7 @@ même pour vos petits projets...</p>
       return;
     }
 
-    if (window.SlideDeck && typeof window.SlideDeck.setLocation === "function") {
-      window.SlideDeck.setLocation(match.slideIndex);
-      return;
-    }
-
-    window.location.hash = "#" + (match.slideIndex + 1);
+    goToSlide(match);
   });
 })();
 </script>
