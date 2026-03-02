@@ -2609,11 +2609,21 @@ même pour vos petits projets...</p>
     }
 
     var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
     if (!viewportWidth || viewportWidth <= 0) {
       return;
     }
 
-    var scale = viewportWidth / BASE_WIDTH;
+    var widthScale = viewportWidth / BASE_WIDTH;
+    var heightScale = viewportHeight / 700;
+    var isLandscape = viewportWidth > viewportHeight;
+
+    var scale = isLandscape ? Math.min(widthScale, heightScale) : widthScale;
+    if (scale <= 0 || !isFinite(scale)) {
+      return;
+    }
+
+    var offsetX = Math.max(0, (viewportWidth - BASE_WIDTH * scale) / 2);
 
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
@@ -2625,7 +2635,7 @@ même pour vos petits projets...</p>
     container.style.transformOrigin = "top left";
     container.style.webkitTransformOrigin = "top left";
 
-    var transformValue = "scale(" + scale + ")";
+    var transformValue = "translate(" + offsetX + "px, 0px) scale(" + scale + ")";
     container.style.transform = transformValue;
     container.style.webkitTransform = transformValue;
   }
