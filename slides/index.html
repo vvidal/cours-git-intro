@@ -2585,6 +2585,8 @@ même pour vos petits projets...</p>
 
 <script type="text/javascript">
 (function () {
+  var BASE_WIDTH = 900;
+
   function getViewportMeta() {
     var meta = document.querySelector("meta[name='viewport']");
     if (!meta) {
@@ -2597,11 +2599,49 @@ même pour vos petits projets...</p>
 
   function applyMobileViewport() {
     var meta = getViewportMeta();
-    meta.content = "width=1100, initial-scale=1, viewport-fit=cover";
+    meta.content = "width=device-width, initial-scale=1, viewport-fit=cover";
+  }
+
+  function fitSingleSlidePage() {
+    var container = document.querySelector("section.slides");
+    if (!container) {
+      return;
+    }
+
+    var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    if (!viewportWidth || viewportWidth <= 0) {
+      return;
+    }
+
+    var scale = viewportWidth / BASE_WIDTH;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    container.style.width = BASE_WIDTH + "px";
+    container.style.height = "700px";
+    container.style.left = "0";
+    container.style.top = "0";
+    container.style.transformOrigin = "top left";
+    container.style.webkitTransformOrigin = "top left";
+
+    var transformValue = "scale(" + scale + ")";
+    container.style.transform = transformValue;
+    container.style.webkitTransform = transformValue;
+  }
+
+  function applyLayout() {
+    applyMobileViewport();
+    fitSingleSlidePage();
   }
 
   window.addEventListener("load", function () {
-    applyMobileViewport();
+    applyLayout();
+  });
+
+  window.addEventListener("resize", applyLayout);
+  window.addEventListener("orientationchange", function () {
+    window.setTimeout(applyLayout, 80);
   });
 })();
 </script>
