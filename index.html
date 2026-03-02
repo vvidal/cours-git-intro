@@ -1,0 +1,1654 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction à GIT &#8212; Introduction à GIT</title>
+    
+    <link rel="stylesheet" href="_static/sab-book.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2013.08.09',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">Introduction à GIT</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction-a-git">
+<h1>Introduction à GIT<a class="headerlink" href="#introduction-a-git" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#introduction-a-git" title="Slides">§</a></h1>
+<!-- NB: using raw:: directive in order to accurately tag metadata -->
+
+  <a rel="author">Département Informatique
+    (<a href="http://iut.univ-lyon1.fr/">IUT Lyon 1</a>)
+       </a>
+
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/3.0/fr/deed.en">
+     <p><img alt="Creative Commons License" style="border-width:0"
+          src="_static/cc.png" /></p></a>
+
+  <p class="license">Ce travail est sous licence
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/3.0/fr/deed.fr">
+     Creative Commons Attribution-ShareAlike 3.0 France</a>.</p><div class="section" id="motivations">
+<h2>Motivations<a class="headerlink" href="#motivations" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#motivations" title="Slides">§</a></h2>
+<div class="section" id="exemple-1">
+<h3>Exemple 1<a class="headerlink" href="#exemple-1" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#exemple-1" title="Slides">§</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/motivation1.png"><img alt="_images/motivation1.png" src="_images/motivation1.png" style="width: 100%;" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>la version la plus à jour est-elle <code class="docutils literal"><span class="pre">Rapport.doc</span></code> ou
+<code class="docutils literal"><span class="pre">Rapport_VFinale.doc</span></code>&nbsp;?</li>
+<li>et si on avait aussi <code class="docutils literal"><span class="pre">Rapport_VFinale1.doc</span></code> et <code class="docutils literal"><span class="pre">Rapport_VFinale2.doc</span></code>
+(expérience vécue)&nbsp;?</li>
+<li>les versions n&#8217;apparaissent pas dans l&#8217;ordre (1.1, 1, 2)</li>
+<li>la version 2-jd vient elle avant ou après la version 2&nbsp;?</li>
+</ul>
+</div>
+</div>
+<div class="section" id="exemple-2">
+<h3>Exemple 2<a class="headerlink" href="#exemple-2" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#exemple-2" title="Slides">§</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/motivation2.png"><img alt="_images/motivation2.png" src="_images/motivation2.png" style="width: 100%;" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>les versions de l&#8217;image sont elles numérotées indépendamment,
+ou par rapport aux versions de la page&nbsp;?</li>
+<li>nécessité de renommer les fichiers pour visualiser une ancienne version
+(pour que les liens fonctionnent)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="histoires-vraies">
+<h3>Histoires vraies<a class="headerlink" href="#histoires-vraies" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#histoires-vraies" title="Slides">§</a></h3>
+<ul>
+<li><p class="first">Après que nous avons échangé avec un collègue des versions d&#8217;un fichier
+nommées <code class="docutils literal"><span class="pre">X_1.1.doc</span></code>, <code class="docutils literal"><span class="pre">X_1.2.doc</span></code>, <code class="docutils literal"><span class="pre">X_1.3.doc</span></code> (et ainsi de suite),</p>
+<p>il a nommé la version finale <code class="docutils literal"><span class="pre">X_1.0.doc</span></code> ...</p>
+</li>
+<li><p class="first">Un autre collègue m&#8217;a envoyé, le 15 mars 2013,
+un fichier nommé <code class="docutils literal"><span class="pre">2013-03-17-xxx</span></code> .</p>
+<p>Je l&#8217;ai modifié le 16 mars&nbsp;; quel nom lui donner&nbsp;?...</p>
+</li>
+</ul>
+</div>
+<div class="section" id="conclusion">
+<h3>Conclusion<a class="headerlink" href="#conclusion" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#conclusion" title="Slides">§</a></h3>
+<ul class="simple">
+<li>La gestion des versions est un travail fastidieux et méthodique.</li>
+<li>Les humains ne sont pas doués pour les travaux fastidieux et méthodiques.</li>
+<li>Laissons cela à l&#8217;ordinateur,<ul>
+<li>et concentrons-nous sur la partie du travail
+où nous sommes meilleurs que l&#8217;ordinateur.</li>
+</ul>
+</li>
+</ul>
+<p>→ <abbr title="Version Control Systems">VCS</abbr> (<span class="eng">Version Control System</span>)</p>
+<div class="section" id="avertissement">
+<h4>Avertissement<a class="headerlink" href="#avertissement" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#avertissement" title="Slides">§</a></h4>
+<ul class="simple">
+<li>GIT (se prononce «&nbsp;guite&nbsp;») est un outil extrêmement riche&nbsp;;<ul>
+<li>nous n&#8217;en verrons qu&#8217;une partie dans ce module.</li>
+</ul>
+</li>
+<li>Ne vous laissez pas effrayer par l&#8217;interface «&nbsp;touffue&nbsp;»&nbsp;;<ul>
+<li>faites confiances aux réglages par défaut (dans un premier temps).</li>
+</ul>
+</li>
+</ul>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/logogit.png"><img alt="_images/logogit.png" src="_images/logogit.png" style="width: 20%;" /></a>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="historique-des-vcs">
+<h2>Historique des <abbr title="Version Control Systems">VCS</abbr><a class="headerlink" href="#historique-des-vcs" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#historique-des-vcs" title="Slides">§</a></h2>
+<div class="section" id="origines">
+<h3>Origines<a class="headerlink" href="#origines" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#origines" title="Slides">§</a></h3>
+<ul class="simple">
+<li>Initialement dédiés à la gestion de code source pour les projets logiciels</li>
+<li>mais également :<ul>
+<li>documentation</li>
+<li>site web</li>
+</ul>
+</li>
+<li>travail collaboratif :<ul>
+<li>facilité d&#8217;échange</li>
+<li>traçabilité</li>
+<li>gestion des conflits</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="evolutions">
+<h3>Évolutions<a class="headerlink" href="#evolutions" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#evolutions" title="Slides">§</a></h3>
+<p><strong>Systèmes centralisés</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="http://savannah.nongnu.org/projects/cvs/">CVS</a> (Concurrent Versioning System, vieillissant)</li>
+<li><a class="reference external" href="https://subversion.apache.org/">SVN</a> (Subversion, très populaire, mais c&#8217;est en train de changer)</li>
+</ul>
+<p><strong>Systèmes décentralisés</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="http://git-scm.com/">GIT</a></li>
+<li><a class="reference external" href="https://www.mercurial-scm.org/">Mercurial</a> (Hg)</li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/GNU_Bazaar">Bazaar</a> (bzr)</li>
+</ul>
+<p>→ facilitent une utilisation individuelle</p>
+</div>
+</div>
+<div class="section" id="notions-de-base">
+<h2>Notions de base<a class="headerlink" href="#notions-de-base" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#notions-de-base" title="Slides">§</a></h2>
+<div class="section" id="bon-exemple">
+<h3>Bon exemple<a class="headerlink" href="#bon-exemple" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#bon-exemple" title="Slides">§</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/motivation3.png"><img alt="_images/motivation3.png" src="_images/motivation3.png" style="width: 100%;" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Le répertoire <code class="docutils literal"><span class="pre">.git</span></code> est un répertoire caché,
+qui contient tout l&#8217;historique des fichiers.</p>
+</div>
+</div>
+<div class="section" id="les-avantages-de-la-gestion-de-versions">
+<h3>Les avantages de la gestion de versions<a class="headerlink" href="#les-avantages-de-la-gestion-de-versions" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#les-avantages-de-la-gestion-de-versions" title="Slides">§</a></h3>
+<ul class="simple">
+<li>Sauvegarde (modulo la synchronisation avec un serveur distant)</li>
+<li>Conservation de l&#8217;historique (nominatif) des fichiers (qui a fait quoi ?)</li>
+<li>Possibilité de retour en arrière</li>
+<li>Fusion des modifications lors du travail collaboratif</li>
+<li>Visualiser les changements au cours du temps</li>
+</ul>
+</div>
+<div class="section" id="notions">
+<h3>Notions<a class="headerlink" href="#notions" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#notions" title="Slides">§</a></h3>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#depot-repository" id="id46">Dépôt (<span class="eng">repository</span>)</a></li>
+<li><a class="reference internal" href="#commit" id="id47">Commit</a></li>
+<li><a class="reference internal" href="#copie-de-travail" id="id48">Copie de travail</a></li>
+<li><a class="reference internal" href="#index" id="id49">Index</a></li>
+</ul>
+</div>
+<div class="section" id="depot-repository">
+<span id="index-0"></span><h4>Dépôt (<span class="eng">repository</span>)<a class="headerlink" href="#depot-repository" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#depot-repository" title="Slides">§</a></h4>
+<p>Le répertoire caché <code class="docutils literal"><span class="pre">.git</span></code> est nommé <strong>dépôt</strong>
+(en anglais <span class="eng">repository</span>).</p>
+<p>Il contient toutes les données dont GIT a besoin pour gérer l&#8217;historique.
+Sauf rarissimes exceptions, vous ne modifierez jamais son contenu directement,
+mais uniquement en passant par les commandes GIT.</p>
+</div>
+<div class="section" id="commit">
+<span id="index-1"></span><h4>Commit<a class="headerlink" href="#commit" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#commit" title="Slides">§</a></h4>
+<p>L&#8217;historique d&#8217;un projet est une séquence de «&nbsp;photos&nbsp;»,
+contenant l&#8217;état de tous les fichiers du projet.</p>
+<p>Ces «&nbsp;photos&nbsp;» s&#8217;appellent des <strong>commits</strong>,
+et possèdent&nbsp;:</p>
+<ul class="simple">
+<li>une date</li>
+<li>un auteur</li>
+<li>une description textuelle</li>
+<li>un lien vers le(s) commit(s) précédent(s)</li>
+</ul>
+<p>On parle également de <strong>révision</strong>.</p>
+<div class="section" id="illustration">
+<h5>Illustration<a class="headerlink" href="#illustration" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#illustration" title="Slides">§</a></h5>
+<div class="figure" id="id44">
+<a class="reference internal image-reference" href="_images/historique1.png"><img alt="_images/historique1.png" src="_images/historique1.png" style="width: 100%;" /></a>
+<p class="caption"><span class="caption-text">Visualisation d&#8217;un historique simple
+dans un outil graphique.</span></p>
+</div>
+<p>NB&nbsp;: on ignore pour l&#8217;instant le rectangle <code class="docutils literal"><span class="pre">master</span></code>&nbsp;;
+on l&#8217;expliquera par la suite.</p>
+</div>
+<div class="section" id="remarque">
+<h5>Remarque<a class="headerlink" href="#remarque" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#remarque" title="Slides">§</a></h5>
+<p>Bien que <em>conceptuellement</em>, chaque commit contient tous les fichiers du projet,
+GIT utilise un <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">système de stockage très efficace</a>&nbsp;:</p>
+<ul class="simple">
+<li>le commit ne stocke que les fichiers modifiés par rapport au commit précédent;</li>
+<li>l&#8217;ensemble peut être compressé (<code class="docutils literal"><span class="pre">git</span> <span class="pre">gc</span></code>) pour réduire encore la redondance (lorsque deux versions successives d&#8217;un fichier sont très proches).</li>
+</ul>
+<p>NB&nbsp;: bien que GIT (et les autres <abbr title="Version Control Systems">VCS</abbr>)
+soient plus particulièrement conçus pour des fichiers texte,
+ils fonctionnent aussi avec des fichiers binaires (images, bureautique, etc.).</p>
+</div>
+</div>
+<div class="section" id="copie-de-travail">
+<span id="index-2"></span><h4>Copie de travail<a class="headerlink" href="#copie-de-travail" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#copie-de-travail" title="Slides">§</a></h4>
+<p>On appelle <strong>copie de travail</strong> (en anglais <span class="eng">working copy</span>)
+les fichiers effectivement présents dans le répertoire géré par GIT.</p>
+<p>Leur état peut être différent du dernier commit de l&#8217;historique.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/historique2.png"><img alt="_images/historique2.png" src="_images/historique2.png" style="width: 100%;" /></a>
+</div>
+</div>
+<div class="section" id="index">
+<span id="index-3"></span><h4>Index<a class="headerlink" href="#index" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#index" title="Slides">§</a></h4>
+<p>L&#8217;index est un espace temporaire contenant les modifications
+prêtes à être «&nbsp;commitées&nbsp;».</p>
+<p>Ces modifications peuvent être&nbsp;:</p>
+<ul class="simple">
+<li>création de fichier</li>
+<li>modification de fichier</li>
+<li>suppression de fichier</li>
+</ul>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/historique3.png"><img alt="_images/historique3.png" src="_images/historique3.png" style="width: 100%;" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>On remarque le code couleur de l&#8217;application <code class="docutils literal"><span class="pre">gitk</span></code>&nbsp;:</p>
+<ul class="simple">
+<li>rouge&nbsp;: changements non indexés, non commités</li>
+<li>vert&nbsp;:  changements indexés, non commités</li>
+<li>jaune&nbsp;: commit courant (HEAD)</li>
+<li>bleu&nbsp;:  autres commits</li>
+</ul>
+<p class="last">NB: la sémantique du rouge et du vert est la même pour la ligne de commande.
+Cependant, certains outils GIT ne respectent pas ce code couleur;
+c&#8217;est notamment le cas de TortoiseGit que nous allons utiliser par la suite.</p>
+</div>
+</div>
+</div>
+<div class="section" id="mise-en-oeuvre">
+<h3>Mise en œuvre<a class="headerlink" href="#mise-en-oeuvre" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#mise-en-oeuvre" title="Slides">§</a></h3>
+<p>Dans ce cours, nous considérerons deux méthodes possibles&nbsp;:</p>
+<ul class="simple">
+<li>Ligne de commande (Git Bash)</li>
+<li>Interface graphique (TortoiseGit)</li>
+</ul>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/popup_menu.png"><img alt="_images/popup_menu.png" src="_images/popup_menu.png" style="width: 35%;" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Il existe d&#8217;autres interfaces graphiques pour GIT,
+notamment <code class="docutils literal"><span class="pre">Git</span> <span class="pre">Gui</span></code> qui est installé sur les machines de l&#8217;IUT,
+mais que nous ne présenterons pas dans ce cours.</p>
+<p class="last">De plus,
+la plupart des IDE fournissent un accès aux commendes GIT,
+mais nous ne les traiterons pas non plus.</p>
+</div>
+<div class="section" id="creation-du-depot">
+<span id="index-4"></span><h4>Création du dépôt<a class="headerlink" href="#creation-du-depot" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#creation-du-depot" title="Slides">§</a></h4>
+<p>Initialise la gestion de version dans un répertoire
+en créant le sous-répertoire <code class="docutils literal"><span class="pre">.git</span></code>.</p>
+<p class="rubric">Mise en œuvre</p>
+<ul>
+<li><p class="first">Dans le menu contextuel du répertoire concerné,
+<em>Git Create repository here...</em></p>
+</li>
+<li><p class="first">En ligne de commande, depuis le répertoire concerné:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git init
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="commiter-des-modifications">
+<span id="index-5"></span><h4>Commiter des modifications<a class="headerlink" href="#commiter-des-modifications" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#commiter-des-modifications" title="Slides">§</a></h4>
+<p>Une fois les fichiers modifiés et dans un état satisfaisant,
+vous pouvez les commiter.</p>
+<p>Remarque&nbsp;: lorsque vous effectuez un commit, il est essentiel
+d&#8217;écrire un message accompagnant le commit. Ce message doit
+être informatif quant à la nature des modifications que vous
+êtes en train de commiter.</p>
+<p>Par exemple, <em>blip</em> est un <strong>mauvais</strong> message de commit, mais
+<em>Correction des fautes d&#8217;orthographe dans la doc technique</em>
+est un <strong>bon</strong> message de commit.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">En cas de problème, il est possible de corriger un commit
+(tant qu&#8217;il n&#8217;a pas été partagé avec d&#8217;autres collaborateurs),
+mais nous étudierons cela plus tard.</p>
+</div>
+<div class="section" id="depuis-l-interface-graphique">
+<h5>Depuis l&#8217;interface graphique<a class="headerlink" href="#depuis-l-interface-graphique" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#depuis-l-interface-graphique" title="Slides">§</a></h5>
+<div class="figure">
+<img alt="_images/gui-commit-annot.svg" class="fill" src="_images/gui-commit-annot.svg" /></div>
+</div>
+<div class="section" id="en-ligne-de-commande">
+<span id="index-6"></span><h5>En ligne de commande<a class="headerlink" href="#en-ligne-de-commande" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#en-ligne-de-commande" title="Slides">§</a></h5>
+<p>Ajouter un fichier dans l&#8217;index</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git add &lt;filename&gt;
+</pre></div>
+</div>
+<p>Retirer un fichier de l&#8217;index</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git reset &lt;filename&gt;
+</pre></div>
+</div>
+<p>Pour voir l&#8217;état des modifications en cours</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git status    <span class="c1"># résumé</span>
+$ git diff      <span class="c1"># détail des changements</span>
+</pre></div>
+</div>
+<p>Pour commiter les modifications indexées</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git commit    <span class="c1">#ou</span>
+$ git commit -m <span class="s2">&quot;message de commit&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="consulter-l-historique">
+<span id="index-7"></span><h4>Consulter l&#8217;historique<a class="headerlink" href="#consulter-l-historique" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#consulter-l-historique" title="Slides">§</a></h4>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Show log</em></p>
+<p>(cf. figure suivante)</p>
+</li>
+<li><p class="first">En ligne de commande :</p>
+<ul>
+<li><p class="first">afficher la liste des commits</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git log
+</pre></div>
+</div>
+<p>(avec l&#8217;identifiant de chaque commit)</p>
+</li>
+<li><p class="first">afficher le détail d&#8217;un commit particulier</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git show &lt;id-commit&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="gui-log">
+<span id="id2"></span><h5>Depuis l&#8217;interface graphique<a class="headerlink" href="#gui-log" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#gui-log" title="Slides">§</a></h5>
+<div class="figure">
+<img alt="_images/gui-log-annot.svg" class="fill" src="_images/gui-log-annot.svg" /></div>
+</div>
+</div>
+<div class="section" id="resume-des-etats-possibles-d-un-fichier-avec-git">
+<h4>Résumé des états possibles d&#8217;un fichier avec GIT<a class="headerlink" href="#resume-des-etats-possibles-d-un-fichier-avec-git" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#resume-des-etats-possibles-d-un-fichier-avec-git" title="Slides">§</a></h4>
+<div class="figure" id="id45">
+<a class="reference internal image-reference" href="_images/git-states.svg"><img alt="_images/git-states.svg" src="_images/git-states.svg" width="75%" /></a>
+<p class="caption"><span class="caption-text">Figure inspirée de <a class="reference external" href="http://git-scm.com/">git-scm.org</a>.</span></p>
+</div>
+<div class="exercice section" id="exercice">
+<h5>Exercice<a class="headerlink" href="#exercice" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#exercice" title="Slides">§</a></h5>
+<ol class="arabic simple">
+<li>Créez un nouveau répertoire, et faites-en un dépôt GIT.</li>
+<li>Ajoutez un fichier HTML dans ce répertoire,
+contenant une brève description de vous
+(ou de n&#8217;importe quel autre sujet qui vous intéresse).
+Commitez ces changements.</li>
+<li>Ajoutez maintenant une feuille de style <em>externe</em> à votre fichier HTML,
+(c&#8217;est à dire sous la forme d&#8217;un fichier CSS séparé,
+référencé par une balise <code class="docutils literal"><span class="pre">&lt;link&gt;</span></code>).
+Commitez ces changements.</li>
+<li>Affichez l&#8217;historique de vos changements (selon votre méthode préférée).</li>
+<li>Entraînez-vous à faire des commits&nbsp;:
+modifiez le contenu du fichier HTML et/ou de la feuille de style,
+ajoutez éventuellement d&#8217;autres fichiers (images par exemples).
+À chaque changement,
+commitez votre travail en rédigeant un message de commit suffisament explicite.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Il faut observer le .git. S&#8217;il n&#8217;apparaît pas, veiller à configurer l&#8217;explorateur de fichiers pour qu&#8217;il affiche les fichiers et dossiers cachés.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="naviguer-dans-l-historique">
+<span id="naviguer"></span><h2>Naviguer dans l&#8217;historique<a class="headerlink" href="#naviguer-dans-l-historique" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#naviguer-dans-l-historique" title="Slides">§</a></h2>
+<div class="section" id="motivation">
+<h3>Motivation<a class="headerlink" href="#motivation" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#motivation" title="Slides">§</a></h3>
+<p>L&#8217;intérêt d&#8217;utiliser un <abbr title="Version Control Systems">VCS</abbr> est de pouvoir consulter n&#8217;importe quelle version antérieure du projet.</p>
+<p>⚠ Attention cependant&nbsp;:</p>
+<ul class="simple">
+<li>à ne pas avoir de modification non commitée
+lorsque vous commencez à naviguer dans l&#8217;historique&nbsp;;</li>
+<li>à ne pas faire de modification sur une version ancienne.</li>
+</ul>
+<p>Dans les deux cas, vous risqueriez de perdre ces modifications
+(GIT affiche d&#8217;ailleurs des messages d&#8217;avertissement).</p>
+</div>
+<div class="section" id="index-8">
+<span id="id3"></span><h3>Mise en œuvre<a class="headerlink" href="#index-8" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#index-8" title="Slides">§</a></h3>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Switch/Checkout...</em></p>
+<ul class="simple">
+<li>cocher <em>Commit</em>,</li>
+<li>saisir une <em>Expression de révision</em> (cf. ci-après),</li>
+<li>le cas échéant, décocher <em>Create New Branch</em>,</li>
+<li>valider.</li>
+</ul>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git checkout &lt;revision&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="expressions-de-revision">
+<h3>Expressions de révision<a class="headerlink" href="#expressions-de-revision" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#expressions-de-revision" title="Slides">§</a></h3>
+<p>Il existe plusieurs méthodes pour spécifier une révision à GIT&nbsp;:</p>
+<div class="contents local topic" id="id4">
+<ul class="simple">
+<li><a class="reference internal" href="#identifiant" id="id50">Identifiant</a></li>
+<li><a class="reference internal" href="#relatif" id="id51">Relatif</a></li>
+</ul>
+</div>
+<p>(liste non exhaustive)</p>
+<div class="section" id="identifiant">
+<h4>Identifiant<a class="headerlink" href="#identifiant" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#identifiant" title="Slides">§</a></h4>
+<p>Chaque commit a un identifiant, affiché</p>
+<blockquote>
+<div><ul class="simple">
+<li>par l&#8217;interface graphique (cf. <a class="reference internal" href="#gui-log"><span class="std std-ref">figure</span></a>),</li>
+<li>par la commande <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code>.</li>
+</ul>
+</div></blockquote>
+<p>On peut spécifier une révision en utilisant</p>
+<blockquote>
+<div><ul class="simple">
+<li>l&#8217;identifiant complet du commit, ou</li>
+<li>les premiers caractères de l&#8217;identifiant, tant qu&#8217;il n&#8217;y a pas d&#8217;ambiguïté</li>
+</ul>
+</div></blockquote>
+<p>Exemple&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git checkout 9a063f5fd514e966837163ceffaec332ce66fdff    <span class="c1"># ou</span>
+$ git checkout 9a063
+</pre></div>
+</div>
+</div>
+<div class="section" id="relatif">
+<h4>Relatif<a class="headerlink" href="#relatif" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#relatif" title="Slides">§</a></h4>
+<p><code class="docutils literal"><span class="pre">HEAD~</span></code> ou <code class="docutils literal"><span class="pre">HEAD~1</span></code> désignent le parent du commit courant.
+Ainsi&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git checkout HEAD~
+</pre></div>
+</div>
+<p>permet de remonter d&#8217;un commit dans l&#8217;historique.</p>
+<p>NB&nbsp;: <code class="docutils literal"><span class="pre">HEAD~2</span></code> remonte de deux commits, <code class="docutils literal"><span class="pre">HEAD~3</span></code> de trois commits,
+et ainsi de suite.</p>
+</div>
+</div>
+<div class="section" id="retour-au-present">
+<span id="index-9"></span><h3>Retour au présent<a class="headerlink" href="#retour-au-present" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#retour-au-present" title="Slides">§</a></h3>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Switch/Checkout...</em></p>
+<ul class="simple">
+<li>s&#8217;assurer que <code class="docutils literal"><span class="pre">Branch</span></code> est bien coché,</li>
+<li>s&#8217;assurer que <code class="docutils literal"><span class="pre">master</span></code> est bien sélectionné dans la liste correspondante,</li>
+<li>valider.</li>
+</ul>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git checkout master
+</pre></div>
+</div>
+</li>
+</ul>
+<p>NB&nbsp;: ceci est en fait un cas particulier de l&#8217;action <a class="reference internal" href="#changer-de-branche"><span class="std std-ref">Changer de branche</span></a>
+que nous étudierons un peu plus tard.</p>
+<div class="exercice section" id="id5">
+<h4>Exercice<a class="headerlink" href="#id5" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id5" title="Slides">§</a></h4>
+<ol class="arabic simple">
+<li>Naviguez dans l&#8217;historique du dépôt créé à l&#8217;exercice précédent,
+pour afficher l&#8217;avant-dernière version de votre fichier HTML.</li>
+<li>Affichez ensuite l&#8217;antépénultième (avant-avant-dernière) version.</li>
+<li>Affichez ensuite la deuxième version de votre fichier HTML.</li>
+<li>Affichez ensuite la première version de votre fichier HTML.</li>
+<li>Revenez au «&nbsp;présent&nbsp;» (<em>i.e.</em> la dernière version).</li>
+</ol>
+</div>
+</div>
+<div class="section" id="entractes">
+<h3>Entractes<a class="headerlink" href="#entractes" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#entractes" title="Slides">§</a></h3>
+<p>Nous venons de voir les fonctionnalités les plus basiques de GIT,
+qui permettent de gérer <span class="del">efficacement</span> correctement
+l&#8217;historique d&#8217;un ensemble de fichiers
+→ à utiliser <em>sans modération</em>.</p>
+<p>Dans la suite, nous allons étudier des fonctionnalités un peu plus avancées,
+qui seraient impraticables avec une gestion «&nbsp;manuelle&nbsp;» de l&#8217;historique.</p>
+<blockquote>
+<div><ul class="simple">
+<li>elle peuvent donc vous sembler superflues,</li>
+<li>mais s&#8217;avèrent vite indispensables quand on y a pris goût.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="branches">
+<h2>Branches<a class="headerlink" href="#branches" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#branches" title="Slides">§</a></h2>
+<div class="section" id="id6">
+<h3>Motivation<a class="headerlink" href="#id6" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id6" title="Slides">§</a></h3>
+<p>Dans certaines situations, on peut souhaiter faire cohabiter et évoluer
+<em>plusieurs</em> versions divergentes du même projet.</p>
+<p>Ces versions peuvent parfois converger à nouveau (mais pas forcément).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Les copies d&#8217;écran de ces exemples sont faites avec
+un autre logiciel que les précédentes,
+ce qui explique le code couleur différent.</p>
+</div>
+<div class="section" id="exemple-1-cv">
+<span id="exemple-cv"></span><h4>Exemple 1&nbsp;: CV<a class="headerlink" href="#exemple-1-cv" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#exemple-1-cv" title="Slides">§</a></h4>
+<p>Pour un CV, on souhaite avoir&nbsp;:</p>
+<ul class="simple">
+<li>une version «&nbsp;maître&nbsp;» que l&#8217;on maintient à jour,</li>
+<li>des variantes pour chaque demande d&#8217;emploi,
+adaptées en fonction de l&#8217;employeur visé.</li>
+</ul>
+<div class="section" id="id7">
+<h5>Illustration<a class="headerlink" href="#id7" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id7" title="Slides">§</a></h5>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/branches_cv.png"><img alt="_images/branches_cv.png" src="_images/branches_cv.png" style="width: 60%;" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">L&#8217;historique n&#8217;a plus une structure linéaire, mais <em>arborescente</em>
+(ce qui justifiera la métaphore de la «&nbsp;branche&nbsp;»).</p>
+</div>
+</div>
+</div>
+<div class="section" id="exemple-2-site-web">
+<span id="exemple-siteweb"></span><h4>Exemple 2&nbsp;: site web<a class="headerlink" href="#exemple-2-site-web" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#exemple-2-site-web" title="Slides">§</a></h4>
+<p>Pour un site web, on souhaite avoir&nbsp;:</p>
+<ul class="simple">
+<li>la version publiée,</li>
+<li>une version de travail,
+dans laquelle on apporte des modifications incrémentales.</li>
+</ul>
+<p>Les deux versions mènent leur existence en parallèle,
+la version publiée étant régulièrement mise à jour
+par rapport à la version de travail.</p>
+<div class="section" id="id8">
+<h5>Illustration<a class="headerlink" href="#id8" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id8" title="Slides">§</a></h5>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/branches_siteweb.png"><img alt="_images/branches_siteweb.png" src="_images/branches_siteweb.png" style="width: 60%;" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">L&#8217;historique n&#8217;est même plus un arbre,
+mais un graphe orienté sans cycle.</p>
+</div>
+</div>
+</div>
+<div class="section" id="exemple-3-logiciel">
+<span id="exemple-logiciel"></span><h4>Exemple 3&nbsp;: logiciel<a class="headerlink" href="#exemple-3-logiciel" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#exemple-3-logiciel" title="Slides">§</a></h4>
+<p>Dans un projet logiciel, on souhaite avoir&nbsp;:</p>
+<ul class="simple">
+<li>la version stable, dans laquelle on se contente de corriger des bugs, et</li>
+<li>une ou plusieurs versions expérimentales,
+dans lesquelles on implémente de nouvelles fonctionnalités ;</li>
+</ul>
+<p>Une fois au point,
+chaque nouvelle fonctionnalités est intégrée à la version stable.</p>
+<div class="section" id="id9">
+<h5>Illustration<a class="headerlink" href="#id9" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id9" title="Slides">§</a></h5>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/branches_logiciel.png"><img alt="_images/branches_logiciel.png" src="_images/branches_logiciel.png" style="width: 80%;" /></a>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="index-10">
+<span id="id10"></span><h3>Notions<a class="headerlink" href="#index-10" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#index-10" title="Slides">§</a></h3>
+<ul class="simple">
+<li>Une <strong>branche</strong> est la <em>lignée</em> (généalogique) de commits,
+à laquelle on a donné un nom.</li>
+<li>Le commit le plus récent de la branche est appelé <em>sommet</em>
+(en anglais <span class="eng">tip</span>) de cette branche.</li>
+<li>La copie de travail est (en général) liée au sommet d&#8217;une branche
+(<code class="docutils literal"><span class="pre">master</span></code> par défaut).</li>
+<li>À chaque nouveau commit,
+le sommet de la branche courante est avancé vers ce nouveau commit
+(la branche «&nbsp;pousse&nbsp;»).</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Par «&nbsp;lignée&nbsp;», on entend&nbsp;:
+l&#8217;ensemble des commits ancêtres du sommet de la branche.</p>
+<p class="last">Dans le cas simple, cette lignée a une structure linéaire,
+mais ce n&#8217;est pas toujours le cas
+(comme en témoignent, dans les illustrations ci-avant,
+la branche <code class="docutils literal"><span class="pre">publié</span></code> dans l&#8217;<a class="reference internal" href="#exemple-siteweb"><span class="std std-ref">exemple du site web</span></a>
+et la branche <code class="docutils literal"><span class="pre">master</span></code> dans
+l&#8217;<a class="reference internal" href="#exemple-logiciel"><span class="std std-ref">exemple du logiciel</span></a>).</p>
+</div>
+<div class="section" id="accessibilite">
+<span id="index-11"></span><h4>Accessibilité<a class="headerlink" href="#accessibilite" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#accessibilite" title="Slides">§</a></h4>
+<p>Un commit est <strong>accessible</strong> s&#8217;il appartient à au moins une branche.
+Les commits non accessibles sont automatiquement supprimés par GIT.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Cette suppression n&#8217;est cependant pas immédiate.
+Il est donc parfois possible de «&nbsp;sauver&nbsp;»
+un commit devenu récemment inaccessible,
+en créant une nouvelle branche avant sa suppression effective.</p>
+</div>
+<p>Lorsqu&#8217;on <a class="reference internal" href="#naviguer"><span class="std std-ref">navigue dans l&#8217;historique</span></a>,
+on lie la copie de travail à un commit particulier plutôt qu&#8217;à une branche
+(mode <span class="eng">detached HEAD</span>).</p>
+<p>→ Les commits que l&#8217;on ferait dans cet état n&#8217;appartiendraient à aucune branche
+et seraient donc perdus.</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h3>Mise en œuvre<a class="headerlink" href="#id11" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id11" title="Slides">§</a></h3>
+<div class="contents local topic" id="id12">
+<ul class="simple">
+<li><a class="reference internal" href="#afficher-la-liste-des-branches" id="id52">Afficher la liste des branches</a></li>
+<li><a class="reference internal" href="#creer-une-nouvelle-branche" id="id53">Créer une nouvelle branche</a></li>
+<li><a class="reference internal" href="#changer-de-branche" id="id54">Changer de branche</a></li>
+<li><a class="reference internal" href="#id17" id="id55">Exercice</a></li>
+<li><a class="reference internal" href="#fusionner-deux-branches" id="id56">Fusionner deux branches</a></li>
+</ul>
+</div>
+<div class="section" id="afficher-la-liste-des-branches">
+<span id="index-12"></span><h4>Afficher la liste des branches<a class="headerlink" href="#afficher-la-liste-des-branches" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#afficher-la-liste-des-branches" title="Slides">§</a></h4>
+<ul>
+<li><p class="first">Dans les interfaces graphiques&nbsp;:</p>
+<p>elle apparaît chaque fois qu&#8217;elle est nécessaire</p>
+<p>(par exemple, dans la boite de dialogue <em>Switch/Checkout...</em> vue précédemment).</p>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git branch
+</pre></div>
+</div>
+<p>Le nom de la branche courante apparaît précédé d&#8217;une étoile.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="creer-une-nouvelle-branche">
+<h4>Créer une nouvelle branche<a class="headerlink" href="#creer-une-nouvelle-branche" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#creer-une-nouvelle-branche" title="Slides">§</a></h4>
+<p>Cette opération consiste à placer, sur un commit existant,
+le sommet d&#8217;une <em>nouvelle</em> branche
+(qui pourra croître indépendamment des autres).</p>
+<div class="section" id="id13">
+<h5>Depuis l&#8217;interface graphique<a class="headerlink" href="#id13" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id13" title="Slides">§</a></h5>
+<p>Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Create Branch...</em></p>
+<blockquote>
+<div><ul class="simple">
+<li>on doit choisir un nom pour la nouvelle branche&nbsp;;</li>
+<li>dans la section «&nbsp;Base on&nbsp;»,
+on peut choisir sur quel commit la nouvelle sera créée
+(par défaut: commit courrant <code class="docutils literal"><span class="pre">HEAD</span></code>)&nbsp;;</li>
+<li>si on  coche la case <em>Switch to new branch</em> (en bas à droite)
+la nouvelle branche deviendra la branche courante.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="index-13">
+<span id="id14"></span><h5>En ligne de commande<a class="headerlink" href="#index-13" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#index-13" title="Slides">§</a></h5>
+<p>Pour créer une nouvelle branche sur le commit courant&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git branch &lt;nom_nouvelle_branche&gt;
+</pre></div>
+</div>
+<p>Pour créer une nouvelle branche à un autre emplacement&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git branch &lt;nom_nouvelle_branche&gt; &lt;revision&gt;
+</pre></div>
+</div>
+<p>Ces commandes ne changent pas la branche courante.
+Pour créer une nouvelle branche <em>et</em> en faire la branche courante,
+utilisez plutôt&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git checkout -b &lt;nom_nouvelle_branche&gt;    <span class="c1"># ou</span>
+$ git checkout -b &lt;nom_nouvelle_branche&gt; &lt;revision&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="changer-de-branche">
+<span id="id15"></span><h4>Changer de branche<a class="headerlink" href="#changer-de-branche" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#changer-de-branche" title="Slides">§</a></h4>
+<p>Cette opération consiste à modifier la copie de travail
+pour la mettre dans le même état que le sommet d&#8217;une branche.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p class="last">Pour pouvoir l&#8217;effectuer, il est nécessaire que
+la copie de travail ne contienne aucune modification non commitée.</p>
+</div>
+<div class="section" id="index-14">
+<span id="id16"></span><h5>Mise en œuvre<a class="headerlink" href="#index-14" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#index-14" title="Slides">§</a></h5>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Switch/Checkout...</em></p>
+<ul class="simple">
+<li>s&#8217;assurer que <code class="docutils literal"><span class="pre">Branch</span></code> est bien coché,</li>
+<li>sélectionner dans la liste correspondante le nom de la branche,</li>
+<li>valider.</li>
+</ul>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git checkout &lt;branche&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="a-propos-de-git-checkout">
+<span id="index-15"></span><h5>À propos de <code class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span></code><a class="headerlink" href="#a-propos-de-git-checkout" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#a-propos-de-git-checkout" title="Slides">§</a></h5>
+<p>La commande <code class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span></code> est utilisée dans divers contextes,
+qui rendent difficile à percevoir sa cohérence interne.</p>
+<p>La fonction première de cette commande est de
+<em>modifier l&#8217;état de la copie de travail</em>.
+Selon ses arguments, elle a des effets supplémentaires :</p>
+<ul class="simple">
+<li>un branche&nbsp;: changer la branche courante</li>
+<li>une révision&nbsp;: passer en mode <em>detached HEAD</em></li>
+</ul>
+</div>
+</div>
+<div class="exercice section" id="id17">
+<h4>Exercice<a class="headerlink" href="#id17" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id17" title="Slides">§</a></h4>
+<ol class="arabic simple">
+<li>Dans le dépôt que vous avez créé au premier exercice,
+créez une branche nommée <code class="docutils literal"><span class="pre">style</span></code>, et placez-vous dans cette branche.</li>
+<li>Modifiez la feuille de style (par exemple pour changer la couleur de fond)
+et commitez vos changements.</li>
+<li>Revenez sur la branche <code class="docutils literal"><span class="pre">master</span></code>.
+Constatez que vos changements de style ont disparu (pour l&#8217;instant).</li>
+<li>Dans la branche <code class="docutils literal"><span class="pre">master</span></code>,
+modifiez ou ajoutez du contenu au fichier HTML,
+et commitez vos modifications.</li>
+<li>Revenez sur la branche <code class="docutils literal"><span class="pre">style</span></code>.
+Constatez que vos changements de style ont réapparu,
+mais que vos dernières modifications dans le fichier HTML ont, elles, disparu.</li>
+<li>Modifiez à nouveau la feuille de style (par exemple pour changer la police)
+et commitez vos changements.</li>
+</ol>
+</div>
+<div class="section" id="fusionner-deux-branches">
+<span id="fusion"></span><span id="index-16"></span><h4>Fusionner deux branches<a class="headerlink" href="#fusionner-deux-branches" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#fusionner-deux-branches" title="Slides">§</a></h4>
+<p>L&#8217;opération de <strong>fusion</strong> (en anglais <span class="eng">merge</span>)
+permet d&#8217;intégrer les modifications d&#8217;une branche dans une autre.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">GIT permet également de fusionner
+plus de deux branches dans une même opération,
+mais nous n&#8217;irons pas jusque là dans ce cours.</p>
+</div>
+<p>Il y a deux situations possibles,
+selon les positions relatives de la branche à fusionner (source)
+et de la branche destination.</p>
+<div class="section" id="fusion-sans-commit">
+<span id="index-17"></span><h5>Fusion sans commit<a class="headerlink" href="#fusion-sans-commit" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#fusion-sans-commit" title="Slides">§</a></h5>
+<p>Si la branche destination est contenue dans la branche source,</p>
+<p>la fusion a simplement pour effet de déplacer le sommet de la branche cible.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/merge-ff.svg"><img alt="_images/merge-ff.svg" src="_images/merge-ff.svg" width="100%" /></a>
+</div>
+<p>Ce type de fusion est appelée <span class="eng">fast forward</span>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Ce comportement préserve autant que possible
+un historique linéaire, donc plus simple.</p>
+<p>Cependant, dans certains cas, on souhaite forcer la création d&#8217;un commit
+même lorsqu&#8217;on est dans cette situation
+(c&#8217;est notamment le choix qui a été fait
+dans l&#8217;<a class="reference internal" href="#exemple-siteweb"><span class="std std-ref">exemple du site web</span></a>).</p>
+<p>Pour cela, en ligne de commande, on ajoutera l&#8217;option <code class="docutils literal"><span class="pre">--no-ff</span></code>.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/merge-noff.svg"><img alt="_images/merge-noff.svg" src="_images/merge-noff.svg" width="350pt" /></a>
+</div>
+<p class="last">Avantage&nbsp;: les deux branches gardent leur identité dans le graphe.</p>
+</div>
+</div>
+<div class="section" id="fusion-avec-commit">
+<h5>Fusion avec commit<a class="headerlink" href="#fusion-avec-commit" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#fusion-avec-commit" title="Slides">§</a></h5>
+<p>Si la branche destination et la source ont divergé,</p>
+<p>la fusion crée un nouveau commit intégrant les modifications des deux branches&nbsp;;</p>
+<p>ce commit devient le sommet de la branche destination.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/merge-commit.svg"><img alt="_images/merge-commit.svg" src="_images/merge-commit.svg" width="100%" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Bien sûr,
+cela suppose que les modifications des deux branches soient compatibles.
+La section suivante traite des <a class="reference internal" href="#conflits"><span class="std std-ref">conflits</span></a>,
+et de comment les résoudre.</p>
+</div>
+</div>
+<div class="section" id="index-18">
+<span id="id18"></span><h5>Mise en œuvre<a class="headerlink" href="#index-18" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#index-18" title="Slides">§</a></h5>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Merge...</em></p>
+<ul class="simple">
+<li>s&#8217;assurer que <code class="docutils literal"><span class="pre">Branch</span></code> est bien coché,</li>
+<li>sélectionner la branche à fusionner dans la branche actuelle,</li>
+<li>valider.</li>
+</ul>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git merge &lt;branche&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="exercice section" id="id19">
+<h5>Exercice<a class="headerlink" href="#id19" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id19" title="Slides">§</a></h5>
+<ol class="arabic simple">
+<li>Nous allons maintenant fusionner la branche <code class="docutils literal"><span class="pre">style</span></code>
+(créée à l&#8217;exercice précédent)
+avec la branche <code class="docutils literal"><span class="pre">master</span></code>.</li>
+<li>Placez-vous dans la branche <code class="docutils literal"><span class="pre">master</span></code>,
+et appliquez la méthode de votre choix
+(ligne de commande ou interface graphique)
+pour y fusionner la branche <code class="docutils literal"><span class="pre">style</span></code>.</li>
+<li>Constatez que toutes vos modifications (contenu HTML et style)
+sont maintenant visibles.</li>
+<li>Constatez également (dans l&#8217;historique)
+que le commit ainsi créé a <em>deux</em> commit parents.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="gerer-les-conflits">
+<span id="conflits"></span><h2>Gérer les conflits<a class="headerlink" href="#gerer-les-conflits" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#gerer-les-conflits" title="Slides">§</a></h2>
+<div class="section" id="id20">
+<h3>Motivation<a class="headerlink" href="#id20" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id20" title="Slides">§</a></h3>
+<p>La fusion de branches est automatiquement gérée par GIT lorsque
+les modifications des deux branches portent sur&nbsp;:</p>
+<ul class="simple">
+<li>des fichiers différents, ou</li>
+<li>des parties distinctes des mêmes fichiers texte.</li>
+</ul>
+<div class="section" id="exemple-gere-par-git">
+<h4>Exemple géré par GIT<a class="headerlink" href="#exemple-gere-par-git" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#exemple-gere-par-git" title="Slides">§</a></h4>
+<p>Branche 1&nbsp;:</p>
+<div class="highlight-diff"><div class="highlight"><pre><span></span><span class="gd">- La première ligne</span>
+<span class="gi">+ La première ligne modifiée</span>
+La deuxième ligne
+La troisième ligne
+</pre></div>
+</div>
+<p>Branche 2&nbsp;:</p>
+<div class="highlight-diff"><div class="highlight"><pre><span></span>La première ligne
+La deuxième ligne
+<span class="gd">- La troisième ligne</span>
+<span class="gi">+ La troisième ligne modifiée</span>
+</pre></div>
+</div>
+<p>Fusion&nbsp;:</p>
+<div class="highlight-diff"><div class="highlight"><pre><span></span>La première ligne modifiée
+La deuxième ligne
+La troisième ligne modifiée
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-non-gere-par-git">
+<h4>Exemple non géré par GIT<a class="headerlink" href="#exemple-non-gere-par-git" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#exemple-non-gere-par-git" title="Slides">§</a></h4>
+<p>Branche 1&nbsp;:</p>
+<div class="highlight-diff"><div class="highlight"><pre><span></span><span class="gd">- La première ligne</span>
+<span class="gi">+ La première ligne modifiée</span>
+La deuxième ligne
+<span class="gd">- La troisième ligne</span>
+<span class="gi">+ La troisième ligne modifiée</span>
+</pre></div>
+</div>
+<p>Branche 2&nbsp;:</p>
+<div class="highlight-diff"><div class="highlight"><pre><span></span><span class="gd">- La première ligne</span>
+<span class="gi">+ La première ligne changée</span>
+La deuxième ligne
+La troisième ligne
+</pre></div>
+</div>
+</div>
+<div class="section" id="conflit">
+<span id="index-19"></span><h4>Conflit<a class="headerlink" href="#conflit" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#conflit" title="Slides">§</a></h4>
+<p>On a donc un <strong>conflit</strong> lorsque les deux branches modifient&nbsp;:</p>
+<ul class="simple">
+<li>un même fichier binaire, ou</li>
+<li>la même partie d&#8217;un fichier texte.</li>
+</ul>
+<p>Dans ce cas, le conflit doit être résolu à la main
+avant de pouvoir créer le commit de fusion.</p>
+</div>
+<div class="section" id="id21">
+<h4>Remarque<a class="headerlink" href="#id21" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id21" title="Slides">§</a></h4>
+<div class="admonition warning">
+<p class="first admonition-title">Avertissement</p>
+<p>La stratégie de GIT n&#8217;est qu&#8217;une heuristique.</p>
+<p class="last">Cela signifie que des branches jugées compatibles par GIT peuvent être sémantiquement incohérentes.
+Il convient donc de vérifier le résultat de la fusion,
+même lorsqu&#8217;aucun conflit n&#8217;est signalé.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id22">
+<h3>Mise en œuvre<a class="headerlink" href="#id22" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id22" title="Slides">§</a></h3>
+<p>Lorsque GIT rencontre un conflit au moment d&#8217;une fusion,
+un message indique les fichiers en conflit.</p>
+<p>On est dans un état instable qui suppose&nbsp;:</p>
+<blockquote>
+<div><ul class="simple">
+<li>de résoudre le conflit, ou</li>
+<li>d&#8217;abandonner la fusion.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="fichiers-comportant-un-conflit">
+<h4>Fichiers comportant un conflit<a class="headerlink" href="#fichiers-comportant-un-conflit" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#fichiers-comportant-un-conflit" title="Slides">§</a></h4>
+<p>Les fichiers texte comportant un conflit sont automatiquement modifiés
+pour&nbsp;:</p>
+<blockquote>
+<div><ul class="simple">
+<li>inclure les modifications non conflictuelles, et</li>
+<li>faire apparaître les deux versions concurrentes
+pour les modifications conflictuelles.</li>
+</ul>
+</div></blockquote>
+<div class="highlight-text"><div class="highlight"><pre><span></span>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+La 1e ligne modifiée
+=======
+La 1e ligne changée
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; src
+La 2e ligne
+La 3e ligne modifiée
+</pre></div>
+</div>
+<p>Les fichiers binaires ne sont pas modifiés.</p>
+</div>
+<div class="section" id="resolution-du-conflit">
+<span id="resolution"></span><span id="index-20"></span><h4>Résolution du conflit<a class="headerlink" href="#resolution-du-conflit" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#resolution-du-conflit" title="Slides">§</a></h4>
+<p>Une fois les fichiers en conflit corrigés,
+on peut résoudre le conflit :</p>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Resolve...</em></p>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git commit -a
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Le nouveau commit aura pour parents les sommets des branches fusionnées.</p>
+</div>
+<div class="section" id="abandon">
+<span id="index-21"></span><h4>Abandon<a class="headerlink" href="#abandon" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#abandon" title="Slides">§</a></h4>
+<p>On peut également décider d&#8217;abandonner la fusion&nbsp;:</p>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Abort Merge</em></p>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git merge --abort
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="exercice section" id="id23">
+<h5>Exercice<a class="headerlink" href="#id23" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id23" title="Slides">§</a></h5>
+<ol class="arabic">
+<li><p class="first">Créez un nouveau dépot, et ajoutez-y un fichier <code class="docutils literal"><span class="pre">conflit.txt</span></code> contenant le texte suivant&nbsp;:</p>
+<div class="highlight-diff"><div class="highlight"><pre><span></span>La première ligne
+La deuxième ligne
+La troisième ligne
+</pre></div>
+</div>
+</li>
+<li><p class="first">Créez plusieurs branches,
+dans lesquelles vous modifierez différemment le fichier <code class="docutils literal"><span class="pre">conflit.txt</span></code>,
+en suivant les exemples ci-avant.
+Tentez ensuite de fusionner ces branches.</p>
+</li>
+<li><p class="first">Lorsque GIT vous signale un conflit,
+constatez comment le fichier <code class="docutils literal"><span class="pre">conflit.txt</span></code> a été modifié,
+et résolvez le conflit.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="depot-distant">
+<span id="remote"></span><h2>Dépot distant<a class="headerlink" href="#depot-distant" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#depot-distant" title="Slides">§</a></h2>
+<div class="section" id="notion">
+<span id="index-22"></span><h3>Notion<a class="headerlink" href="#notion" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#notion" title="Slides">§</a></h3>
+<p>Un <strong>dépôt distant</strong> (en anglais <span class="eng">remote repository</span>)
+est un dépôt GIT, tout à fait similaire à un dépôt local,
+mais acessible à distance <span class="lat">via</span> une URL.</p>
+<p>Exemple&nbsp;:  <a class="reference external" href="https://github.com/pchampin/intro-git.git">https://github.com/pchampin/intro-git.git</a></p>
+<p>Un dépôt local peut être lié à un dépôt distant&nbsp;;
+GIT offre des fonctionnalités pour copier des commits de l&#8217;un à l&#8217;autre.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>En fait, un dépôt distant n&#8217;est pas forcément «&nbsp;à distance&nbsp;»
+(même si c&#8217;est le plus souvent le cas).</p>
+<p class="last">On peut aussi utiliser comme dépôt distant un dépôt accessible dans un répertoire partagé,
+ou sur un support amovible (clé USB, disque dûr externe)...</p>
+</div>
+</div>
+<div class="section" id="id24">
+<h3>Motivations<a class="headerlink" href="#id24" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id24" title="Slides">§</a></h3>
+<ul class="simple">
+<li>sauvegarder le projet (fichiers + historique),</li>
+<li>travailler sur plusieurs machines,</li>
+<li>rendre le projet accessible à d&#8217;autres personnes,</li>
+<li>travailler sur un projet publié par quelqu&#8217;un d&#8217;autre,</li>
+<li>collaborer à plusieurs sur un projet
+(ce sera l&#8217;objet du <a class="reference internal" href="#collaboration"><span class="std std-ref">chapitre suivant</span></a>).</li>
+</ul>
+</div>
+<div class="section" id="vue-d-ensemble">
+<h3>Vue d&#8217;ensemble<a class="headerlink" href="#vue-d-ensemble" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#vue-d-ensemble" title="Slides">§</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/git-states2.svg"><img alt="_images/git-states2.svg" src="_images/git-states2.svg" width="100%" /></a>
+</div>
+</div>
+<div class="section" id="id25">
+<h3>Mise en œuvre<a class="headerlink" href="#id25" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id25" title="Slides">§</a></h3>
+<div class="contents local topic" id="id26">
+<ul class="simple">
+<li><a class="reference internal" href="#creer-un-depot-sur-un-serveur" id="id57">Créer un dépôt sur un serveur</a></li>
+<li><a class="reference internal" href="#cloner-un-depot-distant" id="id58">Cloner un dépôt distant</a></li>
+<li><a class="reference internal" href="#publier-des-commits" id="id59">Publier des commits</a></li>
+<li><a class="reference internal" href="#recuperer-les-commits" id="id60">Récupérer les commits</a></li>
+</ul>
+</div>
+<div class="section" id="creer-un-depot-sur-un-serveur">
+<h4>Créer un dépôt sur un serveur<a class="headerlink" href="#creer-un-depot-sur-un-serveur" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#creer-un-depot-sur-un-serveur" title="Slides">§</a></h4>
+<p>Il existe plusieurs sites permettant d&#8217;héberger et de partager vos projets GIT&nbsp;:</p>
+<table border="1" class="colwidths-given logos docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="first last reference external image-reference" href="https://github.com/"><img alt="GitHub" src="_images/github.png" style="height: 2em;" /></a>
+</td>
+<td><a class="first last reference external image-reference" href="https://bitbucket.org/"><img alt="BitBucket" src="_images/bitbucket-logo-blue.png" style="height: 2em;" /></a>
+</td>
+</tr>
+<tr class="row-even"><td><a class="first last reference external image-reference" href="https://gitlab.com/"><img alt="GitLab" src="_images/logo-gitlab.png" style="height: 2em;" /></a>
+</td>
+<td><a class="first last reference external image-reference" href="https://git.framasoft.org/"><img alt="Framagit" src="_images/logo-framagit.png" style="height: 2em;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>dont un hébergé par l&#8217;université Lyon 1&nbsp;:</p>
+<p class="logos"><a class="reference external" href="http://forge.univ-lyon1.fr/">http://forge.univ-lyon1.fr/</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Concernant la forge de Lyon 1,
+en cas de problème avec les certificats SSL,
+consultez cette <a class="reference external" href="https://forge.univ-lyon1.fr/EMMANUEL.COQUERY/forge/wikis/FAQ">FAQ</a></p>
+</div>
+<span class="target" id="git-clone"></span></div>
+<div class="section" id="cloner-un-depot-distant">
+<span id="index-23"></span><h4>Cloner un dépôt distant<a class="headerlink" href="#cloner-un-depot-distant" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#cloner-un-depot-distant" title="Slides">§</a></h4>
+<p>Une fois votre dépôt distant créé, vous pouvez en faire un <strong>clone</strong>
+(une copie à la fois des fichiers et de l&#8217;historique)
+sous forme d&#8217;un dépôt local, qui sera lié à ce dépôt distant.</p>
+<p class="rubric">Mise en œuvre</p>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>Git Clone...</em></p>
+<ul class="simple">
+<li>dans le champs URL, sélectionner l&#8217;URL du dépôt distant&nbsp;;</li>
+<li>le cas échéant, modifier l&#8217;emplacement du dépôt local&nbsp;;</li>
+<li>valider.</li>
+</ul>
+</li>
+<li><p class="first">en ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone &lt;url-dépôt-distant&gt; &lt;emplacement&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Il est possible de procéder à l&#8217;inverse&nbsp;:
+commencer à travailler sur un dépôt local,
+puis créer un dépôt distant pour publier le travail.</p>
+<p class="last">La procédure est un peu plus complexe,
+mais est généralement bien documentée par les services d&#8217;hébergement GIT,
+au moment où vous créerez le dépôt distant.</p>
+</div>
+<div class="section" id="probleme-depuis-le-campus-lyon1">
+<h5>Problème depuis le campus Lyon1<a class="headerlink" href="#probleme-depuis-le-campus-lyon1" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#probleme-depuis-le-campus-lyon1" title="Slides">§</a></h5>
+<p>Si vous rencontrez des problèmes pour cloner un dépôt,
+cela peut venir d&#8217;une mauvaise configuration du <em>proxy</em>.
+Dans <code class="docutils literal"><span class="pre">Git</span> <span class="pre">Bash</span></code>, tapez les deux commandes suivantes&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git config --global http.proxy http://proxy.univ-lyon1.fr:3128
+$ git config --global https.proxy https://proxy.univ-lyon1.fr:3128
+</pre></div>
+</div>
+<p>puis tentez à nouveau.</p>
+</div>
+</div>
+<div class="section" id="publier-des-commits">
+<span id="index-24"></span><h4>Publier des commits<a class="headerlink" href="#publier-des-commits" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#publier-des-commits" title="Slides">§</a></h4>
+<p>Cette opération copie sur le dépôt distant les commits locaux (de la branche courante)
+qui n&#8217;y sont pas encore présents.</p>
+<p class="rubric">Mise en œuvre</p>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Push...</em></p>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git push
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p class="last">Cela suppose évidemment que vous soyez propriétaire du dépôt distant,
+ou que le propriétaire ait configuré son dépôt pour vous autoriser à le modifier.</p>
+</div>
+<div class="section" id="desynchronisation">
+<h5>Désynchronisation<a class="headerlink" href="#desynchronisation" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#desynchronisation" title="Slides">§</a></h5>
+<p>Le <code class="docutils literal"><span class="pre">push</span></code> n&#8217;est possible que si la branche locale contient tous les commits présents dans la branche distante (plus, bien sûr, les nouveaux commits que vous voulez pousser).</p>
+<p>Si la branche distante contient des commits inconnus de votre dépôt local
+(poussés depuis une autre machine, par vous ou quelqu&#8217;un d&#8217;autre),
+il faudra au préalable les récupérer (cf. ci-après).</p>
+</div>
+</div>
+<div class="section" id="recuperer-les-commits">
+<span id="pull"></span><span id="index-25"></span><h4>Récupérer les commits<a class="headerlink" href="#recuperer-les-commits" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#recuperer-les-commits" title="Slides">§</a></h4>
+<p>Cette opération copie dans le dépôt local les commits distants (de la branche courante)
+qui n&#8217;y sont pas encore présents. <em>Elle met également à jour la copie de travail.</em></p>
+<p>Cela est nécessaire</p>
+<ul class="simple">
+<li>lorsque vous travaillez sur plusieurs machines,
+et utilisez le dépôt distant pour les synchroniser, ou</li>
+<li>lorsque le dépôt distant est modifié par quelqu&#8217;un d&#8217;autre.</li>
+</ul>
+<p class="rubric">Mise en œuvre</p>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Pull...</em></p>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git pull
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="section" id="id27">
+<h5>Désynchronisation<a class="headerlink" href="#id27" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id27" title="Slides">§</a></h5>
+<p>Dans le cas le plus simple, le dépôt distant est «&nbsp;en avance&nbsp;» par rapport au dépôt local :
+il contient tous les commits du dépôt local, plus ceux que vous cherchez à récupérer.</p>
+<p>Dans un cas plus complexe, des commits ont pû être ajoutés parallèlement dans les deux dépôts.
+Dans ce cas, <code class="docutils literal"><span class="pre">pull</span></code> effectue automatiquement une opération de <a class="reference internal" href="#fusion"><span class="std std-ref">fusion</span></a>.
+Cela peut entraîner un conflit, qu&#8217;il faudra résoudre comme vu
+<a class="reference internal" href="#resolution"><span class="std std-ref">précédemment</span></a>.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p class="last">Il est bien sûr préférable d&#8217;éviter ces conflits plutôt que de les résoudre
+<span class="lat">a posteriori</span>.
+Modifier la même information en parallèle n&#8217;est, de toute façon,
+pas une bonne idée...</p>
+</div>
+</div>
+<div class="exercice section" id="id28">
+<h5>Exercice<a class="headerlink" href="#id28" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id28" title="Slides">§</a></h5>
+<ol class="arabic simple">
+<li>Créez un dépôt distant sur le service d&#8217;hébergement de votre choix.</li>
+<li>Clonez le dans un dépôt local</li>
+<li>Créez un fichier &#8220;message.txt&#8221; dans le dépôt local, commitez le et poussez le.</li>
+<li>Constatez que le fichier message.txt apparaît bien sur la page Web de votre dépôt distant.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="collaboration">
+<span id="id29"></span><h2>Collaboration<a class="headerlink" href="#collaboration" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#collaboration" title="Slides">§</a></h2>
+<div class="section" id="id30">
+<h3>Motivation<a class="headerlink" href="#id30" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id30" title="Slides">§</a></h3>
+<ul class="simple">
+<li>On a vu que GIT gérait l&#8217;évolution des fichiers,
+qu&#8217;elle soit linéaire ou non linéaire (branches)&nbsp;:<ul>
+<li>en facilitant la fusion des modifications parallèles, et</li>
+<li>en détectant les conflits.</li>
+</ul>
+</li>
+<li>Déjà utiles dans un contexte individuel,
+ces fonctionnalités vont s&#8217;avérer primordiales dans un contexte <em>collectif</em>.</li>
+</ul>
+</div>
+<div class="section" id="id31">
+<h3>Notions<a class="headerlink" href="#id31" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id31" title="Slides">§</a></h3>
+<ul class="simple">
+<li>Lorsqu&#8217;on travaille à plusieurs,<ul>
+<li>chacun possède une copie des fichiers.</li>
+</ul>
+</li>
+<li>Lorsqu&#8217;on travaille à plusieurs <strong>avec GIT</strong>,<ul>
+<li>chacun possède une copie des fichiers <strong>et du dépôt</strong>.</li>
+</ul>
+</li>
+<li>On ne s&#8217;échange plus les fichiers individuellement,<ul>
+<li>mais des <strong>commits</strong> (donc des états <em>cohérents</em> de l&#8217;ensemble des fichiers).</li>
+</ul>
+</li>
+<li>On met en commun en fusionnant les branches.</li>
+</ul>
+<div class="section" id="index-26">
+<span id="id32"></span><h4>Dépôt distant<a class="headerlink" href="#index-26" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#index-26" title="Slides">§</a></h4>
+<p>On a vu dans la section précédente qu&#8217;un dépôt local pouvait être lié à un dépôt distant.</p>
+<p>En fait, un dépôt GIT peut être lié à un nombre arbitraire de dépôts distants,
+chacun identifié par un nom.</p>
+<p>Lors d&#8217;un <code class="docutils literal"><span class="pre">clone</span></code>,
+le dépôt cloné est automatiquement ajouté comme dépôt distant,
+sous le nom <code class="docutils literal"><span class="pre">origin</span></code>.</p>
+</div>
+<div class="section" id="branche-de-suivi">
+<span id="index-27"></span><h4>Branche de suivi<a class="headerlink" href="#branche-de-suivi" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#branche-de-suivi" title="Slides">§</a></h4>
+<p>Pour chaque branche de chaque dépôt distant,
+GIT crée dans le dépôt local une branche spéciale appelée <strong>branche de suivi</strong>
+(en anglais <span class="eng">remote-tracking branch</span>). Son nom est de la forme&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>&lt;nom-dépôt-distant&gt;/&lt;branche&gt;
+</pre></div>
+</div>
+<p>Cette branche reflète l&#8217;état de la branche distante correspondante&nbsp;;
+elle n&#8217;est jamais modifiée directement.</p>
+<p>Elle peut en revanche être <em>fusionnée</em> à une branche locale,
+afin d&#8217;y intégrer les modifications faites par d&#8217;autres.</p>
+</div>
+</div>
+<div class="section" id="id33">
+<h3>Mise en œuvre<a class="headerlink" href="#id33" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id33" title="Slides">§</a></h3>
+<div class="contents local topic" id="id34">
+<ul class="simple">
+<li><a class="reference internal" href="#lier-a-un-depot-distant" id="id61">Lier à un dépôt distant</a></li>
+<li><a class="reference internal" href="#mettre-a-jour-les-branches-de-suivi" id="id62">Mettre à jour les branches de suivi</a></li>
+<li><a class="reference internal" href="#fusionner-une-branche-de-suivi" id="id63">Fusionner une branche de suivi</a></li>
+</ul>
+</div>
+<div class="section" id="lier-a-un-depot-distant">
+<span id="index-28"></span><h4>Lier à un dépôt distant<a class="headerlink" href="#lier-a-un-depot-distant" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#lier-a-un-depot-distant" title="Slides">§</a></h4>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Settings</em> &gt; <em>Git</em> &gt; <em>Remotes</em></p>
+<p>(interface complète de gestion des dépôts distants)</p>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git remote add &lt;nom&gt; &lt;emplacement&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p class="last">Cette opération est à faire une seul fois par dépôt
+(et par dépôt distant),
+pour pouvoir ensuite interagir avec le dépôt distant.</p>
+</div>
+</div>
+<div class="section" id="mettre-a-jour-les-branches-de-suivi">
+<span id="index-29"></span><h4>Mettre à jour les branches de suivi<a class="headerlink" href="#mettre-a-jour-les-branches-de-suivi" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#mettre-a-jour-les-branches-de-suivi" title="Slides">§</a></h4>
+<p>On a vu <a class="reference internal" href="#pull"><span class="std std-ref">précédemment</span></a> la commande <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>
+qui récupère les commits distants <em>et les fusionne</em> dans la branche courante.</p>
+<p>La commande <code class="docutils literal"><span class="pre">git</span> <span class="pre">fetch</span></code> permet de simplement récupérer les commits distants et de mettre à jour les branches de suivi,
+<em>sans impacter</em> les branches locales.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">En fait, <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code> n&#8217;est ni plus ni moins un raccourci qui effectue un <code class="docutils literal"><span class="pre">git</span> <span class="pre">fetch</span></code>
+suivi d&#8217;un <code class="docutils literal"><span class="pre">git</span> <span class="pre">merge</span></code>.</p>
+</div>
+<div class="section" id="id35">
+<h5>Mise en œuvre<a class="headerlink" href="#id35" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id35" title="Slides">§</a></h5>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Fetch...</em></p>
+<ul class="simple">
+<li>s&#8217;assurer que <code class="docutils literal"><span class="pre">Remote</span></code> est bien coché,</li>
+<li>sélectionner le dépôt distant souhaité la liste correspondante,</li>
+<li>valider.</li>
+</ul>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git fetch &lt;nom-dépôt-distant&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p>Les branches de suivi sont créées par le <code class="docutils literal"><span class="pre">fetch</span></code>.</p>
+<p class="last">Ainsi, si de nouvelles branches sont créées dans le dépôt distant,
+les branches de suivi correspondantes seront également ajoutées.</p>
+</div>
+</div>
+</div>
+<div class="section" id="fusionner-une-branche-de-suivi">
+<span id="index-30"></span><h4>Fusionner une branche de suivi<a class="headerlink" href="#fusionner-une-branche-de-suivi" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#fusionner-une-branche-de-suivi" title="Slides">§</a></h4>
+<p>Le principe est le même que pour la fusion entre branches locales.</p>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Merge...</em></p>
+<ul class="simple">
+<li>s&#8217;assurer que <code class="docutils literal"><span class="pre">Branch</span></code> est bien coché,</li>
+<li>sélectionner la branche de suivi à fusionner dans la branche actuelle,</li>
+<li>valider.</li>
+</ul>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git merge &lt;branche-de-suivi&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="exercice section" id="types-de-collaborations">
+<span id="index-31"></span><h3>Types de collaborations<a class="headerlink" href="#types-de-collaborations" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#types-de-collaborations" title="Slides">§</a></h3>
+<p>La flexibilité de GIT permet de multiples formes d&#8217;organisation pour le travail collaboratif.</p>
+<p>On donne ici quelques exemples (non exhaustifs, et non exclusifs).</p>
+<div class="section" id="organisation-en-etoile">
+<h4>Organisation en étoile<a class="headerlink" href="#organisation-en-etoile" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#organisation-en-etoile" title="Slides">§</a></h4>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/collab_star.svg"><img alt="_images/collab_star.svg" src="_images/collab_star.svg" width="90%" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Ce type de collaboration est inspiré des <abbr title="Version Control Systems">VCS</abbr> centralisés,
+et est simple à mettre en œuvre.</p>
+<p class="last">Il suppose de mettre un place un unique <a class="reference external" href="remote">dépôt distant</a>
+sur lequel plusieurs collaborateurs ont les droits en écriture.</p>
+</div>
+</div>
+<div class="section" id="organisation-pair-a-pair">
+<h4>Organisation pair-à-pair<a class="headerlink" href="#organisation-pair-a-pair" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#organisation-pair-a-pair" title="Slides">§</a></h4>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/collab_p2p.svg"><img alt="_images/collab_p2p.svg" src="_images/collab_p2p.svg" width="90%" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Ce type de collaboration est très flexible.
+On peut notamment le mettre en œuvre sans disposer d&#8217;un serveur,
+en utilisant par exemple des média amovibles (clé USB, carte DS, disque externe...)
+comme &#8220;dépot distant&#8221; pour communiquer entre les différents acteurs.</p>
+</div>
+</div>
+<div class="section" id="organisation-github">
+<h4>Organisation &#8220;github&#8221;<a class="headerlink" href="#organisation-github" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#organisation-github" title="Slides">§</a></h4>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/collab_github.svg"><img alt="_images/collab_github.svg" src="_images/collab_github.svg" width="90%" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Ce type de collaboration est encouragé par les sites d&#8217;hébergement comme <a class="reference external" href="https://github.com/">Github</a>
+(mais également d&#8217;autres).</p>
+<p>Chaque collaborateur dispose d&#8217;un clone public (<em>fork</em>) du projet,
+et y publie les commits qu&#8217;il souhaite partager.</p>
+<p>Il sollicite ensuite les autres collaborateur pour tirer ces commits dans leur propre dépôt/
+On appelle cette sollicitation un <span class="eng">pull request</span>
+(ou plus rarement un <span class="eng">merge request</span>).</p>
+<p class="last">La plupart du temps,
+l&#8217;un des dépôts publics (celui du leader du projet, typiquement)
+est considéré comme la référence,
+donc ce type d&#8217;organisation se rapproche de l&#8217;organisation en étoile,
+mais permet à n&#8217;importe qui de proposer des modifications,
+sans avoir besoin d&#8217;obtenir les droits en écriture sur le dépôt de référence.</p>
+</div>
+<div class="exercice section" id="id37">
+<h5>Exercice<a class="headerlink" href="#id37" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id37" title="Slides">§</a></h5>
+<blockquote>
+<div><p>Le meilleur moyen d&#8217;expérimenter la collaboration est de travailler avec des collaborateurs&nbsp;!</p>
+<p>Si vous voulez essayer, publiez votre dépôt sur l&#8217;espace partagé de votre choix, et demandez à un collègue d&#8217;en faire un clone.</p>
+<p>C&#8217;est à vous de fixer les droits sur votre dépôt distant en fonction de ce que vous souhaitez (accessible en lecture seule, ou bien en lecture / écriture).</p>
+</div></blockquote>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="re-ecrire-l-histoire">
+<h2>Ré-écrire l&#8217;histoire<a class="headerlink" href="#re-ecrire-l-histoire" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#re-ecrire-l-histoire" title="Slides">§</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">L&#8217;objectif n&#8217;est pas de travailler sur ces notions,
+mais de signaler leur existence pour plus tard...
+et pour les curieux :-)</p>
+</div>
+<div class="section" id="id38">
+<h3>Motivation<a class="headerlink" href="#id38" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#id38" title="Slides">§</a></h3>
+<p>Avant de publier un ensemble de commits,
+on peut souhaiter le «&nbsp;nettoyer&nbsp;» un peu,</p>
+<p>notamment pour rendre l&#8217;historique du projet plus lisible.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Avertissement</p>
+<p>Ceci ne doit <strong>jamais</strong> être fait sur des commits
+qui ont déjà été partagés avec d&#8217;autres personnes
+(notamment avec <code class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></code>).</p>
+<p class="last">Cela créerait une incohérence entre les dépôts.</p>
+</div>
+</div>
+<div class="section" id="amendement">
+<span id="index-32"></span><h3>Amendement<a class="headerlink" href="#amendement" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#amendement" title="Slides">§</a></h3>
+<p>Il arrive que l&#8217;on fasse un commit incomplet&nbsp;:</p>
+<ul class="simple">
+<li>oubli d&#8217;ajouter certains fichiers / certaines modifications,</li>
+<li>coquilles dans les ajouts...</li>
+</ul>
+<p>On peut bien sûr corriger cet oubli dans un nouveau commit,
+mais cela contredit l&#8217;idée qu&#8217;un commit représente
+un état <em>cohérent</em> de l&#8217;ensemble des fichiers.</p>
+<p>Dans ces situations,
+il est possible de modifier (<strong>amender</strong>) le dernier commit créé.</p>
+<div class="section" id="index-33">
+<span id="id39"></span><h4>Mise en œuvre<a class="headerlink" href="#index-33" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#index-33" title="Slides">§</a></h4>
+<ul>
+<li><p class="first">Dans la boite de dialogue de commit&nbsp;:</p>
+<ul class="simple">
+<li>cocher le bouton radio <em>Amend last commit</em></li>
+</ul>
+</li>
+<li><p class="first">En ligne de commande&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git commit --amend
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="rebase">
+<h3>Rebase<a class="headerlink" href="#rebase" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#rebase" title="Slides">§</a></h3>
+<p>On a vu que la fusion de deux branches créait un commit à plusieurs parents
+si les branches avaient divergé.</p>
+<p>Si on préfère garder un historique linéaire,
+GIT permet de «&nbsp;rejouer&nbsp;» les modifications d&#8217;une branche
+à partir du sommet de l&#8217;autre branche,
+en re-créant les commits correspondants.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/rebase.svg"><img alt="_images/rebase.svg" src="_images/rebase.svg" width="100%" /></a>
+</div>
+<div class="section" id="index-34">
+<span id="id40"></span><h4>Mise en œuvre<a class="headerlink" href="#index-34" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#index-34" title="Slides">§</a></h4>
+<ul>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Rebase...</em></p>
+</li>
+<li><p class="first">En ligne de commande (depuis la branche à «&nbsp;rebaser&nbsp;»)&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git rebase &lt;branche-destination&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="pour-aller-plus-loin">
+<h2>Pour aller plus loin<a class="headerlink" href="#pour-aller-plus-loin" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#pour-aller-plus-loin" title="Slides">§</a></h2>
+<div class="section" id="se-documenter">
+<h3>Se documenter<a class="headerlink" href="#se-documenter" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#se-documenter" title="Slides">§</a></h3>
+<ul class="simple">
+<li>Deux tutoriels graphiques et animés <a class="reference external" href="http://pcottle.github.io/learnGitBranching/">ici</a> et <a class="reference external" href="https://onlywei.github.io/explain-git-with-d3/#">là</a>.</li>
+</ul>
+<ul class="simple">
+<li>Si vous voulez en savoir plus sur GIT, consultez son excellente documentation sur <a class="reference external" href="http://git-scm.com/">git-scm.org</a> ainsi que les vidéos très instructives !</li>
+</ul>
+</div>
+<div class="section" id="autres-outils-de-gestion-de-version">
+<h3>Autres outils de gestion de version<a class="headerlink" href="#autres-outils-de-gestion-de-version" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#autres-outils-de-gestion-de-version" title="Slides">§</a></h3>
+<ul class="simple">
+<li>Vous n&#8217;êtes pas certains de préférer <a class="reference external" href="http://git-scm.com/">GIT</a>? Prenez le temps de comparer les différents outils de gestion de version. Il existe de nombreux comparatifs en ligne, comme par exemple sur <a class="reference external" href="http://en.wikipedia.org/wiki/Comparison_of_revision_control_software">Wikipedia</a>.</li>
+</ul>
+<p class="rubric">Mercurial</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.mercurial-scm.org/">Mercurial</a> (abbrégé Hg) est un gestionnaire de version similaire à GIT,
+mais comporte quelques différences (de terminologie notamment).</li>
+<li>Un guide de pour passer de GIT à Mercurial est disponible ici&nbsp;:
+<a class="reference external" href="https://www.mercurial-scm.org/wiki/GitConcepts">https://www.mercurial-scm.org/wiki/GitConcepts</a></li>
+</ul>
+</div>
+<div class="section" id="un-dernier-conseil">
+<h3>Un dernier conseil<a class="headerlink" href="#un-dernier-conseil" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#un-dernier-conseil" title="Slides">§</a></h3>
+<p>Rien de tel que la pratique pour maîtriser GIT
+(ou tout autre outil de gestion de version),
+alors n&#8217;hésitez pas à utiliser abondamment ces outils,
+même pour vos petits projets...</p>
+</div>
+</div>
+<div class="section" id="credits">
+<h2>Crédits<a class="headerlink" href="#credits" title="Lien permanent vers ce titre">¶</a><a class="headerlink" href="slides/index.html#credits" title="Slides">§</a></h2>
+<p>Ce support a été réalisé par <a class="reference external" href="http://champin.net/">Pierre-Antoine Champin</a> et <a class="reference external" href="http://acordier.net/">Amélie Cordier</a>.</p>
+<p>Merci à Isabelle Gonçalves et <a class="reference external" href="https://jocelyn.delalande.fr/">Jocelyn Delalande</a> pour leurs contributions.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table des Matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction à GIT</a><ul>
+<li><a class="reference internal" href="#motivations">Motivations</a><ul>
+<li><a class="reference internal" href="#exemple-1">Exemple 1</a></li>
+<li><a class="reference internal" href="#exemple-2">Exemple 2</a></li>
+<li><a class="reference internal" href="#histoires-vraies">Histoires vraies</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#historique-des-vcs">Historique des <abbr title="Version Control Systems">VCS</abbr></a><ul>
+<li><a class="reference internal" href="#origines">Origines</a></li>
+<li><a class="reference internal" href="#evolutions">Évolutions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#notions-de-base">Notions de base</a><ul>
+<li><a class="reference internal" href="#bon-exemple">Bon exemple</a></li>
+<li><a class="reference internal" href="#les-avantages-de-la-gestion-de-versions">Les avantages de la gestion de versions</a></li>
+<li><a class="reference internal" href="#notions">Notions</a></li>
+<li><a class="reference internal" href="#mise-en-oeuvre">Mise en œuvre</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#naviguer-dans-l-historique">Naviguer dans l&#8217;historique</a><ul>
+<li><a class="reference internal" href="#motivation">Motivation</a></li>
+<li><a class="reference internal" href="#index-8">Mise en œuvre</a></li>
+<li><a class="reference internal" href="#expressions-de-revision">Expressions de révision</a></li>
+<li><a class="reference internal" href="#retour-au-present">Retour au présent</a></li>
+<li><a class="reference internal" href="#entractes">Entractes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#branches">Branches</a><ul>
+<li><a class="reference internal" href="#id6">Motivation</a></li>
+<li><a class="reference internal" href="#index-10">Notions</a></li>
+<li><a class="reference internal" href="#id11">Mise en œuvre</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gerer-les-conflits">Gérer les conflits</a><ul>
+<li><a class="reference internal" href="#id20">Motivation</a></li>
+<li><a class="reference internal" href="#id22">Mise en œuvre</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#depot-distant">Dépot distant</a><ul>
+<li><a class="reference internal" href="#notion">Notion</a></li>
+<li><a class="reference internal" href="#id24">Motivations</a></li>
+<li><a class="reference internal" href="#vue-d-ensemble">Vue d&#8217;ensemble</a></li>
+<li><a class="reference internal" href="#id25">Mise en œuvre</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#collaboration">Collaboration</a><ul>
+<li><a class="reference internal" href="#id30">Motivation</a></li>
+<li><a class="reference internal" href="#id31">Notions</a></li>
+<li><a class="reference internal" href="#id33">Mise en œuvre</a></li>
+<li><a class="reference internal" href="#types-de-collaborations">Types de collaborations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#re-ecrire-l-histoire">Ré-écrire l&#8217;histoire</a><ul>
+<li><a class="reference internal" href="#id38">Motivation</a></li>
+<li><a class="reference internal" href="#amendement">Amendement</a></li>
+<li><a class="reference internal" href="#rebase">Rebase</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pour-aller-plus-loin">Pour aller plus loin</a><ul>
+<li><a class="reference internal" href="#se-documenter">Se documenter</a></li>
+<li><a class="reference internal" href="#autres-outils-de-gestion-de-version">Autres outils de gestion de version</a></li>
+<li><a class="reference internal" href="#un-dernier-conseil">Un dernier conseil</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#credits">Crédits</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
+  <h3>Slides</h3>
+  <ul class="this-page-menu">
+    <li><a href="slides/index.html"
+           rel="nofollow">View as slides</a></li>
+  </ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">Introduction à GIT</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013, Pierre-Antoine Champin.
+      Créé avec <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.
+    </div>
+  </body>
+</html>
