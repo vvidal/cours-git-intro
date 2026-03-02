@@ -2441,5 +2441,69 @@ même pour vos petits projets...</p>
 
 </section>
 
+<form id="slide-search-form" style="position:fixed;top:10px;right:10px;z-index:9999;background:#fff;padding:6px;border:1px solid #ccc;border-radius:4px;">
+  <label for="slide-search-input">Recherche:</label>
+  <input id="slide-search-input" type="search" placeholder="ex: conflit" style="width:180px;" />
+  <button type="submit">Aller</button>
+</form>
+
+<script type="text/javascript">
+(function () {
+  function normalize(text) {
+    return (text || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function buildIndex() {
+    var slides = document.querySelectorAll("#slide_container article.slide");
+    var index = [];
+    for (var i = 0; i < slides.length; i++) {
+      var slide = slides[i];
+      if (!slide.id) {
+        continue;
+      }
+      index.push({
+        id: slide.id,
+        text: normalize(slide.textContent)
+      });
+    }
+    return index;
+  }
+
+  var form = document.getElementById("slide-search-form");
+  var input = document.getElementById("slide-search-input");
+  if (!form || !input) {
+    return;
+  }
+
+  var index = buildIndex();
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var query = normalize(input.value.trim());
+    if (!query) {
+      return;
+    }
+
+    var match = null;
+    for (var i = 0; i < index.length; i++) {
+      if (index[i].text.indexOf(query) !== -1) {
+        match = index[i];
+        break;
+      }
+    }
+
+    if (!match) {
+      alert("Aucune diapo ne contient ce terme.");
+      return;
+    }
+
+    window.location.hash = "#" + match.id;
+  });
+})();
+</script>
+
   </body>
 </html>
