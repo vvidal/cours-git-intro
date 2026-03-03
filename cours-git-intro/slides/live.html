@@ -3,6 +3,16 @@
 
 <html>
   <head>
+    <script type="text/javascript">
+      (function () {
+        var ua = navigator.userAgent || '';
+        var isAndroid = /Android/i.test(ua);
+        var isChrome = /Chrome\//i.test(ua) && !/EdgA\//i.test(ua);
+        if (isAndroid && isChrome) {
+          document.documentElement.className += ' force-mobile-single';
+        }
+      })();
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Introduction à GIT &mdash; Introduction à GIT</title>
@@ -140,6 +150,53 @@
           display: none !important;
         }
       }
+
+      html.force-mobile-single,
+      html.force-mobile-single body {
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+      }
+
+      html.force-mobile-single #slide_container.slides {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+      }
+
+      html.force-mobile-single #slide_container.slides > article {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        margin: 0 !important;
+        padding: 18px 18px 24px !important;
+        overflow: auto !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        transform: none !important;
+        -o-transform: none !important;
+        -moz-transform: none !important;
+        -webkit-transform: none !important;
+        transition: none !important;
+        -o-transition: none !important;
+        -moz-transition: none !important;
+        -webkit-transition: none !important;
+        display: none !important;
+      }
+
+      html.force-mobile-single #slide_container.slides > article.current {
+        display: block !important;
+        z-index: 2 !important;
+      }
+
+      html.force-mobile-single #slide_container .slide-area {
+        display: none !important;
+      }
     </style>
   </head>
   <body>
@@ -232,7 +289,8 @@
     });
 
     function enforceMobileSingleSlide() {
-      if (!(window.matchMedia && window.matchMedia('(max-width: 900px), (max-height: 740px)').matches)) {
+      var forceMobile = document.documentElement.className.indexOf('force-mobile-single') !== -1;
+      if (!forceMobile && !(window.matchMedia && window.matchMedia('(max-width: 900px), (max-height: 740px)').matches)) {
         return;
       }
       var container = document.getElementById('slide_container');
@@ -247,6 +305,11 @@
         } else {
           slides[i].style.display = 'none';
         }
+      }
+
+      var metas = document.querySelectorAll('meta[name="viewport"]');
+      for (var j = 0; j < metas.length; j++) {
+        metas[j].setAttribute('content', 'width=device-width,initial-scale=1,viewport-fit=cover');
       }
     }
 
