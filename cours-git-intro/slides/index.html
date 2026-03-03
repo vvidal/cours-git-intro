@@ -41,8 +41,43 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
     <link rel="top" title="Introduction à GIT" href="#" /> 
+    <style type="text/css">
+      .slides-searchbar {
+        position: fixed;
+        top: 10px;
+        right: 12px;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.75);
+        border-radius: 8px;
+        padding: 8px;
+      }
+
+      .slides-searchbar input[type="text"] {
+        width: 220px;
+        max-width: 45vw;
+        padding: 6px;
+        border: 1px solid #9ca3af;
+        border-radius: 4px;
+      }
+
+      .slides-searchbar input[type="submit"] {
+        padding: 6px 8px;
+        border: 0;
+        border-radius: 4px;
+        background: #2563eb;
+        color: #fff;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
+
+<div class="slides-searchbar">
+  <form action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher dans les bases Git" />
+    <input type="submit" value="Rechercher" />
+  </form>
+</div>
 
 <section
    id="slide_container"
