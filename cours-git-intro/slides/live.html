@@ -82,6 +82,64 @@
       .slides-searchbar a.portal-btn:hover {
         background: #1f2937;
       }
+
+      @media screen and (max-width: 900px), screen and (max-height: 740px) {
+        html,
+        body {
+          width: 100% !important;
+          height: 100% !important;
+          overflow: hidden !important;
+        }
+
+        #slide_container.slides {
+          position: fixed !important;
+          left: 0 !important;
+          top: 0 !important;
+          width: 100vw !important;
+          height: 100vh !important;
+          font-size: 20px !important;
+        }
+
+        #slide_container.slides > article {
+          position: absolute !important;
+          left: 0 !important;
+          top: 0 !important;
+          width: 100vw !important;
+          height: 100vh !important;
+          margin: 0 !important;
+          padding: 18px 18px 24px !important;
+          overflow: auto !important;
+          border: 0 !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+          transform: none !important;
+          -o-transform: none !important;
+          -moz-transform: none !important;
+          -webkit-transform: none !important;
+          transition: none !important;
+          -o-transition: none !important;
+          -moz-transition: none !important;
+          -webkit-transition: none !important;
+          display: none !important;
+        }
+
+        #slide_container.slides > article.current {
+          display: block !important;
+          z-index: 2 !important;
+        }
+
+        #slide_container.slides.table > article {
+          display: none !important;
+        }
+
+        #slide_container.slides.table > article.current {
+          display: block !important;
+        }
+
+        #slide_container .slide-area {
+          display: none !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -172,6 +230,29 @@
     form.addEventListener('click', function (event) {
       event.stopPropagation();
     });
+
+    function enforceMobileSingleSlide() {
+      if (!(window.matchMedia && window.matchMedia('(max-width: 900px), (max-height: 740px)').matches)) {
+        return;
+      }
+      var container = document.getElementById('slide_container');
+      if (!container) {
+        return;
+      }
+      container.classList.remove('table');
+      var slides = container.querySelectorAll('article.slide');
+      for (var i = 0; i < slides.length; i++) {
+        if (slides[i].classList.contains('current')) {
+          slides[i].style.display = 'block';
+        } else {
+          slides[i].style.display = 'none';
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', enforceMobileSingleSlide);
+    window.addEventListener('hashchange', enforceMobileSingleSlide);
+    window.setInterval(enforceMobileSingleSlide, 250);
   })();
 </script>
 
