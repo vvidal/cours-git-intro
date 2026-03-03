@@ -73,9 +73,10 @@
   <body>
 
 <div class="slides-searchbar">
-  <form id="slides-search-form" action="search.html" method="get" target="_self">
+  <form id="slides-search-form" action="#" method="get" target="_self">
     <input id="slides-search-input" type="text" name="q" placeholder="Rechercher dans les bases Git" />
-    <input type="submit" value="Rechercher" />
+    <input type="submit" value="Suivant" />
+    <span id="slides-search-status" style="color:#e5e7eb;font-size:12px;margin-left:6px;"></span>
   </form>
 </div>
 
@@ -83,17 +84,68 @@
   (function () {
     var form = document.getElementById('slides-search-form');
     var input = document.getElementById('slides-search-input');
+    var status = document.getElementById('slides-search-status');
+    var lastQuery = '';
+    var matches = [];
+    var matchCursor = -1;
+
+    function normalize(text) {
+      return (text || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function computeMatches(query) {
+      var normalizedQuery = normalize(query).trim();
+      var found = [];
+      var slideNodes = document.querySelectorAll('section.slides article.slide');
+      for (var i = 0; i < slideNodes.length; i++) {
+        var slideText = normalize(slideNodes[i].textContent || '');
+        if (normalizedQuery && slideText.indexOf(normalizedQuery) !== -1) {
+          found.push(i);
+        }
+      }
+      return found;
+    }
+
+    function goToSlide(slideIndex) {
+      if (window.SlideDeck && typeof window.SlideDeck.setLocation === 'function') {
+        window.SlideDeck.setLocation(slideIndex);
+      } else {
+        window.location.hash = '#' + (slideIndex + 1);
+      }
+    }
+
+    function nextMatch(query) {
+      if (!query) {
+        matches = [];
+        matchCursor = -1;
+        status.textContent = '';
+        return;
+      }
+
+      if (query !== lastQuery) {
+        matches = computeMatches(query);
+        matchCursor = -1;
+        lastQuery = query;
+      }
+
+      if (!matches.length) {
+        status.textContent = 'Aucun résultat';
+        return;
+      }
+
+      matchCursor = (matchCursor + 1) % matches.length;
+      goToSlide(matches[matchCursor]);
+      status.textContent = (matchCursor + 1) + '/' + matches.length;
+    }
     if (!form || !input) {
       return;
     }
     form.addEventListener('submit', function (event) {
       event.preventDefault();
-      var query = (input.value || '').trim();
-      var target = new URL('search.html', window.location.href);
-      if (query) {
-        target.searchParams.set('q', query);
-      }
-      window.location.assign(target.toString());
+      nextMatch((input.value || '').trim());
     });
 
     ['keydown', 'keypress', 'keyup'].forEach(function (eventName) {
