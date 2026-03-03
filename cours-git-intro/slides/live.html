@@ -93,6 +93,20 @@
         background: #1f2937;
       }
 
+      .slides-searchbar button.fs-btn {
+        padding: 6px 8px;
+        border: 0;
+        border-radius: 4px;
+        background: #475569;
+        color: #fff;
+        cursor: pointer;
+        margin-left: 6px;
+      }
+
+      .slides-searchbar button.fs-btn:hover {
+        background: #334155;
+      }
+
       @media screen and (max-width: 900px), screen and (max-height: 740px) {
         html,
         body {
@@ -206,6 +220,7 @@
     <input id="slides-search-input" type="text" name="q" placeholder="Rechercher dans les bases Git" />
     <input type="submit" value="Suivant" />
     <a class="portal-btn" href="../../index.html">Portail</a>
+    <button class="fs-btn" id="slides-fs-btn" type="button">Plein écran</button>
     <span id="slides-search-status" style="color:#e5e7eb;font-size:12px;margin-left:6px;"></span>
   </form>
 </div>
@@ -215,6 +230,7 @@
     var form = document.getElementById('slides-search-form');
     var input = document.getElementById('slides-search-input');
     var status = document.getElementById('slides-search-status');
+    var fsBtn = document.getElementById('slides-fs-btn');
     var lastQuery = '';
     var matches = [];
     var matchCursor = -1;
@@ -287,6 +303,31 @@
     form.addEventListener('click', function (event) {
       event.stopPropagation();
     });
+
+    function updateFsLabel() {
+      if (!fsBtn) {
+        return;
+      }
+      fsBtn.textContent = document.fullscreenElement ? 'Quitter plein écran' : 'Plein écran';
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen && document.exitFullscreen();
+      }
+    }
+
+    if (fsBtn) {
+      fsBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleFullscreen();
+      });
+      document.addEventListener('fullscreenchange', updateFsLabel);
+      updateFsLabel();
+    }
 
     function enforceMobileSingleSlide() {
       var forceMobile = document.documentElement.className.indexOf('force-mobile-single') !== -1;
