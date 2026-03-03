@@ -68,6 +68,20 @@
         color: #fff;
         cursor: pointer;
       }
+
+      .slides-searchbar a.portal-btn {
+        display: inline-block;
+        padding: 6px 8px;
+        border-radius: 4px;
+        background: #334155;
+        color: #fff;
+        text-decoration: none;
+        margin-left: 6px;
+      }
+
+      .slides-searchbar a.portal-btn:hover {
+        background: #1f2937;
+      }
     </style>
   </head>
   <body>
@@ -76,6 +90,7 @@
   <form id="slides-search-form" action="#" method="get" target="_self">
     <input id="slides-search-input" type="text" name="q" placeholder="Rechercher dans les bases Git" />
     <input type="submit" value="Suivant" />
+    <a class="portal-btn" href="../../index.html">Portail</a>
     <span id="slides-search-status" style="color:#e5e7eb;font-size:12px;margin-left:6px;"></span>
   </form>
 </div>
