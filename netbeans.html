@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Git dans Apache NetBeans (2h)</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0b1020;
+        color: #f8fafc;
+        overflow: hidden;
+      }
+
+      .deck {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+
+      .slide {
+        width: 100vw;
+        height: 100vh;
+        display: none;
+        padding: 48px 64px;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      }
+
+      .slide.active {
+        display: block;
+      }
+
+      h1,
+      h2 {
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 18px;
+      }
+
+      p,
+      li {
+        font-size: 1.2rem;
+        line-height: 1.45;
+      }
+
+      ul,
+      ol {
+        margin-top: 10px;
+      }
+
+      pre {
+        background: #020617;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        padding: 14px;
+        overflow-x: auto;
+      }
+
+      code {
+        font-family: Consolas, "Courier New", monospace;
+        color: #93c5fd;
+      }
+
+      .subtitle {
+        color: #cbd5e1;
+      }
+
+      .toolbar {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .toolbar button,
+      .toolbar a {
+        border: 0;
+        border-radius: 8px;
+        background: #1d4ed8;
+        color: white;
+        padding: 10px 12px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+
+      .toolbar button:hover,
+      .toolbar a:hover {
+        background: #1e40af;
+      }
+
+      .counter {
+        position: fixed;
+        left: 16px;
+        bottom: 16px;
+        color: #cbd5e1;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="deck" id="deck">
+      <section class="slide active">
+        <h1>Git dans Apache NetBeans (2h)</h1>
+        <p class="subtitle">Suite du cours après les 4h de bases Git</p>
+        <ul>
+          <li>Flèches clavier : slide précédente/suivante.</li>
+          <li>Touche F : activer/désactiver le plein écran.</li>
+          <li>Touche Home : revenir à la première slide.</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Objectifs du module</h2>
+        <ul>
+          <li>Relier les actions Git de la ligne de commande aux actions NetBeans.</li>
+          <li>Réaliser un cycle complet : modifier, commit, push, pull.</li>
+          <li>Gérer une branche et résoudre un conflit simple.</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Pré-requis</h2>
+        <ul>
+          <li>Avoir suivi le module "Bases de Git (4h)".</li>
+          <li>Avoir un dépôt local déjà configuré (nom/email/remote).</li>
+          <li>Connaître status, add, commit, push, pull, branch, merge.</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Étape 1 : créer le projet Java</h2>
+        <ul>
+          <li>Dans NetBeans : Fichier &gt; Nouveau projet.</li>
+          <li>Choisir Java avec Ant ou Maven selon le besoin.</li>
+          <li>Créer une structure claire dès le départ (nom de projet explicite).</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Étape 2 : initialiser Git dans NetBeans</h2>
+        <ol>
+          <li>Clic droit sur le projet.</li>
+          <li>Versioning &gt; Initialize Git Repository.</li>
+          <li>Vérifier la création du dépôt local (<code>.git</code>).</li>
+        </ol>
+      </section>
+
+      <section class="slide">
+        <h2>Étape 3 : configurer identité Git</h2>
+        <p><strong>Option terminal (globale, une seule fois)</strong></p>
+        <pre><code>git config --global user.name "Votre Nom"
+git config --global user.email "votre.email@example.com"</code></pre>
+        <p><strong>Option NetBeans (locale, prioritaire)</strong></p>
+        <ol>
+          <li>Clic droit sur le projet &gt; Git &gt; Repository &gt; Open Configuration.</li>
+          <li>Copier ce bloc à la fin du fichier de configuration ouvert, puis enregistrer :</li>
+        </ol>
+        <pre><code>[user]
+    name = Votre Nom
+    email = votre.email@example.com</code></pre>
+      </section>
+
+      <section class="slide">
+        <h2>Étape 4 : premier commit</h2>
+        <ol>
+          <li>Créer/adapter <code>.gitignore</code> avant le premier commit.</li>
+          <li>Clic droit sur le projet &gt; Git &gt; Commit…</li>
+          <li>Sélectionner les fichiers, écrire un message clair, valider.</li>
+        </ol>
+        <p><strong>Voir l'historique :</strong> Git &gt; Show History.</p>
+        <p><strong>Exemple .gitignore (Java/NetBeans)</strong></p>
+        <pre><code>target/
+build/
+nbproject/private/
+.idea/
+*.iml
+*.ipr
+*.iws
+*.properties
+*.xml.local
+*.log
+*.tmp
+.DS_Store
+lib/
+*.jar</code></pre>
+      </section>
+
+  <section class="slide">
+        <h2>Étape 5 : lier un dépôt distant</h2>
+        <p><strong>Option terminal</strong></p>
+        <pre><code>git remote add origin https://forge.univ-lyon1.fr/&lt;identifiant&gt;/&lt;depot&gt;.git
+git push -u origin master</code></pre>
+        <p>Utiliser <code>main</code> au lieu de <code>master</code> si nécessaire.</p>
+        <p><strong>Option NetBeans</strong></p>
+        <ol>
+          <li>Clic droit sur le projet &gt; Git &gt; Remote &gt; Push…</li>
+          <li>Renseigner URL et identifiants (PAT recommandé : Personal Access Token, jeton personnel d'accès).</li>
+          <li>Choisir branche de suivi (master ou main, rester cohérent).</li>
+        </ol>
+        <p>Push suivants : Git &gt; Remote &gt; Push to Upstream.</p>
+      </section>
+
+      <section class="slide">
+        <h2>Étape 6 : travail quotidien</h2>
+        <p><strong>Après modifications locales</strong></p>
+        <ol>
+          <li>Git &gt; Commit…</li>
+          <li>Si la branche distante a avancé : Git &gt; Remote &gt; Pull from Upstream, résoudre les conflits si besoin, puis Git &gt; Remote &gt; Push to Upstream.</li>
+          <li>Si la branche distante n'a pas avancé : Git &gt; Remote &gt; Push to Upstream (ou Push…).</li>
+        </ol>
+        <p><strong>Pour récupérer des changements</strong></p>
+        <ol>
+          <li>Git &gt; Remote &gt; Pull from Upstream (ou Pull…).</li>
+        </ol>
+      </section>
+
+      <section class="slide">
+        <h2>Conseils et vérifications</h2>
+        <ul>
+          <li>Commiter souvent (un commit = modifications cohérentes).</li>
+          <li>Toujours renseigner un message de commit explicite.</li>
+          <li>Vérifier l'identité Git active :</li>
+        </ul>
+        <pre><code>git config user.name
+git config user.email</code></pre>
+        <p>Un dépôt local peut pointer vers plusieurs remotes (GitHub, GitLab, Forge, fork).</p>
+      </section>
+
+      <section class="slide">
+        <h2>Cloner un projet existant</h2>
+        <ul>
+          <li>Dans NetBeans : Team &gt; Git &gt; Clone…</li>
+          <li>Renseigner l'URL du dépôt distant.</li>
+          <li>Choisir le dossier local et la branche à ouvrir.</li>
+          <li>Construire puis lancer le projet pour valider l'environnement.</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Exercice collaboratif (30 à 45 min)</h2>
+        <p><strong>Projet :</strong> mini application Java de gestion de bibliothèque.</p>
+        <ul>
+          <li>Objectif : produire une version compilable en fin de séance.</li>
+          <li>Fonctions minimales : ajouter, supprimer, afficher des livres.</li>
+          <li>Contrainte : chaque membre travaille sur une branche dédiée.</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Répartition des tâches</h2>
+        <ul>
+          <li><strong>Chef de projet / Intégrateur :</strong> valide les interfaces, arbitre les choix techniques, coordonne les merges.</li>
+          <li><strong>Équipe 1 :</strong> classe <code>Book</code> (title, author, ISBN).</li>
+          <li><strong>Équipe 2 :</strong> classe <code>Library</code> (collection + méthodes).</li>
+          <li><strong>Équipe 3 :</strong> interface CLI (menu, saisie, actions).</li>
+          <li><strong>Équipe 4 :</strong> tests unitaires (JUnit) sur <code>Book</code>/<code>Library</code>.</li>
+          <li><strong>Équipe 5 :</strong> README + JavaDoc + <code>.gitignore</code>.</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Contrat d'interfaces (obligatoire)</h2>
+        <p><strong>But :</strong> chaque équipe développe une partie compatible avec les autres.</p>
+        <p><strong>Classe <code>Book</code> (public minimum)</strong></p>
+        <pre><code>public class Book {
+    public Book(String title, String author, String isbn)
+    public String getTitle()
+    public String getAuthor()
+    public String getIsbn()
+    public void setTitle(String title)
+    public void setAuthor(String author)
+    public void setIsbn(String isbn)
+    public String toString()
+}</code></pre>
+        <p><strong>Classe <code>Library</code> (public minimum)</strong></p>
+        <pre><code>public class Library {
+    public void addBook(Book book)
+    public boolean removeBookByIsbn(String isbn)
+    public Book findBookByIsbn(String isbn)
+    public java.util.List&lt;Book&gt; listBooks()
+    public int countBooks()
+}</code></pre>
+        <p><strong>Règle :</strong> aucune équipe ne modifie ces signatures sans validation du chef de projet.</p>
+      </section>
+
+      <section class="slide">
+        <h2>Workflow Git attendu</h2>
+        <ol>
+          <li>Cloner le dépôt partagé.</li>
+        </ol>
+        <pre><code>git clone https://forge.univ-lyon1.fr/&lt;identifiant&gt;/&lt;depot&gt;.git</code></pre>
+        <ol start="2">
+          <li>Créer une branche personnelle.</li>
+        </ol>
+        <pre><code>git checkout -b prenom-tache</code></pre>
+        <ol start="3">
+          <li>Commiter régulièrement, puis pousser la branche.</li>
+        </ol>
+        <pre><code>git add .
+git commit -m "message clair"
+git push origin prenom-tache</code></pre>
+        <ol start="4">
+          <li>Le chef de projet relit les Merge Requests et ne fusionne que les branches compatibles avec l'architecture décidée.</li>
+        </ol>
+      </section>
+
+      <section class="slide">
+        <h2>Fusion et critères de réussite</h2>
+        <ul>
+          <li>Fusion via Merge Request / Pull Request vers la branche principale.</li>
+          <li>En cas de conflit : Pull, résolution locale, nouveau commit, Push.</li>
+          <li>Le projet doit compiler et lancer un scénario de démonstration.</li>
+          <li>L'historique montre des commits lisibles et une contribution de chaque membre.</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Fin du module</h2>
+        <ul>
+          <li>Cycle attendu en autonomie : Commit puis synchronisation avec la branche distante (Pull si nécessaire, puis Push).</li>
+          <li>Penser à garder des commits petits, lisibles et réguliers.</li>
+          <li>Retour au portail pour revoir les bases ou télécharger le plan.</li>
+        </ul>
+      </section>
+
+      <div class="counter" id="counter">1 / 12</div>
+
+      <div class="toolbar">
+        <a href="index.html">Portail</a>
+        <button id="prevBtn" type="button">← Précédent</button>
+        <button id="nextBtn" type="button">Suivant →</button>
+        <button id="fsBtn" type="button">Plein écran</button>
+      </div>
+    </main>
+
+    <script>
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const counter = document.getElementById('counter');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const fsBtn = document.getElementById('fsBtn');
+      let current = 0;
+
+      function renderSlide(index) {
+        current = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === current);
+        });
+        counter.textContent = `${current + 1} / ${slides.length}`;
+        location.hash = `slide-${current + 1}`;
+      }
+
+      function nextSlide() {
+        renderSlide(current + 1);
+      }
+
+      function prevSlide() {
+        renderSlide(current - 1);
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      }
+
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+      fsBtn.addEventListener('click', toggleFullscreen);
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' || event.key === 'PageDown') {
+          nextSlide();
+        }
+        if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+          prevSlide();
+        }
+        if (event.key.toLowerCase() === 'f') {
+          toggleFullscreen();
+        }
+        if (event.key === 'Home') {
+          renderSlide(0);
+        }
+      });
+
+      const match = /^#slide-(\d+)$/.exec(location.hash || '');
+      if (match) {
+        renderSlide(Number(match[1]) - 1);
+      } else {
+        renderSlide(0);
+      }
+    </script>
+  </body>
+</html>

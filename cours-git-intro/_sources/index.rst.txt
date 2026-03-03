@@ -1740,6 +1740,66 @@ alors n'hésitez pas à utiliser abondamment ces outils,
 même pour vos petits projets...
 
 
+Suite du cours : Git avec Apache NetBeans
+=========================================
+
+Objectifs (2h)
++++++++++++++++
+
+* Relier les commandes GIT vues en cours à leur équivalent dans un IDE.
+* Travailler un flux complet sans quitter Apache NetBeans.
+* Comprendre ce que fait l'interface graphique (et ses limites).
+
+Pré-requis
+++++++++++
+
+* Dépôt local déjà créé et configuré (nom / email / remote).
+* Connaissances des commandes de base : ``status``, ``add``, ``commit``,
+   ``push``, ``pull``, ``branch``, ``merge``.
+
+Déroulé proposé
++++++++++++++++
+
+* **Bloc 1 (25 min)** — Connexion de NetBeans à un dépôt existant
+
+   - ouvrir un projet versionné,
+   - visualiser les changements,
+   - filtrer les fichiers modifiés.
+
+* **Bloc 2 (35 min)** — Cycle quotidien
+
+   - stage / unstage,
+   - commit avec message explicite,
+   - push / pull avec résolution de conflits simples.
+
+* **Bloc 3 (35 min)** — Branches et intégration
+
+   - créer une branche de fonctionnalité,
+   - comparer deux branches,
+   - fusionner vers la branche principale.
+
+* **Bloc 4 (25 min)** — Atelier guidé
+
+   - mini-travail en binôme,
+   - 1 conflit volontaire à résoudre,
+   - vérification finale de l'historique.
+
+Bonnes pratiques à marteler
++++++++++++++++++++++++++++
+
+* Le message de commit doit répondre à : « qu'est-ce qui change et pourquoi ? ».
+* Commits petits et fréquents, plutôt qu'un gros commit de fin de séance.
+* Vérifier l'onglet de diff avant chaque commit.
+* En cas de doute, revenir à la ligne de commande pour diagnostiquer.
+
+Évaluation formative (fin de séance)
+++++++++++++++++++++++++++++++++++++
+
+* L'étudiant sait expliquer la différence entre *working tree*, index et commit.
+* L'étudiant sait créer une branche, committer puis fusionner.
+* L'étudiant sait résoudre un conflit simple et pousser le résultat.
+
+
 Crédits
 =======
 

@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6fb;
+  color: #1f2a44;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  margin-top: 0;
+  color: #4b5877;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #dce3f0;
+  border-radius: 10px;
+  padding: 18px;
+  margin-top: 16px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  background: #1d4ed8;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.button:hover,
+.button:focus {
+  background: #1e40af;
+}
+
+.button.secondary {
+  background: #334155;
+}
+
+.button.secondary:hover,
+.button.secondary:focus {
+  background: #1f2937;
+}
+
+.teacher ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+code {
+  font-family: Consolas, "Courier New", monospace;
+}
+
+ol,
+ul {
+  line-height: 1.5;
+}
