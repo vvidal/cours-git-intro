@@ -43,10 +43,128 @@
     <link rel="search" title="Recherche" href="#" />
     <link rel="top" title="Introduction à GIT" href="index.html" />
   <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
+    (function () {
+      function normalize(text) {
+        return (text || '')
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+      }
+
+      function getQueryParam(name) {
+        var params = new URLSearchParams(window.location.search);
+        return params.get(name) || '';
+      }
+
+      function renderResults(results, query) {
+        var container = document.getElementById('search-results');
+        container.innerHTML = '';
+        var title = document.createElement('h2');
+        title.textContent = 'Résultats pour : "' + query + '"';
+        container.appendChild(title);
+
+        if (!results.length) {
+          var empty = document.createElement('p');
+          empty.textContent = 'Aucun résultat.';
+          container.appendChild(empty);
+          return;
+        }
+
+        var list = document.createElement('ul');
+        results.forEach(function (item) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = item.href;
+          a.textContent = item.title;
+          var p = document.createElement('p');
+          p.textContent = item.snippet;
+          li.appendChild(a);
+          li.appendChild(p);
+          list.appendChild(li);
+        });
+        container.appendChild(list);
+      }
+
+      function extractSections(htmlText) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(htmlText, 'text/html');
+        var sections = [];
+        var nodes = doc.querySelectorAll('h1, h2, h3, h4');
+        for (var i = 0; i < nodes.length; i++) {
+          var node = nodes[i];
+          var id = node.parentElement && node.parentElement.id ? node.parentElement.id : '';
+          var title = node.textContent.trim();
+          var text = (node.parentElement ? node.parentElement.textContent : node.textContent) || '';
+          sections.push({
+            title: title || 'Section',
+            href: 'index.html' + (id ? ('#' + id) : ''),
+            text: text.replace(/\s+/g, ' ').trim()
+          });
+        }
+        if (!sections.length) {
+          sections.push({ title: 'Introduction à GIT', href: 'index.html', text: doc.body.textContent.replace(/\s+/g, ' ').trim() });
+        }
+        return sections;
+      }
+
+      function runSearch(query) {
+        var q = normalize(query).trim();
+        if (!q) {
+          document.getElementById('search-results').innerHTML = '';
+          return;
+        }
+        fetch('index.html')
+          .then(function (resp) { return resp.text(); })
+          .then(function (html) {
+            var sections = extractSections(html);
+            var results = [];
+            for (var i = 0; i < sections.length; i++) {
+              var section = sections[i];
+              var normalizedText = normalize(section.text);
+              var idx = normalizedText.indexOf(q);
+              if (idx >= 0) {
+                var start = Math.max(0, idx - 60);
+                var end = Math.min(section.text.length, idx + q.length + 60);
+                results.push({
+                  title: section.title,
+                  href: section.href,
+                  snippet: '...' + section.text.slice(start, end).trim() + '...'
+                });
+              }
+            }
+            renderResults(results.slice(0, 30), query);
+          })
+          .catch(function () {
+            document.getElementById('search-results').innerHTML = '<p>Erreur de chargement de la recherche.</p>';
+          });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var fallback = document.getElementById('fallback');
+        if (fallback) {
+          fallback.style.display = 'none';
+        }
+        var form = document.querySelector('form[action=""]');
+        var input = form ? form.querySelector('input[name="q"]') : null;
+        if (!form || !input) {
+          return;
+        }
+        var initial = getQueryParam('q');
+        if (initial) {
+          input.value = initial;
+          runSearch(initial);
+        }
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var value = input.value || '';
+          var url = new URL(window.location.href);
+          url.searchParams.set('q', value);
+          history.replaceState({}, '', url.toString());
+          runSearch(value);
+        });
+      });
+    })();
   </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
 
   </head>
@@ -59,7 +177,6 @@
 
   <h1 id="search-documentation">Recherche</h1>
   <div id="fallback" class="admonition warning">
-  <script type="text/javascript">$('#fallback').hide();</script>
   <p>
     Veuillez activer le JavaScript pour que la recherche fonctionne.
   </p>
