@@ -95,6 +95,16 @@
       }
       window.location.assign(target.toString());
     });
+
+    ['keydown', 'keypress', 'keyup'].forEach(function (eventName) {
+      input.addEventListener(eventName, function (event) {
+        event.stopPropagation();
+      });
+    });
+
+    form.addEventListener('click', function (event) {
+      event.stopPropagation();
+    });
   })();
 </script>
 
