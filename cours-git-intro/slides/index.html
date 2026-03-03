@@ -73,11 +73,30 @@
   <body>
 
 <div class="slides-searchbar">
-  <form action="search.html" method="get">
-    <input type="text" name="q" placeholder="Rechercher dans les bases Git" />
+  <form id="slides-search-form" action="search.html" method="get" target="_self">
+    <input id="slides-search-input" type="text" name="q" placeholder="Rechercher dans les bases Git" />
     <input type="submit" value="Rechercher" />
   </form>
 </div>
+
+<script type="text/javascript">
+  (function () {
+    var form = document.getElementById('slides-search-form');
+    var input = document.getElementById('slides-search-input');
+    if (!form || !input) {
+      return;
+    }
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var query = (input.value || '').trim();
+      var target = new URL('search.html', window.location.href);
+      if (query) {
+        target.searchParams.set('q', query);
+      }
+      window.location.assign(target.toString());
+    });
+  })();
+</script>
 
 <section
    id="slide_container"
