@@ -39,6 +39,7 @@ h1 {
   margin-top: 12px;
 }
 
+
 .button {
   display: inline-block;
   text-decoration: none;
@@ -46,11 +47,19 @@ h1 {
   color: #ffffff;
   padding: 10px 14px;
   border-radius: 8px;
+  transition: background 0.2s, box-shadow 0.2s;
+  /* Empêche l'agrandissement des boutons au hover */
+  font-size: 1rem;
+  min-width: 180px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .button:hover,
 .button:focus {
   background: #1e40af;
+  /* Ajoute un léger effet visuel sans changer la taille */
+  box-shadow: 0 2px 8px 0 rgba(30,64,175,0.10);
 }
 
 .button.secondary {
