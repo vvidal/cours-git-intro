@@ -33,11 +33,22 @@ h1 {
 }
 
 .actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   margin-top: 12px;
-  justify-content: space-between;
+}
+
+@media (max-width: 900px) {
+  .actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .actions {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (min-width: 600px) {
@@ -53,18 +64,18 @@ h1 {
 
 
 .button {
-  display: inline-block;
+  display: block;
   text-decoration: none;
   background: #1d4ed8;
   color: #ffffff;
   padding: 10px 14px;
   border-radius: 8px;
   transition: background 0.2s, box-shadow 0.2s;
-  /* Empêche l'agrandissement des boutons au hover */
   font-size: 1rem;
-  min-width: 180px;
+  min-width: 0;
   text-align: center;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .button:hover,
