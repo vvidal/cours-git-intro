@@ -60,6 +60,14 @@
         background: rgba(0, 0, 0, 0.75);
         border-radius: 8px;
         padding: 8px;
+        touch-action: none;
+        user-select: none;
+        cursor: grab;
+        transition: box-shadow 0.2s;
+      }
+      .slides-searchbar.dragging {
+        box-shadow: 0 4px 24px 0 #0008;
+        cursor: grabbing;
       }
 
       .slides-searchbar input[type="text"] {
@@ -227,6 +235,51 @@
 
 <script type="text/javascript">
   (function () {
+    // --- DRAGGABLE SEARCHBAR ---
+    var searchbar = document.querySelector('.slides-searchbar');
+    if (searchbar) {
+      var offset = { x: 0, y: 0 };
+      var dragging = false;
+      var start = { x: 0, y: 0 };
+      var barStart = { x: 0, y: 0 };
+      function setBarPos(x, y) {
+        searchbar.style.left = x + 'px';
+        searchbar.style.top = y + 'px';
+        searchbar.style.right = 'auto';
+      }
+      function onPointerDown(e) {
+        dragging = true;
+        searchbar.classList.add('dragging');
+        start.x = (e.touches ? e.touches[0].clientX : e.clientX);
+        start.y = (e.touches ? e.touches[0].clientY : e.clientY);
+        var rect = searchbar.getBoundingClientRect();
+        barStart.x = rect.left;
+        barStart.y = rect.top;
+        document.addEventListener('mousemove', onPointerMove);
+        document.addEventListener('mouseup', onPointerUp);
+        document.addEventListener('touchmove', onPointerMove, {passive:false});
+        document.addEventListener('touchend', onPointerUp);
+      }
+      function onPointerMove(e) {
+        if (!dragging) return;
+        var x = (e.touches ? e.touches[0].clientX : e.clientX);
+        var y = (e.touches ? e.touches[0].clientY : e.clientY);
+        var dx = x - start.x;
+        var dy = y - start.y;
+        setBarPos(barStart.x + dx, barStart.y + dy);
+        e.preventDefault && e.preventDefault();
+      }
+      function onPointerUp(e) {
+        dragging = false;
+        searchbar.classList.remove('dragging');
+        document.removeEventListener('mousemove', onPointerMove);
+        document.removeEventListener('mouseup', onPointerUp);
+        document.removeEventListener('touchmove', onPointerMove);
+        document.removeEventListener('touchend', onPointerUp);
+      }
+      searchbar.addEventListener('mousedown', onPointerDown);
+      searchbar.addEventListener('touchstart', onPointerDown, {passive:false});
+    }
     var form = document.getElementById('slides-search-form');
     var input = document.getElementById('slides-search-input');
     var status = document.getElementById('slides-search-status');
