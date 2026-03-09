@@ -33,34 +33,14 @@ h1 {
 }
 
 .actions {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   margin-top: 12px;
 }
 
-@media (max-width: 900px) {
-  .actions {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
-@media (max-width: 600px) {
-  .actions {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (min-width: 600px) {
-  .actions {
-    flex-wrap: nowrap;
-  }
-  .actions .button {
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 100%;
-  }
-}
 
 
 .button {
