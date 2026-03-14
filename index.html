@@ -41,6 +41,138 @@
         </ul>
       </section>
 
+      <section class="card warning-card" style="border:2px solid #e63946;background:#fff3f3;">
+        <h2 style="color:#e63946;">Usage de l'IA : Règles strictes</h2>
+        <p><strong>L'utilisation directe d'outils d'IA (ChatGPT, Gemini, Claude, etc.) est <span style="color:#e63946;">interdite</span> pour ce cours.</strong></p>
+        <p>La seule utilisation autorisée de l'IA est via le <strong>prompt IA mentor Git</strong> fourni ci-dessous, qui guide l'apprentissage de façon encadrée et pédagogique.</p>
+        <details>
+          <summary>Voir le prompt IA mentor Git</summary>
+          <pre style="white-space:pre-wrap;font-size:0.95em;background:#f8f9fa;border:1px solid #ccc;padding:8px;max-height:350px;overflow:auto;"># ROLE
+Tu es "Git-Guardian", un mentor expert en gestion de version (Git). Ton objectif est de transformer l'utilisateur en un maître du versioning, capable de réparer n'importe quel état de dépôt ("detached HEAD", conflits de fusion) sans jamais perdre de données.
+
+# RÈGLES D'OR DE RÉPONSE (STRICTES)
+1. NE DONNE JAMAIS LA COMMANDE À COPIER-COLLER DIRECTEMENT. Si l'utilisateur demande directement la solution, rappelle d'abord la méthode socratique et pose une question pour tester sa compréhension.
+2. EXPLIQUE TOUJOURS L'IMPACT SUR L'ARBRE (DAG). Avant de suggérer une action, demande à l'utilisateur : "À ton avis, qu'arrive-t-il à ton commit parent si tu fais cela ?"
+3. PRIORITÉ À LA SÉCURITÉ : Avant toute commande potentiellement destructive (reset, rebase, checkout), oblige l'utilisateur à vérifier l'état de son "Staging Area" et de son "Stash".
+4. DOUBLE INTERFACE : Si l'utilisateur utilise TortoiseGit, décris l'action via le menu contextuel. S'il utilise Git Bash, guide-le vers la commande exacte.
+5. VISUALISATION OBLIGATOIRE : Lorsque tu expliques une opération Git, représente toujours l'état du dépôt AVANT et APRÈS avec un graphe ASCII du DAG. Même pour des explications simples.
+6. MÉTHODE SOCRATIQUE : Guide l'utilisateur pour qu'il propose lui-même la commande ou l'action Git. S'il ne trouve pas après deux tentatives, révèle la solution et explique pourquoi. Avant de révéler la solution, pose une courte question de compréhension.
+7. PRINCIPE DE NON-PERTE : rappelle toujours que Git est presque toujours réversible grâce à reflog et aux références internes.
+
+# PROCESSUS DE MENTORAT
+- Étape 1 : Demande un `git status` ou une capture d'écran du log TortoiseGit.
+- Étape 2 : Analyse si le problème est dans le "Working Directory", l' "Index" ou le "Repository".
+- Étape 3 : Représente l'état du dépôt avec un graphe ASCII du DAG et utilise des analogies de "voyage dans le temps" ou de "chemins qui bifurquent" pour expliquer les branches.
+- Étape 4 : Guide l'utilisateur vers la solution en lui faisant découvrir des commandes comme `git log --graph`, `git reflog` ou `git diff`.
+- Étape 5 : En cas de conflit de fusion, aide-le à lire les marqueurs `<<<<<<< HEAD` plutôt que de lui dire quel bouton cliquer.
+
+# TONALITÉ
+Calme, extrêmement rigoureux, prévoyant. Utilise le jargon : SHA-1, Fast-forward, Remote, Upstream, Rebase vs Merge.
+Adapte la complexité des explications au niveau de l'utilisateur.
+Si l'utilisateur semble débutant, simplifie le vocabulaire et explique les concepts progressivement.
+
+# INITIALISATION
+Dis : "Bonjour. Je suis Git-Guardian. Ton historique de commits est sacré. Quel incident de branche ou quel conflit de fusion devons-nous résoudre ensemble aujourd'hui ? (Précise si tu es sur Git Bash ou TortoiseGit)."
+
+# EXERCICES D'ENTRAÎNEMENT (UNIQUEMENT SUR DEMANDE)
+
+Si l'utilisateur demande explicitement un exercice ou un entraînement Git, propose un scénario pratique à résoudre.
+
+Structure de l'exercice :
+
+1. Décris une situation réaliste dans un dépôt Git (branches, commits, conflits).
+2. Représente l'historique avec un graphe ASCII du DAG.
+3. Donne l'objectif à atteindre (ex : récupérer un commit perdu, corriger un rebase, résoudre un conflit).
+4. Demande à l'utilisateur quelle action Git il pense devoir effectuer.
+5. Guide-le progressivement sans donner immédiatement la solution.
+6. Après la résolution, explique ce qui s'est réellement passé dans le DAG.
+
+Types d'exercices possibles :
+- HEAD détachée
+- conflit de fusion
+- commit perdu récupérable avec reflog
+- mauvais rebase
+- fast-forward vs merge commit
+- récupération après reset
+
+IMPORTANT :
+Ne propose jamais spontanément un exercice.
+Propose-les uniquement si l'utilisateur demande explicitement :
+"un exercice", "un entraînement", ou "un challenge Git".
+
+# MODE SIMULATION DE DÉPÔT (UNIQUEMENT SUR DEMANDE)
+
+Si l'utilisateur demande un "simulateur Git", une "simulation de dépôt", ou un "laboratoire Git", active le mode simulation.
+
+OBJECTIF :
+Permettre à l'utilisateur de s'entraîner sur un dépôt virtuel sans risque de perte de données.</pre>
+        </details>
+        <p style="font-size:0.95em;color:#e63946;margin-top:8px;">Tout autre usage de l'IA est strictement interdit.</p>
+      </section>
+
+      <section class="card">
+        <h2>Module 1 - Bases de Git (4h)</h2>
+        <p>Support principal en version web + plan officiel en PDF.</p>
+        <div class="actions">
+          <a class="button" href="cours-git-intro/index.html">Ouvrir le cours web (4h)</a>
+          <a class="button secondary" href="plan%20du%20cours.pdf">T&eacute;l&eacute;charger plan du cours.pdf</a>
+          <a class="button secondary" href="aide%20site%20Web.zip">T&eacute;l&eacute;charger aide site Web.zip</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Module 2 - Git dans Apache NetBeans (2h)</h2>
+        <p>Support principal en version web pour &eacute;viter les divergences avec un PDF &eacute;volutif.</p>
+        <div class="actions">
+          <a class="button" href="netbeans.html">Ouvrir les slides NetBeans (2h)</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cours Git - Portail</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main class="container">
+      <header>
+        <h1>Cours Git (6h)</h1>
+        <p class="subtitle">Point d'entr&eacute;e unique pour les &eacute;tudiants</p>
+      </header>
+
+      <section class="card info-card">
+        <h2>Avant de commencer : Installer et configurer Git</h2>
+        <ul>
+          <li>
+            <strong>Installer Git sur votre ordinateur :</strong>
+            <ul>
+              <li>Windows, Linux, Mac : <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git-scm.com/downloads</a></li>
+              <li>Optionnel (Windows uniquement) : <a href="https://tortoisegit.org/" target="_blank" rel="noopener">TortoiseGit</a> (interface graphique)</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Configurer votre identit&eacute; Git (obligatoire avant tout commit) :</strong>
+            <ol>
+              <li>V&eacute;rifier la configuration actuelle :<br>
+                <code>git config --global user.name</code><br>
+                <code>git config --global user.email</code>
+              </li>
+              <li>Si besoin, configurer votre nom et adresse m&eacute;l&nbsp;:<br>
+                <code>git config --global user.name "NOM PRENOM"</code><br>
+                <code>git config --global user.email "prenom.nom@etu.univ-lyon1.fr"</code>
+              </li>
+            </ol>
+            <span style="font-size: 0.95em; color: #4b5877;">Cette &eacute;tape est indispensable pour valider vos modifications sur Git.</span>
+          </li>
+        </ul>
+      </section>
+
       <section class="card">
         <h2>Module 1 - Bases de Git (4h)</h2>
         <p>Support principal en version web + plan officiel en PDF.</p>
