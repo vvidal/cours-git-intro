@@ -80,15 +80,15 @@ h1 {
 }
 
 .button.secondary:hover,
+.button.secondary:focus {
+  background: #1f2937;
+}
 
 .info-card {
   border-left: 6px solid #1d4ed8;
   background: #eaf1ff;
   margin-top: 28px;
   margin-bottom: 18px;
-}
-.button.secondary:focus {
-  background: #1f2937;
 }
 
 .teacher ul {
