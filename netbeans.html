@@ -153,7 +153,7 @@
         <h2>Étape 1 : créer le projet Java</h2>
         <ul>
           <li>Dans NetBeans : Fichier &gt; Nouveau projet.</li>
-          <li>Choisir Java avec Ant ou Maven selon le besoin.</li>
+          <li>Choisir Java Application avec Ant ou Maven selon le besoin.</li>
           <li>Créer une structure claire dès le départ (nom de projet explicite).</li>
         </ul>
       </section>
@@ -185,26 +185,65 @@ git config --global user.email "prenom.nom@etu.univ-lyon1.fr"</code></pre>
       <section class="slide">
         <h2>Étape 4 : premier commit</h2>
         <ol>
-          <li>Créer/adapter <code>.gitignore</code> avant le premier commit.</li>
+          <li>Créer/adapter <code>.gitignore</code> avant le premier commit. Pensez à ajouter ce fichier au dépôt (racine du dépôt)...</li>
           <li>Clic droit sur le projet &gt; Git &gt; Commit…</li>
           <li>Sélectionner les fichiers, écrire un message clair, valider.</li>
         </ol>
         <p><strong>Voir l'historique :</strong> Git &gt; Show History.</p>
         <p><strong>Exemple .gitignore (Java/NetBeans)</strong></p>
-        <pre><code>target/
+        <pre><code># --- DOSSIERS DE SORTIE (Générés par la compilation) ---
 build/
+dist/
+target/
+bin/
+nbbin/
+
+# --- SPÉCIFIQUE NETBEANS (ANT & GENERAL) ---
 nbproject/private/
+nbproject/build-impl.xml
+nbproject/genfiles.properties
+# Note: On garde project.xml et project.properties qui sont vitaux pour Ant
+
+# --- SPÉCIFIQUE MAVEN ---
+# On ignore les fichiers de log Maven et les artefacts locaux
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# On ignore souvent l'extension .flattened-pom.xml
+.flattened-pom.xml
+
+# --- AUTRES IDE (Pour la collaboration) ---
 .idea/
 *.iml
 *.ipr
 *.iws
-*.properties
-*.xml.local
+.settings/
+.project
+.classpath
+.factorypath
+
+# --- FICHIERS SYSTÈME ET TEMP ---
+.DS_Store
+Thumbs.db
 *.log
 *.tmp
-.DS_Store
-lib/
-*.jar</code></pre>
+*.bak
+*.swp
+
+# --- DÉPENDANCES ET ARCHIVES ---
+# Pour Maven, les JAR sont dans le repo local (~/.m2), donc on ignore tout JAR local.
+# Si un projet Ant utilise un dossier lib/ interne, décommentez la ligne suivante :
+# !lib/*.jar
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz</code></pre>
       </section>
 
   <section class="slide">
