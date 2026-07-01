@@ -1523,6 +1523,10 @@ utilisez plutôt&nbsp;:</p>
 $ git checkout -b &lt;nom_nouvelle_branche&gt; &lt;revision&gt;
 </pre></div>
 </div>
+<p>Depuis Git 2.23 (2019), équivalent plus explicite (dédié aux branches)&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git switch -c &lt;nom_nouvelle_branche&gt;    <span class="c1"># comme git checkout -b</span>
+</pre></div>
+</div>
 
 
 
@@ -1564,6 +1568,9 @@ la copie de travail ne contienne aucune modification non commitée.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>$ git checkout &lt;branche&gt;
 </pre></div>
 </div>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git switch &lt;branche&gt;    <span class="c1"># équivalent moderne, dédié aux branches</span>
+</pre></div>
+</div>
 </li>
 </ul>
 
@@ -1586,6 +1593,10 @@ Selon ses arguments, elle a des effets supplémentaires :</p>
 <li>un branche&nbsp;: changer la branche courante</li>
 <li>une révision&nbsp;: passer en mode <em>detached HEAD</em></li>
 </ul>
+<p>Depuis Git 2.23 (2019), deux commandes plus spécialisées&nbsp;:
+<code class="docutils literal"><span class="pre">git</span> <span class="pre">switch</span></code> (changer/créer une branche)
+et <code class="docutils literal"><span class="pre">git</span> <span class="pre">restore</span></code> (restaurer des fichiers).
+<code class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span></code> reste valide et très répandu.</p>
 
 
 

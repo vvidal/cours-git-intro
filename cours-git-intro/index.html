@@ -726,6 +726,13 @@ utilisez plutôt&nbsp;:</p>
 $ git checkout -b &lt;nom_nouvelle_branche&gt; &lt;revision&gt;
 </pre></div>
 </div>
+<p>Depuis Git 2.23 (2019), on peut aussi utiliser <code class="docutils literal"><span class="pre">git</span> <span class="pre">switch</span></code>,
+plus explicite car dédié uniquement aux branches. L&#8217;option <code class="docutils literal"><span class="pre">-c</span></code>
+(pour <em>create</em>) crée la branche <em>et</em> s&#8217;y place&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git switch -c &lt;nom_nouvelle_branche&gt;    <span class="c1"># équivalent de git checkout -b</span>
+$ git switch -c &lt;nom_nouvelle_branche&gt; &lt;revision&gt;
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="changer-de-branche">
@@ -751,6 +758,9 @@ la copie de travail ne contienne aucune modification non commitée.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>$ git checkout &lt;branche&gt;
 </pre></div>
 </div>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git switch &lt;branche&gt;    <span class="c1"># équivalent moderne, dédié aux branches</span>
+</pre></div>
+</div>
 </li>
 </ul>
 </div>
@@ -765,6 +775,17 @@ Selon ses arguments, elle a des effets supplémentaires :</p>
 <li>un branche&nbsp;: changer la branche courante</li>
 <li>une révision&nbsp;: passer en mode <em>detached HEAD</em></li>
 </ul>
+<p>Parce que ces rôles multiples prêtent à confusion, Git a introduit en 2019
+(version 2.23) deux commandes plus spécialisées&nbsp;:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">git</span> <span class="pre">switch</span></code>&nbsp;: changer de branche
+(<code class="docutils literal"><span class="pre">git</span> <span class="pre">switch</span> <span class="pre">&lt;branche&gt;</span></code>),
+ou en créer une et s&#8217;y placer (<code class="docutils literal"><span class="pre">git</span> <span class="pre">switch</span> <span class="pre">-c</span> <span class="pre">&lt;branche&gt;</span></code>)&nbsp;;</li>
+<li><code class="docutils literal"><span class="pre">git</span> <span class="pre">restore</span></code>&nbsp;: restaurer des fichiers dans la copie de travail.</li>
+</ul>
+<p>La commande <code class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span></code> reste
+parfaitement valide et très répandue&nbsp;: il est important de la connaître, car
+beaucoup de tutoriels et de développeurs l&#8217;utilisent encore.</p>
 </div>
 </div>
 <div class="exercice section" id="id17">
