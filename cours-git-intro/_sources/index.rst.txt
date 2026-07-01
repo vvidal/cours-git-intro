@@ -797,6 +797,13 @@ utilisez plutôt ::
   $ git checkout -b <nom_nouvelle_branche>    # ou
   $ git checkout -b <nom_nouvelle_branche> <revision>
 
+Depuis Git 2.23 (2019), ``git switch`` offre un équivalent plus explicite
+(dédié uniquement aux branches). L'option ``-c`` (*create*) crée la branche
+*et* s'y place ::
+
+  $ git switch -c <nom_nouvelle_branche>    # équivalent de git checkout -b
+  $ git switch -c <nom_nouvelle_branche> <revision>
+
 .. _changer_de_branche:
 
 Changer de branche
@@ -825,6 +832,7 @@ Mise en œuvre
 * En ligne de commande ::
 
    $ git checkout <branche>
+   $ git switch <branche>    # équivalent moderne, dédié aux branches
 
 
 .. index:: git checkout
@@ -841,6 +849,17 @@ Selon ses arguments, elle a des effets supplémentaires :
 
 * un branche : changer la branche courante
 * une révision : passer en mode *detached HEAD*
+
+Parce que ces rôles multiples prêtent à confusion, Git a introduit en 2019
+(version 2.23) deux commandes plus spécialisées :
+
+* ``git switch`` : changer de branche (``git switch <branche>``),
+  ou en créer une et s'y placer (``git switch -c <branche>``) ;
+* ``git restore`` : restaurer des fichiers dans la copie de travail.
+
+La commande ``git checkout`` reste parfaitement valide et très répandue :
+il est important de la connaître, car beaucoup de tutoriels et de
+développeurs l'utilisent encore.
 
 
 
