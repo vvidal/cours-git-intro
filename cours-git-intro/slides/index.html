@@ -681,7 +681,7 @@ $ git add .            <span class="c1"># tout le contenu du dossier courant</sp
 </div>
 <p>Retirer un fichier de l'index</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>$ git reset &lt;filename&gt;
-$ git restore --staged &lt;filename&gt;   <span class="c1"># équivalent moderne (proposé par git status)</span>
+$ git restore --staged &lt;filename&gt;   <span class="c1"># même effet (plus récent)</span>
 </pre></div>
 </div>
 <p>Pour voir l'état des modifications en cours</p>
@@ -694,16 +694,23 @@ $ git diff      <span class="c1"># détail des changements</span>
 $ git commit -m <span class="s2">&quot;message de commit&quot;</span>
 </pre></div>
 </div>
-<div class="admonition hint">
-<p class="first admonition-title">Indice</p>
-<p>Si <code class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></code> (sans <code class="docutils literal"><span class="pre">-m</span></code>) ou <code class="docutils literal"><span class="pre">git</span> <span class="pre">merge</span></code> ouvre un éditeur dans le terminal (souvent <em>Vim</em>, avec des <code class="docutils literal"><span class="pre">~</span></code> à gauche)&nbsp;: tapez <em>Échap</em>, puis <code class="docutils literal"><span class="pre">:wq</span></code> et Entrée pour valider (<code class="docutils literal"><span class="pre">:q!</span></code> pour abandonner).</p>
-<p class="last">Sous Windows, le message <code class="docutils literal">warning: ... LF will be replaced by CRLF</code> est sans gravité.</p>
-</div>
+
 
 
 
 <div class="slide-no">25</div>
 
+
+</article>
+<article class="slide level-5" id="editeur-vim">
+
+<h5>Si un éditeur s'ouvre dans le terminal<a class="headerlink" href="../index.html#en-ligne-de-commande" title="View HTML">§</a></h5>
+
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p>Si <code class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></code> (sans <code class="docutils literal"><span class="pre">-m</span></code>) ou <code class="docutils literal"><span class="pre">git</span> <span class="pre">merge</span></code> ouvre un éditeur dans le terminal (souvent <em>Vim</em>, avec des <code class="docutils literal"><span class="pre">~</span></code> à gauche)&nbsp;: tapez <em>Échap</em>, puis <code class="docutils literal"><span class="pre">:wq</span></code> et Entrée pour valider (<code class="docutils literal"><span class="pre">:q!</span></code> pour abandonner).</p>
+<p class="last">Sous Windows, le message <code class="docutils literal">warning: ... LF will be replaced by CRLF</code> est sans gravité.</p>
+</div>
 
 </article>
 <article class="slide level-4" id="consulter-l-historique">
@@ -1997,10 +2004,7 @@ qui n'y sont pas encore présents.</p>
 <p class="last">Cela suppose évidemment que vous soyez propriétaire du dépôt distant,
 ou que le propriétaire ait configuré son dépôt pour vous autoriser à le modifier.</p>
 </div>
-<div class="admonition hint">
-<p class="first admonition-title">Indice</p>
-<p class="last">Au premier <code class="docutils literal"><span class="pre">push</span></code>, Git vous demande de vous identifier (fenêtre ou navigateur). Sur la forge Lyon 1, utilisez vos identifiants de l'IUT&nbsp;; sur GitHub, le mot de passe ne suffit plus&nbsp;: laissez s'ouvrir la connexion par le navigateur.</p>
-</div>
+
 
 
 
@@ -2018,6 +2022,11 @@ ou que le propriétaire ait configuré son dépôt pour vous autoriser à le mod
 il faudra au préalable les récupérer (cf. ci-après).</p>
 
 
+
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p class="last">Au premier <code class="docutils literal"><span class="pre">push</span></code>, Git vous demande de vous identifier (fenêtre ou navigateur). Sur la forge Lyon 1, utilisez vos identifiants de l'IUT&nbsp;; sur GitHub, le mot de passe ne suffit plus&nbsp;: laissez s'ouvrir la connexion par le navigateur.</p>
+</div>
 
 <div class="slide-no">83</div>
 
@@ -2062,11 +2071,6 @@ il contient tous les commits du dépôt local, plus ceux que vous cherchez à r�
 Dans ce cas, <code class="docutils literal"><span class="pre">pull</span></code> effectue automatiquement une opération de <a class="reference internal" href="#fusion"><span class="std std-ref">fusion</span></a>.
 Cela peut entraîner un conflit, qu'il faudra résoudre comme vu
 <a class="reference internal" href="#resolution"><span class="std std-ref">précédemment</span></a>.</p>
-<p>Si Git affiche <code class="docutils literal">fatal: Need to specify how to reconcile divergent branches</code> (fréquent sous Mac et Linux), tapez une fois pour toutes&nbsp;:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git config --global pull.rebase false
-</pre></div>
-</div>
-<p>puis relancez <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
 <p class="last">Il est bien sûr préférable d'éviter ces conflits plutôt que de les résoudre
@@ -2079,6 +2083,17 @@ pas une bonne idée...</p>
 
 <div class="slide-no">85</div>
 
+
+</article>
+<article class="slide level-5" id="pull-divergent">
+
+<h5>Si <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code> refuse de fusionner<a class="headerlink" href="../index.html#id27" title="View HTML">§</a></h5>
+
+<p>Si Git affiche <code class="docutils literal">fatal: Need to specify how to reconcile divergent branches</code> (fréquent sous Mac et Linux), tapez une fois pour toutes&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git config --global pull.rebase false
+</pre></div>
+</div>
+<p>puis relancez <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>.</p>
 
 </article>
 <article class="exercice slide level-5" id="id28">
@@ -2405,10 +2420,9 @@ sans avoir besoin d'obtenir les droits en écriture sur le dépôt de référenc
 
 <h5>Exercice<a class="headerlink" href="../index.html#id37" title="View HTML">§</a></h5>
 
-<p>Le meilleur moyen d'expérimenter la collaboration est de travailler avec des collaborateurs&nbsp;!</p>
 <p>En binôme (A et B)&nbsp;:</p>
 <ol class="arabic simple">
-<li>A crée un dépôt sur la forge Lyon 1, y ajoute B comme membre (rôle <em>Maintainer</em>, pour que B puisse pousser sur <code class="docutils literal"><span class="pre">master</span></code>), puis A et B le clonent.</li>
+<li>A crée un dépôt sur la forge Lyon 1, y ajoute B comme membre (rôle <em>Maintainer</em>), puis A et B le clonent.</li>
 <li>A crée un fichier <code class="docutils literal"><span class="pre">equipe.txt</span></code>, le commite et le pousse&nbsp;; B le récupère (<code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>).</li>
 <li>A et B modifient <strong>la même ligne</strong> de <code class="docutils literal"><span class="pre">equipe.txt</span></code>, chacun de son côté, et commitent.</li>
 <li>A pousse en premier. B tente de pousser&nbsp;: c'est refusé. B fait un <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>, résout le conflit, commite et pousse.</li>

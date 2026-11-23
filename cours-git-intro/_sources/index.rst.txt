@@ -375,7 +375,7 @@ Ajouter un fichier dans l'index ::
 Retirer un fichier de l'index ::
 
   $ git reset <filename>
-  $ git restore --staged <filename>   # équivalent moderne (proposé par git status)
+  $ git restore --staged <filename>   # même effet (plus récent)
 
 Pour voir l'état des modifications en cours ::
 
