@@ -555,7 +555,7 @@ où nous sommes meilleurs que l'ordinateur.</li>
 </ul>
 </li>
 <li>Ne vous laissez pas effrayer par l'interface «&nbsp;touffue&nbsp;»&nbsp;;<ul>
-<li>faites confiances aux réglages par défaut (dans un premier temps).</li>
+<li>faites confiance aux réglages par défaut (dans un premier temps).</li>
 </ul>
 </li>
 </ul>
@@ -612,13 +612,13 @@ où nous sommes meilleurs que l'ordinateur.</li>
 <p><strong>Systèmes centralisés</strong></p>
 <ul class="simple">
 <li><a class="reference external" href="http://savannah.nongnu.org/projects/cvs/">CVS</a> (Concurrent Versioning System, vieillissant)</li>
-<li><a class="reference external" href="https://subversion.apache.org/">SVN</a> (Subversion, très populaire, mais c'est en train de changer)</li>
+<li><a class="reference external" href="https://subversion.apache.org/">SVN</a> (Subversion, encore présent dans certaines entreprises)</li>
 </ul>
 <p><strong>Systèmes décentralisés</strong></p>
 <ul class="simple">
 <li><a class="reference external" href="http://git-scm.com/">GIT</a></li>
-<li><a class="reference external" href="http://mercurial.selenic.com/">Mercurial</a> (Hg)</li>
-<li><a class="reference external" href="http://bazaar.canonical.com/en/">Bazaar</a> (bzr)</li>
+<li><a class="reference external" href="https://www.mercurial-scm.org/">Mercurial</a> (Hg)</li>
+<li>Bazaar (bzr, projet abandonné)</li>
 </ul>
 <p>→ facilitent une utilisation individuelle</p>
 
@@ -744,6 +744,7 @@ dans un outil graphique.</span></p>
 </div>
 <p>NB&nbsp;: on ignore pour l'instant le rectangle <code class="docutils literal"><span class="pre">master</span></code>&nbsp;;
 on l'expliquera par la suite.</p>
+<p>Selon votre installation, la branche principale peut s'appeler <code class="docutils literal"><span class="pre">main</span></code> au lieu de <code class="docutils literal"><span class="pre">master</span></code>&nbsp;: la commande <code class="docutils literal"><span class="pre">git</span> <span class="pre">branch</span></code> vous indique son nom. Dans ce cas, remplacez <code class="docutils literal"><span class="pre">master</span></code> par <code class="docutils literal"><span class="pre">main</span></code> dans toute la suite du cours.</p>
 
 
 
@@ -841,7 +842,7 @@ c'est notamment le cas de TortoiseGit que nous allons utiliser par la suite.</p>
 notamment <code class="docutils literal"><span class="pre">Git</span> <span class="pre">Gui</span></code> qui est installé sur les machines de l'IUT,
 mais que nous ne présenterons pas dans ce cours.</p>
 <p class="last">De plus,
-la plupart des IDE fournissent un accès aux commendes GIT,
+la plupart des IDE fournissent un accès aux commandes GIT,
 mais nous ne les traiterons pas non plus.</p>
 </div>
 
@@ -920,10 +921,12 @@ mais nous étudierons cela plus tard.</p>
 
 <p>Ajouter un fichier dans l'index</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>$ git add &lt;filename&gt;
+$ git add .            <span class="c1"># tout le contenu du dossier courant</span>
 </pre></div>
 </div>
 <p>Retirer un fichier de l'index</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>$ git reset &lt;filename&gt;
+$ git restore --staged &lt;filename&gt;   <span class="c1"># équivalent moderne (proposé par git status)</span>
 </pre></div>
 </div>
 <p>Pour voir l'état des modifications en cours</p>
@@ -935,6 +938,11 @@ $ git diff      <span class="c1"># détail des changements</span>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>$ git commit    <span class="c1">#ou</span>
 $ git commit -m <span class="s2">&quot;message de commit&quot;</span>
 </pre></div>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p>Si <code class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></code> (sans <code class="docutils literal"><span class="pre">-m</span></code>) ou <code class="docutils literal"><span class="pre">git</span> <span class="pre">merge</span></code> ouvre un éditeur dans le terminal (souvent <em>Vim</em>, avec des <code class="docutils literal"><span class="pre">~</span></code> à gauche)&nbsp;: tapez <em>Échap</em>, puis <code class="docutils literal"><span class="pre">:wq</span></code> et Entrée pour valider (<code class="docutils literal"><span class="pre">:q!</span></code> pour abandonner).</p>
+<p class="last">Sous Windows, le message <code class="docutils literal">warning: ... LF will be replaced by CRLF</code> est sans gravité.</p>
 </div>
 
 
@@ -1013,15 +1021,15 @@ contenant une brève description de vous
 (ou de n'importe quel autre sujet qui vous intéresse).
 Commitez ces changements.</li>
 <li>Ajoutez maintenant une feuille de style <em>externe</em> à votre fichier HTML,
-(c'est à dire sous la forme d'un fichier CSS séparé,
+(c'est-à-dire sous la forme d'un fichier CSS séparé,
 référencé par une balise <code class="docutils literal"><span class="pre">&lt;link&gt;</span></code>).
 Commitez ces changements.</li>
 <li>Affichez l'historique de vos changements (selon votre méthode préférée).</li>
 <li>Entraînez-vous à faire des commits&nbsp;:
 modifiez le contenu du fichier HTML et/ou de la feuille de style,
-ajoutez éventuellement d'autres fichiers (images par exemples).
+ajoutez éventuellement d'autres fichiers (images par exemple).
 À chaque changement,
-commitez votre travail en rédigeant un message de commit suffisament explicite.</li>
+commitez votre travail en rédigeant un message de commit suffisamment explicite.</li>
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -1207,7 +1215,7 @@ pour afficher l'avant-dernière version de votre fichier HTML.</li>
 </article>
 <article class="slide level-3" id="entractes">
 
-<h3>Entractes<a class="headerlink" href="../index.html#entractes" title="View HTML">§</a></h3>
+<h3>Entracte<a class="headerlink" href="../index.html#entractes" title="View HTML">§</a></h3>
 
 <p>Nous venons de voir les fonctionnalités les plus basiques de GIT,
 qui permettent de gérer <span class="del">efficacement</span> correctement
@@ -1217,7 +1225,7 @@ l'historique d'un ensemble de fichiers
 qui seraient impraticables avec une gestion «&nbsp;manuelle&nbsp;» de l'historique.</p>
 <blockquote>
 <div><ul class="simple">
-<li>elle peuvent donc vous sembler superflues,</li>
+<li>elles peuvent donc vous sembler superflues,</li>
 <li>mais s'avèrent vite indispensables quand on y a pris goût.</li>
 </ul>
 </div></blockquote>
@@ -1345,7 +1353,7 @@ mais un graphe orienté sans cycle.</p>
 dans lesquelles on implémente de nouvelles fonctionnalités ;</li>
 </ul>
 <p>Une fois au point,
-chaque nouvelle fonctionnalités est intégrée à la version stable.</p>
+chaque nouvelle fonctionnalité est intégrée à la version stable.</p>
 
 
 
@@ -1492,7 +1500,7 @@ le sommet d'une <em>nouvelle</em> branche
 <li>on doit choisir un nom pour la nouvelle branche&nbsp;;</li>
 <li>dans la section «&nbsp;Base on&nbsp;»,
 on peut choisir sur quel commit la nouvelle sera créée
-(par défaut: commit courrant <code class="docutils literal"><span class="pre">HEAD</span></code>)&nbsp;;</li>
+(par défaut: commit courant <code class="docutils literal"><span class="pre">HEAD</span></code>)&nbsp;;</li>
 <li>si on  coche la case <em>Switch to new branch</em> (en bas à droite)
 la nouvelle branche deviendra la branche courante.</li>
 </ul>
@@ -1590,7 +1598,7 @@ qui rendent difficile à percevoir sa cohérence interne.</p>
 <em>modifier l'état de la copie de travail</em>.
 Selon ses arguments, elle a des effets supplémentaires :</p>
 <ul class="simple">
-<li>un branche&nbsp;: changer la branche courante</li>
+<li>une branche&nbsp;: changer la branche courante</li>
 <li>une révision&nbsp;: passer en mode <em>detached HEAD</em></li>
 </ul>
 <p>Depuis Git 2.23 (2019), deux commandes plus spécialisées&nbsp;:
@@ -1641,7 +1649,7 @@ permet d'intégrer les modifications d'une branche dans une autre.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">GIT permet également de fusionner
 plus de deux branches dans une même opération,
-mais nous n'irons pas jusque là dans ce cours.</p>
+mais nous n'irons pas jusque-là dans ce cours.</p>
 </div>
 <p>Il y a deux situations possibles,
 selon les positions relatives de la branche à fusionner (source)
@@ -1662,7 +1670,7 @@ et de la branche destination.</p>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/merge-ff.svg"><img alt="_images/merge-ff.svg" src="_images/merge-ff.svg" width="100%" /></a>
 </div>
-<p>Ce type de fusion est appelée <span class="eng">fast forward</span>.</p>
+<p>Ce type de fusion est appelé <span class="eng">fast forward</span>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>Ce comportement préserve autant que possible
@@ -1748,7 +1756,7 @@ pour y fusionner la branche <code class="docutils literal"><span class="pre">sty
 <li>Constatez que toutes vos modifications (contenu HTML et style)
 sont maintenant visibles.</li>
 <li>Constatez également (dans l'historique)
-que le commit ainsi créé a <em>deux</em> commit parents.</li>
+que le commit ainsi créé a <em>deux</em> commits parents (en ligne de commande&nbsp;: <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--oneline</span> <span class="pre">--graph</span> <span class="pre">--all</span></code>).</li>
 </ol>
 
 
@@ -1935,10 +1943,11 @@ La 3e ligne modifiée
 <p>Une fois les fichiers en conflit corrigés,
 on peut résoudre le conflit :</p>
 <ul>
-<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Resolve...</em></p>
+<li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Resolve...</em>, puis <em>Commit</em></p>
 </li>
 <li><p class="first">En ligne de commande&nbsp;:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git commit -a
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git add &lt;fichier&gt;    <span class="c1"># pour chaque fichier corrigé</span>
+$ git commit
 </pre></div>
 </div>
 </li>
@@ -1977,17 +1986,18 @@ on peut résoudre le conflit :</p>
 <h5>Exercice<a class="headerlink" href="../index.html#id23" title="View HTML">§</a></h5>
 
 <ol class="arabic">
-<li><p class="first">Créez un nouveau dépot, et ajoutez-y un fichier <code class="docutils literal"><span class="pre">conflit.txt</span></code> contenant le texte suivant&nbsp;:</p>
+<li><p class="first">Créez un nouveau dépôt, et ajoutez-y un fichier <code class="docutils literal"><span class="pre">conflit.txt</span></code> contenant le texte suivant&nbsp;:</p>
 <div class="highlight-diff"><div class="highlight"><pre><span></span>La première ligne
 La deuxième ligne
 La troisième ligne
 </pre></div>
 </div>
 </li>
-<li><p class="first">Créez plusieurs branches,
-dans lesquelles vous modifierez différemment le fichier <code class="docutils literal"><span class="pre">conflit.txt</span></code>,
-en suivant les exemples ci-avant.
-Tentez ensuite de fusionner ces branches.</p>
+<li><p class="first">Commitez ce fichier, puis créez une branche <code class="docutils literal"><span class="pre">b1</span></code> et placez-vous dessus. Modifiez la première ligne de <code class="docutils literal"><span class="pre">conflit.txt</span></code> et commitez.</p>
+</li>
+<li><p class="first">Revenez sur <code class="docutils literal"><span class="pre">master</span></code>, modifiez <em>différemment</em> la première ligne et commitez.</p>
+</li>
+<li><p class="first">Depuis <code class="docutils literal"><span class="pre">master</span></code>, fusionnez la branche <code class="docutils literal"><span class="pre">b1</span></code>.</p>
 </li>
 <li><p class="first">Lorsque GIT vous signale un conflit,
 constatez comment le fichier <code class="docutils literal"><span class="pre">conflit.txt</span></code> a été modifié,
@@ -2003,7 +2013,7 @@ et résolvez le conflit.</p>
 </article>
 <article class="slide level-2" id="depot-distant">
 
-<h2>Dépot distant<a class="headerlink" href="../index.html#depot-distant" title="View HTML">§</a></h2>
+<h2>Dépôt distant<a class="headerlink" href="../index.html#depot-distant" title="View HTML">§</a></h2>
 
 
 
@@ -2018,7 +2028,7 @@ et résolvez le conflit.</p>
 
 <p>Un <strong>dépôt distant</strong> (en anglais <span class="eng">remote repository</span>)
 est un dépôt GIT, tout à fait similaire à un dépôt local,
-mais acessible à distance <span class="lat">via</span> une URL.</p>
+mais accessible à distance <span class="lat">via</span> une URL.</p>
 <p>Exemple&nbsp;:  <a class="reference external" href="https://github.com/pchampin/intro-git.git">https://github.com/pchampin/intro-git.git</a></p>
 <p>Un dépôt local peut être lié à un dépôt distant&nbsp;;
 GIT offre des fonctionnalités pour copier des commits de l'un à l'autre.</p>
@@ -2027,7 +2037,7 @@ GIT offre des fonctionnalités pour copier des commits de l'un à l'autre.</p>
 <p>En fait, un dépôt distant n'est pas forcément «&nbsp;à distance&nbsp;»
 (même si c'est le plus souvent le cas).</p>
 <p class="last">On peut aussi utiliser comme dépôt distant un dépôt accessible dans un répertoire partagé,
-ou sur un support amovible (clé USB, disque dûr externe)...</p>
+ou sur un support amovible (clé USB, disque dur externe)...</p>
 </div>
 
 
@@ -2077,6 +2087,7 @@ ou sur un support amovible (clé USB, disque dûr externe)...</p>
 <ul class="simple">
 <li><a class="reference internal" href="#creer-un-depot-sur-un-serveur" id="id57">Créer un dépôt sur un serveur</a></li>
 <li><a class="reference internal" href="#cloner-un-depot-distant" id="id58">Cloner un dépôt distant</a></li>
+<li><a class="reference internal" href="#ignorer-des-fichiers">Ignorer des fichiers (<code class="docutils literal"><span class="pre">.gitignore</span></code>)</a></li>
 <li><a class="reference internal" href="#publier-des-commits" id="id59">Publier des commits</a></li>
 <li><a class="reference internal" href="#recuperer-les-commits" id="id60">Récupérer les commits</a></li>
 </ul>
@@ -2137,7 +2148,7 @@ sous forme d'un dépôt local, qui sera lié à ce dépôt distant.</p>
 <ul>
 <li><p class="first">Menu contextuel &gt; <em>Git Clone...</em></p>
 <ul class="simple">
-<li>dans le champs URL, sélectionner l'URL du dépôt distant&nbsp;;</li>
+<li>dans le champ URL, sélectionner l'URL du dépôt distant&nbsp;;</li>
 <li>le cas échéant, modifier l'emplacement du dépôt local&nbsp;;</li>
 <li>valider.</li>
 </ul>
@@ -2153,9 +2164,17 @@ sous forme d'un dépôt local, qui sera lié à ce dépôt distant.</p>
 <p>Il est possible de procéder à l'inverse&nbsp;:
 commencer à travailler sur un dépôt local,
 puis créer un dépôt distant pour publier le travail.</p>
-<p class="last">La procédure est un peu plus complexe,
-mais est généralement bien documentée par les services d'hébergement GIT,
-au moment où vous créerez le dépôt distant.</p>
+<p>Étapes (dépôt local qui contient déjà des commits)&nbsp;:</p>
+<ol class="arabic simple">
+<li>Sur la forge Lyon 1&nbsp;: <em>Nouveau projet</em>, <em>Créer un projet vide</em>, en <strong>décochant</strong> <em>Initialiser le dépôt avec un README</em> (le dépôt distant doit être vide).</li>
+<li>Copiez l'URL HTTPS du projet (bouton <em>Code</em>).</li>
+<li>Depuis votre dépôt local&nbsp;:</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git remote add origin &lt;url-copiée&gt;
+$ git push -u origin master      <span class="c1"># ou main : voir git branch</span>
+</pre></div>
+</div>
+<p class="last">Ensuite, <code class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></code> et <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code> suffisent. Si vous avez laissé le README, le push est refusé&nbsp;: supprimez le projet et recréez-le vide.</p>
 </div>
 
 
@@ -2170,17 +2189,35 @@ au moment où vous créerez le dépôt distant.</p>
 
 <p>Si vous rencontrez des problèmes pour cloner un dépôt,
 cela peut venir d'une mauvaise configuration du <em>proxy</em>.
-Dans <code class="docutils literal"><span class="pre">Git</span> <span class="pre">Bash</span></code>, tapez les deux commandes suivantes&nbsp;:</p>
+Dans <code class="docutils literal"><span class="pre">Git</span> <span class="pre">Bash</span></code>, tapez la commande suivante&nbsp;:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>$ git config --global http.proxy http://proxy.univ-lyon1.fr:3128
-$ git config --global https.proxy https://proxy.univ-lyon1.fr:3128
 </pre></div>
 </div>
 <p>puis tentez à nouveau.</p>
+<p>⚠ Sur votre ordinateur personnel, annulez ce réglage hors du campus (sinon Git ne pourra plus se connecter)&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git config --global --unset http.proxy
+</pre></div>
+</div>
 
 
 
 <div class="slide-no">81</div>
 
+
+</article>
+<article class="slide level-4" id="ignorer-des-fichiers">
+
+<h4>Ignorer des fichiers (<code class="docutils literal"><span class="pre">.gitignore</span></code>)<a class="headerlink" href="../index.html#ignorer-des-fichiers" title="View HTML">§</a></h4>
+
+<p>Certains fichiers ne doivent pas être versionnés&nbsp;: fichiers compilés (<code class="docutils literal"><span class="pre">*.class</span></code>), dossiers de compilation, réglages personnels de l'IDE...</p>
+<p>Listez-les dans un fichier texte nommé <code class="docutils literal"><span class="pre">.gitignore</span></code>, à la racine du dépôt, et commitez ce fichier. Exemple pour un projet Java&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>*.class
+build/
+dist/
+nbproject/private/
+</pre></div>
+</div>
+<p>GIT ne proposera plus ces fichiers à l'ajout (<code class="docutils literal"><span class="pre">git</span> <span class="pre">status</span></code> les ignore).</p>
 
 </article>
 <article class="slide level-4" id="publier-des-commits">
@@ -2203,6 +2240,10 @@ qui n'y sont pas encore présents.</p>
 <p class="first admonition-title">Indice</p>
 <p class="last">Cela suppose évidemment que vous soyez propriétaire du dépôt distant,
 ou que le propriétaire ait configuré son dépôt pour vous autoriser à le modifier.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p class="last">Au premier <code class="docutils literal"><span class="pre">push</span></code>, Git vous demande de vous identifier (fenêtre ou navigateur). Sur la forge Lyon 1, utilisez vos identifiants de l'IUT&nbsp;; sur GitHub, le mot de passe ne suffit plus&nbsp;: laissez s'ouvrir la connexion par le navigateur.</p>
 </div>
 
 
@@ -2261,10 +2302,15 @@ et utilisez le dépôt distant pour les synchroniser, ou</li>
 
 <p>Dans le cas le plus simple, le dépôt distant est «&nbsp;en avance&nbsp;» par rapport au dépôt local :
 il contient tous les commits du dépôt local, plus ceux que vous cherchez à récupérer.</p>
-<p>Dans un cas plus complexe, des commits ont pû être ajoutés parallèlement dans les deux dépôts.
+<p>Dans un cas plus complexe, des commits ont pu être ajoutés parallèlement dans les deux dépôts.
 Dans ce cas, <code class="docutils literal"><span class="pre">pull</span></code> effectue automatiquement une opération de <a class="reference internal" href="#fusion"><span class="std std-ref">fusion</span></a>.
 Cela peut entraîner un conflit, qu'il faudra résoudre comme vu
 <a class="reference internal" href="#resolution"><span class="std std-ref">précédemment</span></a>.</p>
+<p>Si Git affiche <code class="docutils literal">fatal: Need to specify how to reconcile divergent branches</code> (fréquent sous Mac et Linux), tapez une fois pour toutes&nbsp;:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git config --global pull.rebase false
+</pre></div>
+</div>
+<p>puis relancez <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
 <p class="last">Il est bien sûr préférable d'éviter ces conflits plutôt que de les résoudre
@@ -2426,7 +2472,7 @@ afin d'y intégrer les modifications faites par d'autres.</p>
 </ul>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
-<p class="last">Cette opération est à faire une seul fois par dépôt
+<p class="last">Cette opération est à faire une seule fois par dépôt
 (et par dépôt distant),
 pour pouvoir ensuite interagir avec le dépôt distant.</p>
 </div>
@@ -2465,7 +2511,7 @@ suivi d'un <code class="docutils literal"><span class="pre">git</span> <span cla
 <li><p class="first">Menu contextuel &gt; <em>TortoiseGit</em> &gt; <em>Fetch...</em></p>
 <ul class="simple">
 <li>s'assurer que <code class="docutils literal"><span class="pre">Remote</span></code> est bien coché,</li>
-<li>sélectionner le dépôt distant souhaité la liste correspondante,</li>
+<li>sélectionner le dépôt distant souhaité dans la liste correspondante,</li>
 <li>valider.</li>
 </ul>
 </li>
@@ -2514,7 +2560,7 @@ les branches de suivi correspondantes seront également ajoutées.</p>
 
 
 </article>
-<article class="exercice slide level-3" id="types-de-collaborations">
+<article class="slide level-3" id="types-de-collaborations">
 
 <h3>Types de collaborations<a class="headerlink" href="../index.html#types-de-collaborations" title="View HTML">§</a></h3>
 
@@ -2538,7 +2584,7 @@ les branches de suivi correspondantes seront également ajoutées.</p>
 <p class="first admonition-title">Note</p>
 <p>Ce type de collaboration est inspiré des <abbr title="Version Control Systems">VCS</abbr> centralisés,
 et est simple à mettre en œuvre.</p>
-<p class="last">Il suppose de mettre un place un unique <a class="reference external" href="remote">dépôt distant</a>
+<p class="last">Il suppose de mettre en place un unique <a class="reference external" href="remote">dépôt distant</a>
 sur lequel plusieurs collaborateurs ont les droits en écriture.</p>
 </div>
 
@@ -2559,8 +2605,8 @@ sur lequel plusieurs collaborateurs ont les droits en écriture.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Ce type de collaboration est très flexible.
 On peut notamment le mettre en œuvre sans disposer d'un serveur,
-en utilisant par exemple des média amovibles (clé USB, carte DS, disque externe...)
-comme &quot;dépot distant&quot; pour communiquer entre les différents acteurs.</p>
+en utilisant par exemple des média amovibles (clé USB, carte SD, disque externe...)
+comme &quot;dépôt distant&quot; pour communiquer entre les différents acteurs.</p>
 </div>
 
 
@@ -2582,7 +2628,7 @@ comme &quot;dépot distant&quot; pour communiquer entre les différents acteurs.
 (mais également d'autres).</p>
 <p>Chaque collaborateur dispose d'un clone public (<em>fork</em>) du projet,
 et y publie les commits qu'il souhaite partager.</p>
-<p>Il sollicite ensuite les autres collaborateur pour tirer ces commits dans leur propre dépôt/
+<p>Il sollicite ensuite les autres collaborateurs pour tirer ces commits dans leur propre dépôt.
 On appelle cette sollicitation un <span class="eng">pull request</span>
 (ou plus rarement un <span class="eng">merge request</span>).</p>
 <p class="last">La plupart du temps,
@@ -2603,11 +2649,15 @@ sans avoir besoin d'obtenir les droits en écriture sur le dépôt de référenc
 
 <h5>Exercice<a class="headerlink" href="../index.html#id37" title="View HTML">§</a></h5>
 
-<blockquote>
-<div><p>Le meilleur moyen d'expérimenter la collaboration est de travailler avec des collaborateurs&nbsp;!</p>
-<p>Si vous voulez essayer, publiez votre dépôt sur l'espace partagé de votre choix, et demandez à un collègue d'en faire un clone.</p>
-<p>C'est à vous de fixer les droits sur votre dépôt distant en fonction de ce que vous souhaitez (accessible en lecture seule, ou bien en lecture / écriture).</p>
-</div></blockquote>
+<p>Le meilleur moyen d'expérimenter la collaboration est de travailler avec des collaborateurs&nbsp;!</p>
+<p>En binôme (A et B)&nbsp;:</p>
+<ol class="arabic simple">
+<li>A crée un dépôt sur la forge Lyon 1, y ajoute B comme membre (rôle <em>Maintainer</em>, pour que B puisse pousser sur <code class="docutils literal"><span class="pre">master</span></code>), puis A et B le clonent.</li>
+<li>A crée un fichier <code class="docutils literal"><span class="pre">equipe.txt</span></code>, le commite et le pousse&nbsp;; B le récupère (<code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>).</li>
+<li>A et B modifient <strong>la même ligne</strong> de <code class="docutils literal"><span class="pre">equipe.txt</span></code>, chacun de son côté, et commitent.</li>
+<li>A pousse en premier. B tente de pousser&nbsp;: c'est refusé. B fait un <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>, résout le conflit, commite et pousse.</li>
+<li>A fait un <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>&nbsp;: les deux dépôts sont de nouveau identiques.</li>
+</ol>
 
 
 
@@ -2774,9 +2824,9 @@ en re-créant les commits correspondants.</p>
 </ul>
 <p class="rubric">Mercurial</p>
 <ul class="simple">
-<li><a class="reference external" href="http://mercurial.selenic.com/">Mercurial</a> (abbrégé Hg) est un gestionnaire de version similaire à GIT,
+<li><a class="reference external" href="https://www.mercurial-scm.org/">Mercurial</a> (abrégé Hg) est un gestionnaire de version similaire à GIT,
 mais comporte quelques différences (de terminologie notamment).</li>
-<li>Un guide de pour passer de GIT à Mercurial est disponible ici&nbsp;:
+<li>Un guide pour passer de GIT à Mercurial est disponible ici&nbsp;:
 <a class="reference external" href="https://www.mercurial-scm.org/wiki/GitConcepts">https://www.mercurial-scm.org/wiki/GitConcepts</a></li>
 </ul>
 

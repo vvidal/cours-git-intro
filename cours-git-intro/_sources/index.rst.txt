@@ -106,7 +106,7 @@ Avertissement
 
 * Ne vous laissez pas effrayer par l'interface « touffue » ;
 
-  - faites confiances aux réglages par défaut (dans un premier temps).
+  - faites confiance aux réglages par défaut (dans un premier temps).
 
 
 .. figure:: _static/logogit.png
@@ -138,21 +138,20 @@ Origines
 **Systèmes centralisés**
 
 * CVS_ (Concurrent Versioning System, vieillissant)
-* SVN_ (Subversion, très populaire, mais c'est en train de changer)
+* SVN_ (Subversion, encore présent dans certaines entreprises)
 
 **Systèmes décentralisés**
 
 * GIT_
 * Mercurial_ (Hg)
-* Bazaar_ (bzr)
+* Bazaar (bzr, projet abandonné)
 
 → facilitent une utilisation individuelle
 
 .. _CVS: http://savannah.nongnu.org/projects/cvs/
 .. _SVN: https://subversion.apache.org/
 .. _GIT: http://git-scm.com/
-.. _Mercurial: http://mercurial.selenic.com/
-.. _Bazaar: http://bazaar.canonical.com/en/
+.. _Mercurial: https://www.mercurial-scm.org/
 
 Notions de base
 ===============
@@ -228,6 +227,10 @@ Illustration
 
 NB : on ignore pour l'instant le rectangle ``master``\ ;
 on l'expliquera par la suite.
+
+Selon votre installation, la branche principale peut s'appeler ``main``
+au lieu de ``master`` : la commande ``git branch`` vous indique son nom.
+Dans ce cas, remplacez ``master`` par ``main`` dans toute la suite du cours.
 
 Remarque
 ````````
@@ -308,7 +311,7 @@ Dans ce cours, nous considérerons deux méthodes possibles :
   mais que nous ne présenterons pas dans ce cours.
 
   De plus,
-  la plupart des IDE fournissent un accès aux commendes GIT,
+  la plupart des IDE fournissent un accès aux commandes GIT,
   mais nous ne les traiterons pas non plus.
 
 
@@ -367,10 +370,12 @@ En ligne de commande
 Ajouter un fichier dans l'index ::
 
   $ git add <filename>
+  $ git add .            # tout le contenu du dossier courant
 
 Retirer un fichier de l'index ::
 
   $ git reset <filename>
+  $ git restore --staged <filename>   # équivalent moderne (proposé par git status)
 
 Pour voir l'état des modifications en cours ::
 
@@ -381,6 +386,14 @@ Pour commiter les modifications indexées ::
 
   $ git commit    #ou
   $ git commit -m "message de commit"
+
+.. hint::
+
+   Si ``git commit`` (sans ``-m``) ou ``git merge`` ouvre un éditeur dans le terminal
+   (souvent *Vim*, avec des ``~`` à gauche) : tapez *Échap*, puis ``:wq`` et Entrée
+   pour valider (``:q!`` pour abandonner).
+
+   Sous Windows, le message ``warning: ... LF will be replaced by CRLF`` est sans gravité.
 
 
 .. index:: git log, git show
@@ -438,7 +451,7 @@ Exercice
    Commitez ces changements.
 
 #. Ajoutez maintenant une feuille de style *externe* à votre fichier HTML,
-   (c'est à dire sous la forme d'un fichier CSS séparé,
+   (c'est-à-dire sous la forme d'un fichier CSS séparé,
    référencé par une balise ``<link>``).
    Commitez ces changements.
 
@@ -446,9 +459,9 @@ Exercice
 
 #. Entraînez-vous à faire des commits :
    modifiez le contenu du fichier HTML et/ou de la feuille de style,
-   ajoutez éventuellement d'autres fichiers (images par exemples).
+   ajoutez éventuellement d'autres fichiers (images par exemple).
    À chaque changement,
-   commitez votre travail en rédigeant un message de commit suffisament explicite.
+   commitez votre travail en rédigeant un message de commit suffisamment explicite.
 
 
 .. note::
@@ -576,7 +589,7 @@ Exercice
 #. Revenez au « présent » (*i.e.* la dernière version).
 
 
-Entractes
+Entracte
 +++++++++
 
 Nous venons de voir les fonctionnalités les plus basiques de GIT,
@@ -587,7 +600,7 @@ l'historique d'un ensemble de fichiers
 Dans la suite, nous allons étudier des fonctionnalités un peu plus avancées,
 qui seraient impraticables avec une gestion « manuelle » de l'historique.
 
-  - elle peuvent donc vous sembler superflues,
+  - elles peuvent donc vous sembler superflues,
   - mais s'avèrent vite indispensables quand on y a pris goût.
 
 
@@ -669,7 +682,7 @@ Dans un projet logiciel, on souhaite avoir :
   dans lesquelles on implémente de nouvelles fonctionnalités ;
 
 Une fois au point,
-chaque nouvelle fonctionnalités est intégrée à la version stable.
+chaque nouvelle fonctionnalité est intégrée à la version stable.
 
 Illustration
 ````````````
@@ -772,7 +785,7 @@ Menu contextuel > *TortoiseGit* > *Create Branch...*
   - on doit choisir un nom pour la nouvelle branche ;
   - dans la section « Base on »,
     on peut choisir sur quel commit la nouvelle sera créée
-    (par défaut: commit courrant ``HEAD``) ;
+    (par défaut: commit courant ``HEAD``) ;
   - si on  coche la case *Switch to new branch* (en bas à droite)
     la nouvelle branche deviendra la branche courante.
 
@@ -847,7 +860,7 @@ La fonction première de cette commande est de
 *modifier l'état de la copie de travail*.
 Selon ses arguments, elle a des effets supplémentaires :
 
-* un branche : changer la branche courante
+* une branche : changer la branche courante
 * une révision : passer en mode *detached HEAD*
 
 Parce que ces rôles multiples prêtent à confusion, Git a introduit en 2019
@@ -904,7 +917,7 @@ permet d'intégrer les modifications d'une branche dans une autre.
 
    GIT permet également de fusionner
    plus de deux branches dans une même opération,
-   mais nous n'irons pas jusque là dans ce cours.
+   mais nous n'irons pas jusque-là dans ce cours.
 
 Il y a deux situations possibles,
 selon les positions relatives de la branche à fusionner (source)
@@ -922,7 +935,7 @@ la fusion a simplement pour effet de déplacer le sommet de la branche cible.
 .. figure:: _static/merge-ff.*
    :width: 100%
 
-Ce type de fusion est appelée `fast forward`:eng:.
+Ce type de fusion est appelé `fast forward`:eng:.
 
 .. note:: Ce comportement préserve autant que possible
    un historique linéaire, donc plus simple.
@@ -991,7 +1004,8 @@ Exercice
    sont maintenant visibles.
 
 #. Constatez également (dans l'historique)
-   que le commit ainsi créé a *deux* commit parents.
+   que le commit ainsi créé a *deux* commits parents
+   (en ligne de commande : ``git log --oneline --graph --all``).
 
 
 .. _conflits:
@@ -1125,11 +1139,12 @@ Résolution du conflit
 Une fois les fichiers en conflit corrigés,
 on peut résoudre le conflit :
 
-* Menu contextuel > *TortoiseGit* > *Resolve...*
+* Menu contextuel > *TortoiseGit* > *Resolve...*, puis *Commit*
 
 * En ligne de commande ::
 
-  $ git commit -a
+  $ git add <fichier>    # pour chaque fichier corrigé
+  $ git commit
 
 Le nouveau commit aura pour parents les sommets des branches fusionnées.
 
@@ -1154,7 +1169,7 @@ On peut également décider d'abandonner la fusion :
 Exercice
 ````````
 
-#. Créez un nouveau dépot, et ajoutez-y un fichier ``conflit.txt`` contenant le texte suivant :
+#. Créez un nouveau dépôt, et ajoutez-y un fichier ``conflit.txt`` contenant le texte suivant :
 
    .. code-block:: diff
 
@@ -1162,10 +1177,12 @@ Exercice
       La deuxième ligne
       La troisième ligne
 
-#. Créez plusieurs branches,
-   dans lesquelles vous modifierez différemment le fichier ``conflit.txt``,
-   en suivant les exemples ci-avant.
-   Tentez ensuite de fusionner ces branches.
+#. Commitez ce fichier, puis créez une branche ``b1`` et placez-vous dessus.
+   Modifiez la première ligne de ``conflit.txt`` et commitez.
+
+#. Revenez sur ``master``, modifiez *différemment* la première ligne et commitez.
+
+#. Depuis ``master``, fusionnez la branche ``b1``.
 
 #. Lorsque GIT vous signale un conflit,
    constatez comment le fichier ``conflit.txt`` a été modifié,
@@ -1175,7 +1192,7 @@ Exercice
 
 .. _remote:
 
-Dépot distant
+Dépôt distant
 =============
 
 .. index:: dépôt; distant, repository; remote
@@ -1185,7 +1202,7 @@ Notion
 
 Un **dépôt distant** (en anglais `remote repository`:eng:)
 est un dépôt GIT, tout à fait similaire à un dépôt local,
-mais acessible à distance `via`:lat: une URL.
+mais accessible à distance `via`:lat: une URL.
 
 Exemple :  https://github.com/pchampin/intro-git.git
 
@@ -1198,7 +1215,7 @@ GIT offre des fonctionnalités pour copier des commits de l'un à l'autre.
    (même si c'est le plus souvent le cas).
    
    On peut aussi utiliser comme dépôt distant un dépôt accessible dans un répertoire partagé,
-   ou sur un support amovible (clé USB, disque dûr externe)...
+   ou sur un support amovible (clé USB, disque dur externe)...
 
 Motivations
 +++++++++++
@@ -1289,7 +1306,7 @@ sous forme d'un dépôt local, qui sera lié à ce dépôt distant.
 
 * Menu contextuel > *Git Clone...*
 
-  - dans le champs URL, sélectionner l'URL du dépôt distant ;
+  - dans le champ URL, sélectionner l'URL du dépôt distant ;
   - le cas échéant, modifier l'emplacement du dépôt local ;
   - valider.
 
@@ -1303,22 +1320,51 @@ sous forme d'un dépôt local, qui sera lié à ce dépôt distant.
    commencer à travailler sur un dépôt local,
    puis créer un dépôt distant pour publier le travail.
 
-   La procédure est un peu plus complexe,
-   mais est généralement bien documentée par les services d'hébergement GIT,
-   au moment où vous créerez le dépôt distant.
+   Étapes (dépôt local qui contient déjà des commits) :
+
+   #. Sur la forge Lyon 1 : *Nouveau projet*, *Créer un projet vide*, en **décochant**
+      *Initialiser le dépôt avec un README* (le dépôt distant doit être vide).
+   #. Copiez l'URL HTTPS du projet (bouton *Code*).
+   #. Depuis votre dépôt local ::
+
+        $ git remote add origin <url-copiée>
+        $ git push -u origin master      # ou main : voir git branch
+
+   Ensuite, ``git push`` et ``git pull`` suffisent. Si vous avez laissé le README,
+   le push est refusé : supprimez le projet et recréez-le vide.
 
 Problème depuis le campus Lyon1
 ```````````````````````````````
 
 Si vous rencontrez des problèmes pour cloner un dépôt,
 cela peut venir d'une mauvaise configuration du *proxy*.
-Dans ``Git Bash``, tapez les deux commandes suivantes ::
+Dans ``Git Bash``, tapez la commande suivante ::
 
   $ git config --global http.proxy http://proxy.univ-lyon1.fr:3128
-  $ git config --global https.proxy https://proxy.univ-lyon1.fr:3128
 
 puis tentez à nouveau.
 
+⚠ Sur votre ordinateur personnel, annulez ce réglage hors du campus
+(sinon Git ne pourra plus se connecter) ::
+
+  $ git config --global --unset http.proxy
+
+
+Ignorer des fichiers (``.gitignore``)
+-------------------------------------
+
+Certains fichiers ne doivent pas être versionnés : fichiers compilés (``*.class``),
+dossiers de compilation, réglages personnels de l'IDE...
+
+Listez-les dans un fichier texte nommé ``.gitignore``, à la racine du dépôt,
+et commitez ce fichier. Exemple pour un projet Java ::
+
+  *.class
+  build/
+  dist/
+  nbproject/private/
+
+GIT ne proposera plus ces fichiers à l'ajout (``git status`` les ignore).
 
 .. index:: git push, pousser
 
@@ -1338,6 +1384,12 @@ qui n'y sont pas encore présents.
 
 .. hint:: Cela suppose évidemment que vous soyez propriétaire du dépôt distant,
 	  ou que le propriétaire ait configuré son dépôt pour vous autoriser à le modifier.
+
+.. hint::
+
+   Au premier ``push``, Git vous demande de vous identifier (fenêtre ou navigateur).
+   Sur la forge Lyon 1, utilisez vos identifiants de l'IUT ; sur GitHub, le mot de passe
+   ne suffit plus : laissez s'ouvrir la connexion par le navigateur.
 
 Désynchronisation
 `````````````````
@@ -1381,10 +1433,17 @@ Désynchronisation
 Dans le cas le plus simple, le dépôt distant est « en avance » par rapport au dépôt local :
 il contient tous les commits du dépôt local, plus ceux que vous cherchez à récupérer.
 
-Dans un cas plus complexe, des commits ont pû être ajoutés parallèlement dans les deux dépôts.
+Dans un cas plus complexe, des commits ont pu être ajoutés parallèlement dans les deux dépôts.
 Dans ce cas, ``pull`` effectue automatiquement une opération de `fusion <fusion>`:ref:.
 Cela peut entraîner un conflit, qu'il faudra résoudre comme vu
 `précédemment <résolution>`:ref:.
+
+Si Git affiche ``fatal: Need to specify how to reconcile divergent branches``
+(fréquent sous Mac et Linux), tapez une fois pour toutes ::
+
+  $ git config --global pull.rebase false
+
+puis relancez ``git pull``.
 
 .. hint::
 
@@ -1499,7 +1558,7 @@ Lier à un dépôt distant
 
 .. hint::
 
-   Cette opération est à faire une seul fois par dépôt
+   Cette opération est à faire une seule fois par dépôt
    (et par dépôt distant),
    pour pouvoir ensuite interagir avec le dépôt distant.
 
@@ -1526,7 +1585,7 @@ Mise en œuvre
 * Menu contextuel > *TortoiseGit* > *Fetch...*
 
   - s'assurer que ``Remote`` est bien coché,
-  - sélectionner le dépôt distant souhaité la liste correspondante,
+  - sélectionner le dépôt distant souhaité dans la liste correspondante,
   - valider.
 
 * En ligne de commande ::
@@ -1559,8 +1618,6 @@ Le principe est le même que pour la fusion entre branches locales.
 
 .. index:: git push
 
-.. rst-class:: exercice
-
 
 Types de collaborations
 +++++++++++++++++++++++
@@ -1580,7 +1637,7 @@ Organisation en étoile
    Ce type de collaboration est inspiré des |VCS| centralisés,
    et est simple à mettre en œuvre.
 
-   Il suppose de mettre un place un unique `dépôt distant <remote>`_
+   Il suppose de mettre en place un unique `dépôt distant <remote>`_
    sur lequel plusieurs collaborateurs ont les droits en écriture.
 
 Organisation pair-à-pair
@@ -1593,8 +1650,8 @@ Organisation pair-à-pair
 
    Ce type de collaboration est très flexible.
    On peut notamment le mettre en œuvre sans disposer d'un serveur,
-   en utilisant par exemple des média amovibles (clé USB, carte DS, disque externe...)
-   comme "dépot distant" pour communiquer entre les différents acteurs.
+   en utilisant par exemple des média amovibles (clé USB, carte SD, disque externe...)
+   comme "dépôt distant" pour communiquer entre les différents acteurs.
 
 
 Organisation "github"
@@ -1611,7 +1668,7 @@ Organisation "github"
    Chaque collaborateur dispose d'un clone public (*fork*) du projet,
    et y publie les commits qu'il souhaite partager.
 
-   Il sollicite ensuite les autres collaborateur pour tirer ces commits dans leur propre dépôt/
+   Il sollicite ensuite les autres collaborateurs pour tirer ces commits dans leur propre dépôt.
    On appelle cette sollicitation un `pull request`:eng:
    (ou plus rarement un `merge request`:eng:).
 
@@ -1628,11 +1685,17 @@ Organisation "github"
 Exercice
 ````````
 
-   Le meilleur moyen d'expérimenter la collaboration est de travailler avec des collaborateurs !
+Le meilleur moyen d'expérimenter la collaboration est de travailler avec des collaborateurs !
 
-   Si vous voulez essayer, publiez votre dépôt sur l'espace partagé de votre choix, et demandez à un collègue d'en faire un clone.
+En binôme (A et B) :
 
-   C'est à vous de fixer les droits sur votre dépôt distant en fonction de ce que vous souhaitez (accessible en lecture seule, ou bien en lecture / écriture).
+#. A crée un dépôt sur la forge Lyon 1, y ajoute B comme membre (rôle *Maintainer*,
+   pour que B puisse pousser sur ``master``), puis A et B le clonent.
+#. A crée un fichier ``equipe.txt``, le commite et le pousse ; B le récupère (``git pull``).
+#. A et B modifient **la même ligne** de ``equipe.txt``, chacun de son côté, et commitent.
+#. A pousse en premier. B tente de pousser : c'est refusé. B fait un ``git pull``,
+   résout le conflit, commite et pousse.
+#. A fait un ``git pull`` : les deux dépôts sont de nouveau identiques.
 
 Ré-écrire l'histoire
 ====================
@@ -1741,10 +1804,10 @@ __ http://en.wikipedia.org/wiki/Comparison_of_revision_control_software
 
 .. rubric:: Mercurial
 
-* Mercurial_ (abbrégé Hg) est un gestionnaire de version similaire à GIT,
+* Mercurial_ (abrégé Hg) est un gestionnaire de version similaire à GIT,
   mais comporte quelques différences (de terminologie notamment).
 
-* Un guide de pour passer de GIT à Mercurial est disponible ici :
+* Un guide pour passer de GIT à Mercurial est disponible ici :
   https://www.mercurial-scm.org/wiki/GitConcepts
 
 

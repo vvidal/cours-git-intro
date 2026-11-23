@@ -44,6 +44,10 @@
                 <code>git config --global user.name "NOM PRENOM"</code><br>
                 <code>git config --global user.email "prenom.nom@etu.univ-lyon1.fr"</code>
               </li>
+              <li>Recommandé (une seule fois) : éviter deux pièges fréquents&nbsp;:<br>
+                <code>git config --global core.editor notepad</code> (Windows : messages de commit dans le Bloc-notes au lieu de Vim)<br>
+                <code>git config --global pull.rebase false</code> (sinon <code>git pull</code> peut refuser de fusionner, surtout sous Mac/Linux)
+              </li>
             </ol>
             <span style="font-size: 0.95em; color: #4b5877;">Cette étape est indispensable pour valider vos modifications sur Git.</span>
           </li>
