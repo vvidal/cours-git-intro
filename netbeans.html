@@ -200,9 +200,8 @@ nbbin/
 
 # --- SPÉCIFIQUE NETBEANS (ANT & GENERAL) ---
 nbproject/private/
-nbproject/build-impl.xml
-nbproject/genfiles.properties
-# Note: On garde project.xml et project.properties qui sont vitaux pour Ant
+# Note : on partage tout le reste de nbproject/ (project.xml, project.properties,
+# build-impl.xml, genfiles.properties) : build.xml en a besoin pour compiler le projet
 
 # --- SPÉCIFIQUE MAVEN ---
 # On ignore les fichiers de log Maven et les artefacts locaux
@@ -237,13 +236,14 @@ Thumbs.db
 
 # --- DÉPENDANCES ET ARCHIVES ---
 # Pour Maven, les JAR sont dans le repo local (~/.m2), donc on ignore tout JAR local.
-# Si un projet Ant utilise un dossier lib/ interne, décommentez la ligne suivante :
-# !lib/*.jar
 *.jar
 *.war
 *.ear
 *.zip
-*.tar.gz</code></pre>
+*.tar.gz
+# Si un projet Ant utilise un dossier lib/ interne, décommentez la ligne suivante
+# (elle doit rester APRÈS *.jar : c'est la dernière règle qui l'emporte) :
+# !lib/*.jar</code></pre>
       </section>
 
   <section class="slide">
