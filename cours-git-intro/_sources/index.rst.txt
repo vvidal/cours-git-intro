@@ -1362,6 +1362,7 @@ et commitez ce fichier. Exemple pour un projet Java ::
   *.class
   build/
   dist/
+  target/
   nbproject/private/
 
 GIT ne proposera plus ces fichiers à l'ajout (``git status`` les ignore).
